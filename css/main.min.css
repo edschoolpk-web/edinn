@@ -19558,7 +19558,7 @@ p {
     text-align: center;
     color: #fff;
     font-size: 16px;
-    background-color: #1260a0
+    background-color: #34639e
 }
 
 .social-links li a:hover {
@@ -19576,7 +19576,7 @@ header .header-content .logo {
     max-width: 160px
 }
 
-header .header-content .logo img{
+header .header-content .logo img {
     width: 100%;
 }
 
@@ -19584,7 +19584,8 @@ header .header-content .contact-add {
     margin-left: auto;
     -ms-flex: 0 0 57.5%;
     flex: 0 0 57.5%;
-    max-width: 57.5%
+    max-width: 57.5%;
+    justify-content: flex-end;
 }
 
 header .header-content .contact-add li {
@@ -19597,6 +19598,12 @@ header .header-content .contact-add li .contact-info>img {
     vertical-align: top;
     position: relative;
     top: 6px
+}
+header .header-content .contact-add li .contact-info>i {
+    vertical-align: top;
+    position: relative;
+    top: 6px;
+    color: #f37335;
 }
 
 header .header-content .contact-add li .contact-info .contact-tt {
@@ -19655,7 +19662,7 @@ header .navigation-bar nav ul li a {
 }
 
 header .navigation-bar nav ul li a:hover {
-    color: #1260a0
+    color: #34639e
 }
 
 header .navigation-bar nav ul li a:before {
@@ -19683,7 +19690,7 @@ header .navigation-bar nav ul ul {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 210px;
+    width: max-content;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border-radius: 20px;
@@ -19763,8 +19770,8 @@ header .navigation-bar nav ul ul ul {
 
 .main-banner .banner-text>h2 {
     color: #2b2b2b;
-    font-size: 65.03px;
-    line-height: 81.29px;
+    font-size: 60.03px;
+    line-height: 71.29px;
     font-weight: 600;
     margin-bottom: 26px;
     padding-right: 20px
@@ -19896,7 +19903,8 @@ header .navigation-bar nav ul ul ul {
     box-shadow: 0 0 10px rgba(21, 87, 153, .08);
     padding: 25px 20px 19px;
     border-radius: 10px;
-    transition: all .4s ease-in-out
+    transition: all .4s ease-in-out;
+    height: 100%;
 }
 
 .about-us-section .about-sec .abt-col:hover {
@@ -20042,6 +20050,17 @@ header .navigation-bar nav ul ul ul {
     font-size: 18.29px;
     font-weight: 700;
     font-family: Poppins, sans-serif
+}
+
+.classes-section .classes-col .class-info p {
+    max-height: 67px;
+    min-height: 67px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .teachers-section {
@@ -20326,7 +20345,7 @@ header .navigation-bar nav ul ul ul {
 }
 
 .blog-section .blog-posts .blog-post .blog-info>h3:hover {
-    color: #1260a0
+    color: #34639e
 }
 
 .blog-section .blog-posts .blog-post .blog-info p {
@@ -20484,7 +20503,8 @@ footer .top-footer {
 }
 
 footer .widget-about>img {
-    margin-bottom: 28px
+    margin-bottom: 28px;
+    max-width: 260px;
 }
 
 footer .widget-contact ul li {
@@ -20505,7 +20525,7 @@ footer .widget-contact ul li .contact-info>img {
 
 footer .widget-contact ul li .contact-tt {
     display: inline-block;
-    max-width: calc(100% - 21px)
+    max-width: calc(100% - 30px)
 }
 
 footer .widget-contact ul li .contact-tt>h4 {
@@ -20547,7 +20567,7 @@ footer .widget-links li a {
 }
 
 footer .widget-links li a:hover {
-    color: #1260a0;
+    color: #34639e;
     padding-left: 5px
 }
 
