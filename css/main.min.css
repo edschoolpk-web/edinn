@@ -19599,6 +19599,7 @@ header .header-content .contact-add li .contact-info>img {
     position: relative;
     top: 6px
 }
+
 header .header-content .contact-add li .contact-info>i {
     vertical-align: top;
     position: relative;
@@ -20009,6 +20010,10 @@ header .navigation-bar nav ul ul ul {
     text-align: center
 }
 
+a.crt-btn i {
+    color: #fff;
+}
+
 .classes-section .classes-col .class-info {
     padding: 24px 15px 27px;
     border: 1px solid #d6d6d6;
@@ -20324,9 +20329,11 @@ header .navigation-bar nav ul ul ul {
     font-size: 14.23px;
     height: 24px;
     line-height: 24px;
-    background-color: #ffd31d;
+    background-color: #03fffb;
     border-radius: 30px
 }
+
+
 
 .blog-section .blog-posts .blog-post:hover .blog-thumbnail:before {
     opacity: 1;
@@ -23921,4 +23928,132 @@ footer .bottom-footer .social-links {
     .schedule-mobile-content .ttb-list>ul li .dd-info h3 {
         line-height: 24px
     }
+}
+
+/* Admission Form */
+.admission-form-section {
+    padding: 80px 0;
+}
+
+.admission-form-wrap {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px 22px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+}
+
+.admission-form .row>div {
+    margin-bottom: 18px;
+}
+
+.fl-field {
+    position: relative;
+}
+
+.fl-field input,
+.fl-field select,
+.fl-field textarea {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 16px 14px;
+    background: #fff;
+    outline: none;
+    transition: 0.2s ease;
+    font-size: 14px;
+}
+
+.fl-field textarea {
+    resize: vertical;
+}
+
+.fl-field label {
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    padding: 0 6px;
+    background: #fff;
+    color: rgba(0, 0, 0, 0.55);
+    transform-origin: left top;
+    transform: translateY(0) scale(1);
+    transition: 0.18s ease;
+    pointer-events: none;
+}
+
+/* Floating label behavior (focus OR value) */
+.fl-field input:focus,
+.fl-field select:focus,
+.fl-field textarea:focus {
+    border-color: rgba(51, 153, 255, 0.65);
+    box-shadow: 0 0 0 4px rgba(51, 153, 255, 0.12);
+}
+
+.fl-field input:focus+label,
+.fl-field textarea:focus+label,
+.fl-field select:focus+label {
+    top: -9px;
+    transform: translateY(0) scale(0.86);
+    color: rgba(19, 94, 158, 0.95);
+}
+
+/* When input has value (placeholder-shown trick) */
+.fl-field input:not(:placeholder-shown)+label,
+.fl-field textarea:not(:placeholder-shown)+label {
+    top: -9px;
+    transform: translateY(0) scale(0.86);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* For select: float once it has a chosen value */
+.fl-field select:valid+label {
+    top: -9px;
+    transform: translateY(0) scale(0.86);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* Divider headings */
+.fl-divider {
+    margin: 6px 0 2px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.04);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* Radio styling */
+.fl-radio {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+.fl-radio-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.55);
+    margin-bottom: 10px;
+}
+
+.fl-radio-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.fl-radio-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.fl-radio-item input {
+    accent-color: rgb(51, 153, 255);
+}
+
+.fl-submit {
+    width: 100%;
+    border: none;
 }
