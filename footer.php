@@ -1,4 +1,4 @@
-     <!--newsletter-sec starts-->
+     <!--newsletter-sec starts here-->
      <section class="newsletter-section">
          <div class="container">
              <div class="newsletter-sec">
