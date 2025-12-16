@@ -24188,7 +24188,7 @@ footer .bottom-footer .social-links {
 .insta-flex {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
+  gap: 10px;
   width: 100%;
 }
 
@@ -24223,11 +24223,11 @@ footer .bottom-footer .social-links {
 /* DESKTOP — 5 per row */
 @media (min-width: 1200px) {
   .insta-item {
-    width: 20%;
+    width: 24%;
   }
 
   .insta-item .insta-slide {
-    height: 260px;
+    height: 300px;
   }
 }
 
