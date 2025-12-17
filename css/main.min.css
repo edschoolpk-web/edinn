@@ -20568,7 +20568,7 @@ a.crt-btn i {
 
 footer {
   background-color: #f2f7fd;
-  padding: 219px 0 72px;
+  padding: 219px 0 30px;
 }
 
 footer .top-footer {
@@ -24274,4 +24274,44 @@ footer .bottom-footer .social-links {
     transform: none !important;
     /* remove zoom on mobile */
   }
+}
+
+
+@media (max-width: 991px) {
+footer .bottom-footer .copy-itnovator {
+    justify-content: center;
+    padding-top: 10px;
+}
+footer .bottom-footer .col-lg-6 {
+    text-align: center;
+}
+}
+
+
+/* itnnovator Footer Copyright */
+
+.copy-itnovator {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.foterbootom {
+    background: white;
+      border-top: 1px dashed black;
+
+
+}
+.copy-itnovator p {
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+    margin: 0;
+    color: black;
+    color: #575757;
+}
+
+.copy-itnovator img {
+    padding: 0 10px;
+    max-width: 200px;
+    object-fit: contain;
 }
