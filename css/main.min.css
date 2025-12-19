@@ -24006,6 +24006,14 @@ footer .bottom-footer .social-links {
     font-size: 26px;
   }
 
+  .mh-icon-right::after {
+    content: url(../webImages/lightbox-right.svg);
+  }
+
+  .mh-icon-left::after {
+    content: url(../webImages/lightbox-left.svg);
+  }
+
   .class-single-content h2 {
     font-size: 24px;
     line-height: 35px;
