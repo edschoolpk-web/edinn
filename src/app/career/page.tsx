@@ -44,12 +44,12 @@ export default function Career() {
         body: JSON.stringify(formData),
       });
 
-      const result = await res.json();
-      setStatus({ ok: result.ok, msg: result.message });
-
-      if (result.ok) {
-        // Reset form on success
-        setFormData({
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const result = await res.json();
+        setStatus({ ok: result.ok, msg: result.message });
+        if (result.ok) {
+          setFormData({
             post: "",
             full_name: "",
             guardian_name: "",
@@ -67,10 +67,16 @@ export default function Career() {
             expected_salary: "",
             address: "",
             message: ""
-        });
+          });
+        }
+      } else {
+        const text = await res.text();
+        console.error("Non-JSON response:", text);
+        setStatus({ ok: false, msg: "Server error (non-JSON response). Check console." });
       }
     } catch (error) {
-      setStatus({ ok: false, msg: "An error occurred. Please try again." });
+      console.error("Submission error:", error);
+      setStatus({ ok: false, msg: "An error occurred: " + (error as Error).message });
     } finally {
       setIsSubmitting(false);
     }
@@ -258,11 +264,11 @@ export default function Career() {
 
                 {/* Status Message */}
                 {status && (
-                    <div className="col-lg-12 mb-3">
-                        <div className={`alert ${status.ok ? "alert-success" : "alert-danger"}`}>
-                            {status.msg}
-                        </div>
+                  <div className="col-lg-12 mb-3">
+                    <div className={`alert ${status.ok ? "alert-success" : "alert-danger"}`}>
+                      {status.msg}
                     </div>
+                  </div>
                 )}
 
                 {/* Submit */}

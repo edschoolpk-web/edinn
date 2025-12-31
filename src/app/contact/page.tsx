@@ -30,15 +30,22 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const result = await res.json();
-      setStatus({ ok: result.ok, msg: result.message });
-      
-      if (result.ok) {
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const result = await res.json();
+        setStatus({ ok: result.ok, msg: result.message });
+        if (result.ok) {
           setFormData({ Name: "", email: "", phone: "", Message: "" });
+        }
+      } else {
+        const text = await res.text();
+        console.error("Non-JSON response:", text);
+        setStatus({ ok: false, msg: "Server error (non-JSON response). Check console." });
       }
 
     } catch (error) {
-      setStatus({ ok: false, msg: "An error occurred. Please try again." });
+      console.error("Submission error:", error);
+      setStatus({ ok: false, msg: "An error occurred: " + (error as Error).message });
     } finally {
       setIsSubmitting(false);
     }
@@ -109,13 +116,13 @@ export default function Contact() {
                           <label htmlFor="Message">Message</label>
                         </div>
                       </div>
-                      
-                       {/* Status Message */}
+
+                      {/* Status Message */}
                       {status && (
                         <div className="col-lg-12 mb-3">
-                            <div className={`alert ${status.ok ? "alert-success" : "alert-danger"}`}>
-                                {status.msg}
-                            </div>
+                          <div className={`alert ${status.ok ? "alert-success" : "alert-danger"}`}>
+                            {status.msg}
+                          </div>
                         </div>
                       )}
 
@@ -166,7 +173,7 @@ export default function Contact() {
                         <div className="icon-v">
                           <i className="fa-regular fa-clock"></i>
                         </div>
-                         <div className="dd-cont">
+                        <div className="dd-cont">
                           <h4>Work Time</h4>
                           <span>8:00am - 2:00pm Mon - Fri</span>
                         </div>
@@ -199,16 +206,16 @@ export default function Contact() {
       <section className="newsletter-section">
         <div className="container">
           <div className="newsletter-sec">
-             <div className="row align-items-center">
+            <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                   <h2>Build Your Career<br />With Us</h2>
+                  <h2>Build Your Career<br />With Us</h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>
 
               <div className="col-lg-6">
-                 <Link href="/career" title="Career Opportunities" className="btn-default">
+                <Link href="/career" title="Career Opportunities" className="btn-default">
                   Career Opportunities <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
                 {/* newsletter-form end */}
