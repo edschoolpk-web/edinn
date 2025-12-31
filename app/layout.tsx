@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import Script from 'next/script';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,13 +10,12 @@ export const metadata: Metadata = {
   title: 'Engineers & Doctors School | Karachi',
   description: 'Engineers & Doctors School in Karachi offers quality education with strong academics, admissions guidance, and a supportive learning environment.',
   keywords: 'Engineers & Doctors School, ED School Karachi, school in Karachi, admissions, academics, education',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
