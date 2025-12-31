@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /
+
+# 1) Redirect /page.php -> /page (BUT NOT for *-send.php endpoints)
+RewriteCond %{REQUEST_URI} !/(admission-send|contact-send|career-send)\.php$ [NC]
+RewriteCond %{THE_REQUEST} \s/+(under/)?([^\s?]+)\.php[\s?] [NC]
+RewriteRule ^ %2 [R=301,L]
+
+# 2) Internally rewrite /page -> /page.php (only if the .php file exists)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+DirectoryIndex index.php
+
