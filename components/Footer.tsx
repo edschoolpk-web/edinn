@@ -17,6 +17,20 @@ export default function Footer() {
                     learning, robotics, languages, arts and digital literacy in
                     a caring environment.
                   </p>
+                  <div className="footer-social-icons">
+                    <a href="https://www.facebook.com/p/Engineers-Doctors-School-100063617213651/" target="_blank" className="facebook" title="Facebook" aria-label="Facebook">
+                      <i className="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" className="instagram" title="Instagram" aria-label="Instagram">
+                      <i className="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" className="linkedin" title="LinkedIn" aria-label="LinkedIn">
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.youtube.com/" target="_blank" className="youtube" title="YouTube" aria-label="YouTube">
+                      <i className="fab fa-youtube"></i>
+                    </a>
+                  </div>
                 </div>
                 {/* widget-about end */}
               </div>

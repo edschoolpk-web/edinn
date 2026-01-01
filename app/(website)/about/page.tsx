@@ -300,7 +300,11 @@ export default function About() {
                     </div>
                   </div>
                   <div className="teacher-info">
-                    <h3><a href="#">Sir Gohar</a></h3>
+                    <h3>
+                      <Link href="/teachers/sir-gohar" title="Sir Gohar">
+                        Sir Gohar
+                      </Link>
+                    </h3>
                     <span>Math Teacher</span>
                   </div>
                 </div>

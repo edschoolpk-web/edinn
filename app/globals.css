@@ -42,8 +42,65 @@ a {
 }
 
 /* FIX: Ensure form inputs are visible on white background */
-input, select, textarea {
-  color: #171717 !important; /* Force dark text */
-  background-color: #ffffff !important; /* Force white background */
-  border: 1px solid #ccc; /* Ensure border is visible */
+input,
+select,
+textarea {
+  color: #171717 !important;
+  /* Force dark text */
+  background-color: #ffffff !important;
+  /* Force white background */
+  border: 1px solid #ccc;
+  /* Ensure border is visible */
+}
+
+/* Footer Social Icons */
+.footer-social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer-social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #f5f5f5;
+  /* Light grey background */
+  color: #555;
+  /* Dark icon color */
+  border-radius: 50%;
+  /* Circle */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-social-icons a:hover {
+  transform: translateY(-3px);
+  color: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand specific hover colors */
+.footer-social-icons a.facebook:hover {
+  background-color: #1877F2;
+}
+
+.footer-social-icons a.instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.footer-social-icons a.twitter:hover {
+  background-color: #000000;
+}
+
+.footer-social-icons a.linkedin:hover {
+  background-color: #0A66C2;
+}
+
+.footer-social-icons a.youtube:hover {
+  background-color: #FF0000;
 }
