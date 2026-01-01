@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
-// import { PrismaClient } from "@prisma/client";
-
-// const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   providers: [
     Credentials({
       name: "Credentials",
@@ -21,39 +22,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           throw new Error("Missing email or password");
         }
 
-        // Mock Auth for UI Testing
-        // const user = await prisma.user.findUnique({
-        //   where: { email },
-        // });
-        
-        // Mock User
-        if (email === "admin@edschool.pk" && password === "admin123") {
-           return {
-             id: "1",
-             name: "Test Admin",
-             email: email,
-             role: "ADMIN",
-           };
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
+
+        if (!user) {
+          throw new Error("Invalid email or password");
         }
 
-        return null; 
+        const isPasswordValid = await compare(password, user.password);
 
-        // if (!user) {
-        //   throw new Error("Invalid email or password");
-        // }
+        if (!isPasswordValid) {
+          throw new Error("Invalid email or password");
+        }
 
-        // const isPasswordValid = await compare(password, user.password);
-
-        // if (!isPasswordValid) {
-        //   throw new Error("Invalid email or password");
-        // }
-
-        // return {
-        //   id: user.id,
-        //   name: user.name,
-        //   email: user.email,
-        //   role: user.role,
-        // };
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],

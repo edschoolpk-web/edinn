@@ -4,17 +4,27 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { signOut } from 'next-auth/react';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const pathname = usePathname();
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
-  // Simple check to identify if we are on the login page to avoid rendering sidebar there (though middleware handles redirect, layout wraps everything in the group)
-  // Actually, login page should probably be in a separate layout group group, but for simplicity:
-  if (pathname === '/admin/login') {
-    return <>{children}</>;
-  }
+  const isLoginPage = pathname?.startsWith('/admin/login');
+
+  // Nuclear option: Force override any lingering display: none styles
+  React.useEffect(() => {
+    if (!isLoginPage) {
+      const sidebar = document.querySelector('.admin-sidebar') as HTMLElement;
+      if (sidebar) {
+        sidebar.style.display = 'flex';
+        sidebar.style.removeProperty('display'); // Let CSS take over if possible, or leave it flex if inline is needed
+        sidebar.style.display = 'flex'; // Re-assert
+      }
+    }
+  }, [pathname, isLoginPage]);
 
   const menuItems = [
     { name: 'Dashboard', icon: 'fa-chart-pie', href: '/admin' },
@@ -26,73 +36,70 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="admin-container">
-      {/* Sidebar */}
-      <motion.aside 
-        className={`admin-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}
-        initial={false}
-        animate={{ width: isSidebarOpen ? 250 : 80 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      >
-        <div className="sidebar-header">
-          <AnimatePresence>
+      {/* Sidebar - Conditionally rendered to prevent display bugs */}
+      {/* Sidebar - Conditionally rendered to prevent display bugs */}
+      {/* Sidebar - Conditionally rendered to prevent display bugs */}
+      {!isLoginPage && (
+        <aside
+          key="admin-sidebar"
+          className={`admin-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}
+          style={{
+            display: 'flex',
+            width: isSidebarOpen ? '250px' : '80px',
+            transition: 'width 0.3s ease'
+          }}
+        >
+          <div className="sidebar-header">
             {isSidebarOpen && (
-              <motion.h2 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
-                exit={{ opacity: 0 }}
-              >
+              <h2 style={{ margin: 0 }}>
                 Admin Panel
-              </motion.h2>
+              </h2>
             )}
-          </AnimatePresence>
-          <button onClick={toggleSidebar} className="toggle-btn">
-            <i className={`fa ${isSidebarOpen ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
-          </button>
-        </div>
+            <button onClick={toggleSidebar} className="toggle-btn">
+              <i className={`fa ${isSidebarOpen ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
+            </button>
+          </div>
 
-        <nav className="sidebar-nav">
-          <ul>
-            {menuItems.map((item) => (
-              <li key={item.href} className={pathname === item.href ? 'active' : ''}>
-                <Link href={item.href} title={item.name}>
-                  <i className={`fas ${item.icon}`}></i>
-                  <AnimatePresence>
+          <nav className="sidebar-nav">
+            <ul>
+              {menuItems.map((item) => (
+                <li key={item.href} className={pathname === item.href ? 'active' : ''}>
+                  <Link href={item.href} title={item.name}>
+                    <i className={`fas ${item.icon}`}></i>
                     {isSidebarOpen && (
-                      <motion.span
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10 }}
-                      >
+                      <span>
                         {item.name}
-                      </motion.span>
+                      </span>
                     )}
-                  </AnimatePresence>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <div className="sidebar-footer">
-          <button className="logout-btn">
-             <i className="fas fa-sign-out-alt"></i>
-             {isSidebarOpen && <span>Logout</span>}
-          </button>
-        </div>
-      </motion.aside>
+          <div className="sidebar-footer">
+            <button className="logout-btn" onClick={() => signOut({ callbackUrl: '/admin/login' })}>
+              <i className="fas fa-sign-out-alt"></i>
+              {isSidebarOpen && <span>Logout</span>}
+            </button>
+          </div>
+        </aside>
+      )}
 
       {/* Main Content */}
-      <main className="admin-main">
-        <header className="admin-header">
-           <div className="breadcrumbs">
+      <main className="admin-main" style={{ padding: isLoginPage ? 0 : undefined }}>
+        {!isLoginPage && (
+          <header className="admin-header">
+            <div className="breadcrumbs">
               Admin / {pathname.split('/').pop()}
-           </div>
-           <div className="user-profile">
+            </div>
+            <div className="user-profile">
               <div className="avatar">A</div>
               <span>Admin User</span>
-           </div>
-        </header>
-        <div className="content-wrapper">
+            </div>
+          </header>
+        )}
+        <div className={`content-wrapper ${isLoginPage ? 'login-wrapper' : ''}`} style={{ padding: isLoginPage ? 0 : '30px' }}>
           {children}
         </div>
       </main>

@@ -10,9 +10,9 @@ export default auth((req) => {
   if (isOnAdminPanel) {
     if (isOnLoginPage) {
       if (isLoggedIn) {
-         return NextResponse.redirect(new URL("/admin", req.nextUrl));
+        return NextResponse.redirect(new URL("/admin", req.nextUrl));
       }
-      return NextResponse.next(); // Allow access to login page
+      return NextResponse.next();
     }
 
     if (!isLoggedIn) {
