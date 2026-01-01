@@ -36,7 +36,14 @@ export default function Home() {
 
               <div className="col-lg-5 col-md-5">
                 <div className="banner-img wow zoomIn" data-wow-duration="1000ms">
-                  <img src="/webImages/banner-img.png" alt="Students learning at Engineers & Doctors School" />
+                  <Image 
+                    src="/webImages/banner-img.png" 
+                    alt="Students learning at Engineers & Doctors School"
+                    width={500}
+                    height={375} // Aspect ratio estimation
+                    style={{ width: '100%', height: 'auto' }}
+                    priority
+                  />
                 </div>
                 {/* banner-img end */}
                 <div className="elements-bg wow zoomIn" data-wow-duration="1000ms"></div>
@@ -69,7 +76,7 @@ export default function Home() {
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="abt-col wow fadeInUp" data-wow-duration="1000ms">
-                    <img src="/webImages/icon5.png" alt="" />
+                    <Image src="/webImages/icon5.png" alt="" width={64} height={64} />
                     <h3>Qualified & Caring Teachers</h3>
                     <p>
                       Dedicated teachers who provide individual attention,
@@ -82,7 +89,7 @@ export default function Home() {
 
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="abt-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">
-                    <img src="/webImages/icon7.png" alt="" />
+                    <Image src="/webImages/icon7.png" alt="" width={64} height={64} />
                     <h3>STEM & Robotics Focus</h3>
                     <p>
                       Hands-on learning through STEM activities, robotics, and
@@ -95,7 +102,7 @@ export default function Home() {
 
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="abt-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
-                    <img src="/webImages/icon8.png" alt="" />
+                    <Image src="/webImages/icon8.png" alt="" width={64} height={64} />
                     <h3>Languages & Communication</h3>
                     <p>
                       Strong focus on language skills and communication to help
@@ -108,7 +115,7 @@ export default function Home() {
 
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="abt-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <img src="/webImages/icon9.png" alt="" />
+                    <Image src="/webImages/icon9.png" alt="" width={64} height={64} />
                     <h3>Holistic Student Support</h3>
                     <p>
                       A nurturing environment that balances academics, character
@@ -124,17 +131,17 @@ export default function Home() {
           {/* about-rw end */}
 
           <div className="abt-img">
-            <LightBoxGallery images={[
+            <LightBoxGallery layout="masonry" images={[
               { src: "/webImages/gallery_edmin/gallery01.jpg", alt: "Engineers & Doctors School Gallery", className: "width1 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery02.jpg", alt: "", className: "width2 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery03.jpg", alt: "", className: "width3 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery04.jpg", alt: "", className: "width4 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery05.jpg", alt: "", className: "width5 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery06.jpg", alt: "", className: "width6 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery07.jpg", alt: "", className: "width7 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery08.jpg", alt: "", className: "width8 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery09.jpg", alt: "", className: "width9 wow zoomIn" },
-              { src: "/webImages/gallery_edmin/gallery10.jpg", alt: "", className: "width10 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery02.jpg", alt: "Engineers & Doctors School Gallery", className: "width2 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery03.jpg", alt: "Engineers & Doctors School Gallery", className: "width3 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery04.jpg", alt: "Engineers & Doctors School Gallery", className: "width4 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery05.jpg", alt: "Engineers & Doctors School Gallery", className: "width5 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery06.jpg", alt: "Engineers & Doctors School Gallery", className: "width6 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery07.jpg", alt: "Engineers & Doctors School Gallery", className: "width7 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery08.jpg", alt: "Engineers & Doctors School Gallery", className: "width8 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery09.jpg", alt: "Engineers & Doctors School Gallery", className: "width9 wow zoomIn" },
+              { src: "/webImages/gallery_edmin/gallery10.jpg", alt: "Engineers & Doctors School Gallery", className: "width10 wow zoomIn" },
             ]} />
           </div>
           {/* abt-img end */}
@@ -163,7 +170,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img1.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Robotics Fair & Science Projects" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -186,7 +193,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img2.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img2.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Art Exhibitions & Cultural Festivals" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -210,7 +217,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img3.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img3.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Sports Day & Outdoor Games" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -234,7 +241,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img4.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img4.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -258,7 +265,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <img src="/webImages/img1.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Science & Robotics Exhibitions" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -282,7 +289,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <img src="/webImages/img2.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img2.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Stage Shows & Cultural Nights" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -306,7 +313,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <img src="/webImages/img3.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img3.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Inter-School Sports & Games" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -330,7 +337,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <img src="/webImages/img4.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/img4.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Club Activities & Educational Tours" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -385,7 +392,7 @@ export default function Home() {
                 </div>
                 {/* sec-title end */}
                 <div className="course-img">
-                  <img src="/webImages/course-img.png" alt="Students at Engineers & Doctors School" />
+                  <Image src="/webImages/course-img.png" alt="Students at Engineers & Doctors School" width={500} height={300} style={{ width: '100%'}} />
                 </div>
                 {/* course-img end */}
               </div>
@@ -414,7 +421,7 @@ export default function Home() {
                   </h3>
                   <div className="d-flex flex-wrap">
                     <div className="posted-by">
-                      <img src="/webImages/ico2.png" alt="" />
+                      <Image src="/webImages/ico2.png" alt="" width={24} height={24} />
                       <Link href="/about" title="Caring & Qualified Teachers">
                         Caring & Qualified Teachers
                       </Link>
@@ -445,7 +452,7 @@ export default function Home() {
                   </h3>
                   <div className="d-flex flex-wrap">
                     <div className="posted-by">
-                      <img src="/webImages/ico2.png" alt="" />
+                      <Image src="/webImages/ico2.png" alt="" width={24} height={24} />
                       <Link href="/location" title="STEM, Labs & Facilities">
                         STEM, Labs & Facilities
                       </Link>
@@ -476,7 +483,7 @@ export default function Home() {
                   </h3>
                   <div className="d-flex flex-wrap">
                     <div className="posted-by">
-                      <img src="/webImages/ico2.png" alt="" />
+                      <Image src="/webImages/ico2.png" alt="" width={24} height={24} />
                       <Link href="/faqs" title="Admission FAQs">
                         View Admission FAQs
                       </Link>
@@ -520,7 +527,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="blog-post">
                   <div className="blog-thumbnail">
-                    <img src="/webImages/blog1.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/blog1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <span className="category">Admissions</span>
                   </div>
                   <div className="blog-info">
@@ -549,7 +556,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="blog-post">
                   <div className="blog-thumbnail">
-                    <img src="/webImages/blog2.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/blog2.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <span className="category">STEM</span>
                   </div>
                   <div className="blog-info">
@@ -579,7 +586,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="blog-post">
                   <div className="blog-thumbnail">
-                    <img src="/webImages/blog3.jpg" alt="" className="w-100" />
+                    <Image src="/webImages/blog3.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <span className="category">Student Life</span>
                   </div>
                   <div className="blog-info">

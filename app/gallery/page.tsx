@@ -38,6 +38,7 @@ export default function Gallery() {
           <div className="insta-flex">
             <LightBoxGallery
               className="insta-flex"
+              layout="insta"
               images={images.map((src, index) => ({
                 src,
                 alt: `Gallery Image ${index + 1}`,

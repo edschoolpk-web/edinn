@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="widget widget-about">
-                  <img src="/webImages/logo.png" alt="Engineers & Doctors School Logo" />
+                  <Image src="/webImages/logo.png" alt="Engineers & Doctors School Logo" width={200} height={60} style={{ width: 'auto', height: 'auto', maxWidth: '100%' }} />
                   <p>
                     Engineers & Doctors School offers a future-focused
                     education with STEM-based
@@ -100,7 +101,7 @@ export default function Footer() {
                     <p>Design & Developed by :</p>
                   </div>
                   <a href="https://itnnovator.com/" target="_blank">
-                    <img src="/webImages/footer-logo.png" alt="image" />
+                    <Image src="/webImages/footer-logo.png" alt="itnnovator" width={100} height={40} style={{ width: 'auto', height: 'auto' }} />
                   </a>
                 </div>
               </div>

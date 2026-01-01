@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -48,7 +49,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class1.jpg" alt="Montessori" className="w-100" />
+                      <Image src="/webImages/class1.jpg" alt="Montessori" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -69,7 +70,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class2.jpg" alt="Primary" className="w-100" />
+                      <Image src="/webImages/class2.jpg" alt="Primary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -90,7 +91,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                       <img src="/webImages/class3.jpg" alt="Secondary" className="w-100" />
+                       <Image src="/webImages/class3.jpg" alt="Secondary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -111,7 +112,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class4.jpg" alt="STEM" className="w-100" />
+                      <Image src="/webImages/class4.jpg" alt="STEM" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -132,7 +133,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class5.jpg" alt="Language" className="w-100" />
+                      <Image src="/webImages/class5.jpg" alt="Language" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -153,7 +154,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class6.jpg" alt="Computer" className="w-100" />
+                      <Image src="/webImages/class6.jpg" alt="Computer" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -174,7 +175,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class7.jpg" alt="Art" className="w-100" />
+                      <Image src="/webImages/class7.jpg" alt="Art" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -195,7 +196,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                    <div className="classes-col">
                     <div className="class-thumb">
-                      <img src="/webImages/class8.jpg" alt="Co-Curricular" className="w-100" />
+                      <Image src="/webImages/class8.jpg" alt="Co-Curricular" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">

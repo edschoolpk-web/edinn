@@ -57,7 +57,7 @@ export default function About() {
               </div>
               <div className="col-lg-6 col-md-6">
                 <div className="avt-img">
-                  <img src="/webImages/abt1.png" alt="About Image 1" />
+                  <Image src="/webImages/abt1.png" alt="About Image 1" width={500} height={400} style={{ width: '100%', height: 'auto' }} />
                 </div>
                 {/* avt-img end */}
               </div>
@@ -66,7 +66,7 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-6">
                 <div className="avt-img">
-                  <img src="/webImages/abt2.png" alt="About Image 2" />
+                  <Image src="/webImages/abt2.png" alt="About Image 2" width={500} height={400} style={{ width: '100%', height: 'auto' }} />
                 </div>
                 {/* avt-img end */}
               </div>
@@ -117,7 +117,7 @@ export default function About() {
                   <div className="row">
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <img src="/webImages/icon5.png" alt="Qualified Teachers" />
+                        <Image src="/webImages/icon5.png" alt="Qualified Teachers" width={64} height={64} />
                         <h3>Qualified Teachers</h3>
                         <p>Experienced and caring teachers who guide every student.</p>
                       </div>
@@ -126,7 +126,7 @@ export default function About() {
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <img src="/webImages/icon7.png" alt="STEM-Based Learning" />
+                        <Image src="/webImages/icon7.png" alt="STEM-Based Learning" width={64} height={64} />
                         <h3>STEM-Based Learning</h3>
                         <p>Hands-on STEM activities that strengthen critical thinking skills.</p>
                       </div>
@@ -135,7 +135,7 @@ export default function About() {
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <img src="/webImages/icon9.png" alt="Student Support" />
+                        <Image src="/webImages/icon9.png" alt="Student Support" width={64} height={64} />
                         <h3>Student Support</h3>
                         <p>A safe, supportive environment focused on every child.</p>
                       </div>
@@ -144,7 +144,7 @@ export default function About() {
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <img src="/webImages/icon8.png" alt="Robotics & Technology" />
+                        <Image src="/webImages/icon8.png" alt="Robotics & Technology" width={64} height={64} />
                         <h3>Robotics &amp; Technology</h3>
                         <p>Technology integration that prepares students for the future.</p>
                       </div>
@@ -179,7 +179,7 @@ export default function About() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img1.jpg" alt="Robotics Fair" className="w-100" />
+                    <Image src="/webImages/img1.jpg" alt="Robotics Fair" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Robotics Fair & Science Projects" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -200,7 +200,7 @@ export default function About() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img2.jpg" alt="Art Exhibitions" className="w-100" />
+                    <Image src="/webImages/img2.jpg" alt="Art Exhibitions" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Art Exhibitions & Cultural Festivals" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -221,7 +221,7 @@ export default function About() {
                <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img3.jpg" alt="Sports Day" className="w-100" />
+                    <Image src="/webImages/img3.jpg" alt="Sports Day" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                      <Link href="/academics" title="Sports Day & Outdoor Games" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -241,7 +241,7 @@ export default function About() {
                <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
                   <div className="class-thumb">
-                    <img src="/webImages/img4.jpg" alt="Clubs & Trips" className="w-100" />
+                    <Image src="/webImages/img4.jpg" alt="Clubs & Trips" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                      <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -289,14 +289,14 @@ export default function About() {
               <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
                 <div className="teacher">
                   <div className="teacher-img">
-                    <img src="/webImages/img5.jpg" alt="Sir Gohar" className="w-100" />
+                    <Image src="/webImages/img5.jpg" alt="Sir Gohar" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
                     <div className="sc-div">
                       <ul>
                         <li><a href="#"><i className="fab fa-instagram"></i></a></li>
                         <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
                         <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
                       </ul>
-                      <span><img src="/webImages/plus.png" alt="plus" /></span>
+                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
                     </div>
                   </div>
                   <div className="teacher-info">
@@ -310,14 +310,14 @@ export default function About() {
                <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
                 <div className="teacher">
                   <div className="teacher-img">
-                    <img src="/webImages/img6.jpg" alt="Miss Ayesha" className="w-100" />
+                    <Image src="/webImages/img6.jpg" alt="Miss Ayesha" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
                     <div className="sc-div">
                       <ul>
                         <li><a href="#"><i className="fab fa-instagram"></i></a></li>
                         <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
                         <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
                       </ul>
-                      <span><img src="/webImages/plus.png" alt="plus" /></span>
+                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
                     </div>
                   </div>
                   <div className="teacher-info">
@@ -330,14 +330,14 @@ export default function About() {
                <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
                 <div className="teacher">
                   <div className="teacher-img">
-                     <img src="/webImages/img7.jpg" alt="Miss Sumaiqa" className="w-100" />
+                     <Image src="/webImages/img7.jpg" alt="Miss Sumaiqa" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
                     <div className="sc-div">
                       <ul>
                         <li><a href="#"><i className="fab fa-instagram"></i></a></li>
                         <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
                         <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
                       </ul>
-                      <span><img src="/webImages/plus.png" alt="plus" /></span>
+                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
                     </div>
                   </div>
                   <div className="teacher-info">
@@ -350,14 +350,14 @@ export default function About() {
                <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
                 <div className="teacher">
                    <div className="teacher-img">
-                    <img src="/webImages/img8.jpg" alt="Miss Afsha" className="w-100" />
+                     <Image src="/webImages/img8.jpg" alt="Miss Afsha" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
                     <div className="sc-div">
                       <ul>
                         <li><a href="#"><i className="fab fa-instagram"></i></a></li>
                         <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
                         <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
                       </ul>
-                       <span><img src="/webImages/plus.png" alt="plus" /></span>
+                       <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
                     </div>
                   </div>
                   <div className="teacher-info">

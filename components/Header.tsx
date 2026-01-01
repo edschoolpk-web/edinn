@@ -4,9 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import Image from "next/image";
+
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // ... (keeping existing functions)
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,9 +37,13 @@ export default function Header() {
         <div className="header-content d-flex flex-wrap align-items-center">
           <div className="logo">
             <Link href="/" title="Engineers & Doctors School - Home" onClick={closeMenu}>
-              <img
+              <Image
                 src="/webImages/logo.png"
                 alt="Engineers & Doctors School Logo"
+                width={200} // Estimate/default
+                height={60} // Estimate/default
+                style={{ width: 'auto', height: 'auto', maxWidth: '100%' }}
+                priority
               />
             </Link>
           </div>
