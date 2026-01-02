@@ -37,32 +37,32 @@ export default function AdminGallery() {
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
-    
+
     // Total Size Limit (30MB)
     const totalSize = Array.from(e.target.files).reduce((acc, file) => acc + file.size, 0);
     if (totalSize > 30 * 1024 * 1024) { // 30MB
-        toast.error('Total upload size exceeds 30MB limit.');
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        return;
+      toast.error('Total upload size exceeds 30MB limit.');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
     }
 
     // Client-side limit check for 'home'
     if (activeTab === 'home') {
-        if (images.length + e.target.files.length > 10) {
-             toast.error(`Limit exceeded. You can add max ${10 - images.length} more images.`);
-             if (fileInputRef.current) fileInputRef.current.value = '';
-             return;
-        }
+      if (images.length + e.target.files.length > 10) {
+        toast.error(`Limit exceeded. You can add max ${10 - images.length} more images.`);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
     }
 
     setUploading(true);
     const formData = new FormData();
-    
+
     // Append all selected files
     Array.from(e.target.files).forEach(file => {
-        formData.append('image', file);
+      formData.append('image', file);
     });
-    
+
     formData.append('category', activeTab);
 
     const res = await uploadGalleryImage(formData);
@@ -90,324 +90,333 @@ export default function AdminGallery() {
   };
 
   const handleBulkDelete = async () => {
-      if (selectedImages.length === 0) return;
-      if (!confirm(`Are you sure you want to delete ${selectedImages.length} images?`)) return;
-      
-      const res = await deleteBulkGalleryImages(selectedImages);
-      if (res.success) {
-          toast.success(`${selectedImages.length} images deleted`);
-          setImages(images.filter(img => !selectedImages.includes(img.id)));
-          setSelectedImages([]);
-      } else {
-          toast.error(res.error || 'Bulk delete failed');
-      }
+    if (selectedImages.length === 0) return;
+    if (!confirm(`Are you sure you want to delete ${selectedImages.length} images?`)) return;
+
+    const res = await deleteBulkGalleryImages(selectedImages);
+    if (res.success) {
+      toast.success(`${selectedImages.length} images deleted`);
+      setImages(images.filter(img => !selectedImages.includes(img.id)));
+      setSelectedImages([]);
+    } else {
+      toast.error(res.error || 'Bulk delete failed');
+    }
   };
 
   const toggleSelect = (id: string) => {
-      setSelectedImages(prev => 
-          prev.includes(id) ? prev.filter(sid => sid !== id) : [...prev, id]
-      );
+    setSelectedImages(prev =>
+      prev.includes(id) ? prev.filter(sid => sid !== id) : [...prev, id]
+    );
   };
 
   const selectAll = () => {
-      if (selectedImages.length === images.length) {
-          setSelectedImages([]);
-      } else {
-          setSelectedImages(images.map(img => img.id));
-      }
+    if (selectedImages.length === images.length) {
+      setSelectedImages([]);
+    } else {
+      setSelectedImages(images.map(img => img.id));
+    }
   };
 
   return (
     <div className="page-container">
       <div className="page-header">
         <h1>Gallery Management</h1>
+        <p>Manage your website gallery content.</p>
       </div>
 
-      {/* Modern Arrow Tabs */}
-      <div className="tabs-container">
-        <button 
-          className={`tab-btn arrow ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => setActiveTab('home')}
-        >
-           Home Page Gallery ({activeTab === 'home' ? images.length : '?'}/10)
-        </button>
-        <button 
-          className={`tab-btn arrow ${activeTab === 'main' ? 'active' : ''}`}
-          onClick={() => setActiveTab('main')}
-        >
-           Main Gallery (Unlimited)
-        </button>
-      </div>
+      <div className="gallery-layout">
+        <div className="gallery-sidebar">
+          <div className="sidebar-card">
+            <h3>Gallery Type</h3>
+            <div className="tabs-vertical">
+              <button
+                className={`tab-btn ${activeTab === 'home' ? 'active' : ''}`}
+                onClick={() => setActiveTab('home')}
+              >
+                <div className="tab-info">
+                  <span className="tab-label">Home Slider</span>
+                  <span className="tab-count">{images.length}/10</span>
+                </div>
+                <i className="fas fa-home tab-icon"></i>
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 'main' ? 'active' : ''}`}
+                onClick={() => setActiveTab('main')}
+              >
+                <div className="tab-info">
+                  <span className="tab-label">Main Gallery</span>
+                  <span className="tab-count">Unlimited</span>
+                </div>
+                <i className="fas fa-images tab-icon"></i>
+              </button>
+            </div>
+          </div>
 
-      <div className="content-area">
-         <div className="info-bar">
-            <h3>{activeTab === 'home' ? 'Home Page Slider' : 'Main Gallery Grid'}</h3>
+          <div className="sidebar-card info-card">
+            <i className="fas fa-info-circle info-icon"></i>
             <p>
-                {activeTab === 'home' 
-                    ? 'Images shown on the home page banner. Max 10 images.' 
-                    : 'Images shown on the dedicated gallery page. No limit.'}
+              {activeTab === 'home'
+                ? 'These images appear on the main homepage banner slider. High quality landscape images are recommended.'
+                : 'These images appear in the dedicated gallery section of the website. Organizes automatically.'}
             </p>
-         </div>
-         
-         {/* Bulk Actions Toolbar */}
-         <div className="actions-toolbar">
-             <button onClick={selectAll} className="btn-secondary">
-                {selectedImages.length === images.length && images.length > 0 ? 'Deselect All' : 'Select All'}
-             </button>
-             {selectedImages.length > 0 && (
-                 <button onClick={handleBulkDelete} className="btn-danger">
-                     Delete Selected ({selectedImages.length})
-                 </button>
-             )}
-         </div>
+          </div>
+        </div>
 
-         {/* Upload Zone */}
-         <div 
-            className={`upload-zone ${activeTab === 'home' && images.length >= 10 ? 'disabled' : ''}`}
-            onClick={() => {
-                if (activeTab !== 'home' || images.length < 10) {
-                    fileInputRef.current?.click();
-                } else {
-                    toast.error('Limit reached (10). Delete images to add more.');
-                }
-            }}
-         >
-            <input 
-                type="file" 
-                hidden 
-                multiple
-                ref={fileInputRef} 
-                onChange={handleUpload} 
-                accept="image/*"
-                disabled={uploading || (activeTab === 'home' && images.length >= 10)}
-            />
-            <div className="upload-content">
-              {uploading ? (
-                 <div className="spinner"><i className="fas fa-spinner fa-spin"></i> Uploading...</div>
-              ) : (
-                <>
-                    <i className="fas fa-image icon-upload"></i>
-                    <h3>
-                        {activeTab === 'home' && images.length >= 10 
-                           ? 'Limit Reached (10/10)' 
-                           : 'Click to Upload Image'}
-                    </h3>
-                    <p>{activeTab === 'home' ? 'Maximum 10 images allowed' : 'Upload high quality images'}</p>
-                </>
+        <div className="gallery-main">
+          {/* Actions Toolbar */}
+          <div className="actions-toolbar">
+            <div className="left-actions">
+              <button onClick={selectAll} className="btn-secondary">
+                <i className={`fas ${selectedImages.length === images.length && images.length > 0 ? 'fa-check-square' : 'fa-square'}`}></i>
+                {selectedImages.length === images.length && images.length > 0 ? 'Deselect All' : 'Select All'}
+              </button>
+              {selectedImages.length > 0 && (
+                <span className="selection-count">{selectedImages.length} selected</span>
               )}
             </div>
-         </div>
 
-         {/* Grid */}
-         {loading ? (
-             <div className="loading-state">Loading gallery...</div>
-         ) : (
-             <div className="gallery-grid">
-               {images.map((img) => (
-                 <div 
-                   className={`gallery-item ${selectedImages.includes(img.id) ? 'selected' : ''}`} 
-                   key={img.id}
-                   onClick={() => toggleSelect(img.id)}
-                 >
-                   <div className="img-wrapper">
-                     <div className={`checkbox-overlay ${selectedImages.includes(img.id) ? 'visible' : ''}`}>
-                         <div className="custom-checkbox">
-                             {selectedImages.includes(img.id) && <i className="fas fa-check"></i>}
-                         </div>
-                     </div>
-                     <Image src={img.url} alt={img.title || 'Gallery Image'} width={300} height={200} className="gallery-img" unoptimized />
-                     <div className="overlay" onClick={(e) => e.stopPropagation()}>
-                        <button className="del-btn" onClick={() => handleDelete(img.id)}>
-                            <i className="fas fa-trash"></i>
-                        </button>
-                     </div>
-                   </div>
-                 </div>
-               ))}
-               {!loading && images.length === 0 && (
-                   <div className="empty-state">No images found in this gallery.</div>
-               )}
-             </div>
-         )}
+            <div className="right-actions">
+              {selectedImages.length > 0 && (
+                <button onClick={handleBulkDelete} className="btn-danger">
+                  <i className="fas fa-trash"></i> Delete Selected
+                </button>
+              )}
+              <button
+                className={`btn-primary ${activeTab === 'home' && images.length >= 10 ? 'disabled' : ''}`}
+                onClick={() => {
+                  if (activeTab !== 'home' || images.length < 10) {
+                    fileInputRef.current?.click();
+                  } else {
+                    toast.error('Limit reached (10). Delete images to add more.');
+                  }
+                }}
+              >
+                <i className="fas fa-cloud-upload-alt"></i> Upload Images
+              </button>
+              <input
+                type="file"
+                hidden
+                multiple
+                ref={fileInputRef}
+                onChange={handleUpload}
+                accept="image/*"
+                disabled={uploading || (activeTab === 'home' && images.length >= 10)}
+              />
+            </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="gallery-content">
+            {uploading && (
+              <div className="uploading-state">
+                <div className="spinner"></div>
+                <p>Uploading your images...</p>
+              </div>
+            )}
+
+            {loading ? (
+              <div className="loading-state">
+                <div className="spinner"></div>
+                <p>Loading gallery...</p>
+              </div>
+            ) : (
+              <>
+                {images.length === 0 ? (
+                  <div className="empty-state">
+                    <div className="empty-icon"><i className="fas fa-image"></i></div>
+                    <h3>No Images Found</h3>
+                    <p>Get started by uploading your first image to this gallery.</p>
+                  </div>
+                ) : (
+                  <div className="gallery-grid">
+                    {images.map((img) => (
+                      <div
+                        className={`gallery-item ${selectedImages.includes(img.id) ? 'selected' : ''}`}
+                        key={img.id}
+                        onClick={() => toggleSelect(img.id)}
+                      >
+                        <div className="img-wrapper">
+                          <Image src={img.url} alt={img.title || 'Gallery Image'} width={300} height={200} className="gallery-img" unoptimized />
+                          <div className={`checkbox-overlay ${selectedImages.includes(img.id) ? 'visible' : ''}`}>
+                            <div className="custom-checkbox">
+                              {selectedImages.includes(img.id) && <i className="fas fa-check"></i>}
+                            </div>
+                          </div>
+                          <div className="overlay-actions" onClick={(e) => e.stopPropagation()}>
+                            <button className="icon-btn delete-btn" onClick={() => handleDelete(img.id)}>
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
-        .page-header { margin-bottom: 20px; }
-        .page-header h1 { font-size: 24px; font-weight: 700; color: #000; }
+        .page-container {
+          animation: fadeIn 0.5s ease;
+        }
 
-        .tabs-container {
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { font-size: 28px; font-weight: 700; color: #2B3674; margin: 0; }
+        .page-header p { color: #A3AED0; margin: 5px 0 0; }
+
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-layout { grid-template-columns: 1fr; }
+        }
+
+        /* SIDEBAR */
+        .sidebar-card {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-card h3 {
+            margin: 0 0 20px;
+            color: #2B3674;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .tabs-vertical {
             display: flex;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-            gap: 0; /* No gap for connected arrows */
+            flex-direction: column;
+            gap: 12px;
         }
 
         .tab-btn {
-            position: relative;
-            background: #e0e0e0; /* Inactive Gray */
-            color: #555;
-            border: none;
-            padding: 15px 30px 15px 40px;
-            font-size: 14px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 12px 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
-            margin-right: -15px; /* Overlap to connect arrows */
-            min-width: 200px;
-            text-align: center;
-            z-index: 1;
+            text-align: left;
+            transition: all 0.2s;
         }
 
-        .tab-btn:first-child {
-             /* First arrow: straight left edge */
-             clip-path: polygon(0% 0%, 92% 0%, 100% 50%, 92% 100%, 0% 100%);
-             padding-left: 20px;
-             z-index: 2;
+        .tab-btn:hover {
+            background: #F4F7FE;
         }
 
         .tab-btn.active {
-            background: #000000; /* Active Black */
-            color: #ffffff;
-            z-index: 3;
+            background: linear-gradient(90deg, #4318FF 0%, #868CFF 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 24, 255, 0.2);
         }
+        
+        .tab-info { display: flex; flex-direction: column; }
+        .tab-label { font-size: 14px; font-weight: 600; }
+        .tab-count { font-size: 12px; opacity: 0.8; }
+        
+        .tab-btn.active .tab-label, .tab-btn.active .tab-count { color: white; }
+        .tab-label { color: #2B3674; }
+        .tab-count { color: #A3AED0; }
 
-        .tab-btn:hover:not(.active) {
-            background: #cccccc;
+        .info-card {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            background: #E6F7FF;
+            border: none;
         }
+        
+        .info-icon { color: #0091FF; font-size: 20px; margin-top: 2px; }
+        .info-card p { margin: 0; color: #2B3674; font-size: 13px; line-height: 1.5; }
 
-        .content-area {
+        /* MAIN CONTENT */
+        .actions-toolbar {
             background: white;
-            padding: 30px;
+            padding: 16px 24px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .left-actions, .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-secondary, .btn-primary, .btn-danger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .info-bar { margin-bottom: 25px; }
-        .info-bar h3 { margin: 0 0 5px; font-size: 18px; font-weight: 600; }
-        .info-bar p { margin: 0; color: #666; font-size: 14px; }
+        .btn-secondary { background: #F4F7FE; color: #2B3674; }
+        .btn-secondary:hover { background: #E0E5F2; }
 
-        .upload-zone {
-          background: #fafafa;
-          border: 2px dashed #ddd;
-          border-radius: 16px;
-          padding: 30px;
-          text-align: center;
-          margin-bottom: 30px;
-          cursor: pointer;
-          transition: all 0.3s;
+        .btn-primary { background: linear-gradient(90deg, #4318FF 0%, #868CFF 100%); color: white; }
+        .btn-primary:hover { box-shadow: 0 6px 15px rgba(67, 24, 255, 0.3); transform: translateY(-1px); }
+        .btn-primary.disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-danger { background: #FFE5E5; color: #E31A1A; }
+        .btn-danger:hover { background: #FFD6D6; }
+
+        .selection-count { color: #A3AED0; font-size: 13px; font-weight: 500; }
+
+        /* GALLERY GRID */
+        .gallery-content {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            min-height: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
-
-        .upload-zone:hover:not(.disabled) {
-          border-color: #000;
-          background: #f0f0f0;
-        }
-
-        .upload-zone.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            border-color: #eee;
-        }
-
-        .icon-upload { font-size: 32px; color: #000; margin-bottom: 12px; }
-        .upload-content h3 { margin: 0 0 5px 0; color: #333; font-size: 16px; }
-        .upload-content p { margin: 0; color: #888; font-size: 13px; }
 
         .gallery-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
         }
 
         .gallery-item {
-          background: white;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-          border: 1px solid #eee;
-        }
-
-        .img-wrapper {
-          position: relative;
-          height: 160px;
-        }
-
-        .gallery-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0,0,0,0.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.2s;
-        }
-
-        .img-wrapper:hover .overlay { opacity: 1; }
-
-        .del-btn {
-          background: #ff3b3b;
-          color: white;
-          border: none;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 16px;
-          transition: transform 0.2s;
-        }
-        
-        .del-btn:hover { transform: scale(1.1); }
-        
-        .empty-state, .loading-state {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-            font-style: italic;
-        }
-
-        .actions-toolbar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 8px 16px;
-            border-radius: 6px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
             cursor: pointer;
-            font-weight: 500;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
 
-        .btn-danger {
-            background: #ff3b3b;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-        }
+        .gallery-item:hover { transform: translateY(-3px); }
+        .gallery-item.selected { border-color: #4318FF; }
 
-        .gallery-item.selected {
-            border: 2px solid #0070f3;
-            transform: scale(0.98);
-        }
+        .img-wrapper { position: relative; width: 100%; height: 100%; }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; }
 
         .checkbox-overlay {
             position: absolute;
@@ -417,30 +426,82 @@ export default function AdminGallery() {
             opacity: 0;
             transition: opacity 0.2s;
         }
-
-        .gallery-item:hover .checkbox-overlay,
-        .checkbox-overlay.visible {
-            opacity: 1;
-        }
+        
+        .gallery-item:hover .checkbox-overlay, .gallery-item.selected .checkbox-overlay { opacity: 1; }
 
         .custom-checkbox {
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             background: rgba(255,255,255,0.9);
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0070f3;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            color: #4318FF;
             font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .gallery-item.selected .custom-checkbox { background: #4318FF; color: white; }
+
+        .overlay-actions {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
-        .gallery-item.selected .custom-checkbox {
-            border-color: #0070f3;
+        .gallery-item:hover .overlay-actions { opacity: 1; }
+
+        .icon-btn.delete-btn {
+            width: 32px; height: 32px;
+            border-radius: 8px;
             background: white;
+            color: #E31A1A;
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
         }
+        .icon-btn.delete-btn:hover { background: #FFE5E5; }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: #A3AED0;
+            text-align: center;
+        }
+        
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 { margin: 0 0 10px; color: #2B3674; font-size: 18px; }
+
+        .spinner {
+            width: 30px; height: 30px;
+            border: 3px solid #E0E5F2;
+            border-top-color: #4318FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        .uploading-state, .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: #A3AED0;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
     </div>
   );
 }
+

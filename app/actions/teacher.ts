@@ -58,29 +58,37 @@ export async function getTeacherById(id: string) {
 export async function createTeacher(data: FormData) {
     try {
         const name = data.get("name") as string;
+        const slug = data.get("slug") as string;
         const role = data.get("role") as string;
         const email = data.get("email") as string;
         const bio = data.get("bio") as string;
         const dob = data.get("dob") as string;
         const education = data.get("education") as string;
         const experience = data.get("experience") as string;
-        
+
         // JSON parsed fields
         const skills = JSON.parse(data.get("skills") as string || "[]");
         const socials = JSON.parse(data.get("socials") as string || "{}");
 
         // Image Handling
         const imageFile = data.get("image") as File;
-        
+
         let imagePath = "";
         let detailImagePath = ""; // Mirror main image
 
         if (imageFile && imageFile.size > 0) {
             imagePath = await saveImage(imageFile);
-            detailImagePath = imagePath; 
+            detailImagePath = imagePath;
         }
 
-        const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + Date.now().toString().slice(-4);
+        // Use provided slug or fallback generation (though form requires it)
+        const finalSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + Date.now().toString().slice(-4);
+
+        // Validating Uniqueness
+        const existingTeacher = await prisma.teacher.findUnique({ where: { slug: finalSlug } });
+        if (existingTeacher) {
+            return { success: false, error: "Slug already exists. Please choose a unique one." };
+        }
 
         const calculateColor = (p: number) => {
             const percentage = Number(p);
@@ -100,7 +108,7 @@ export async function createTeacher(data: FormData) {
             data: {
                 name,
                 role,
-                slug,
+                slug: finalSlug,
                 email,
                 bio,
                 dob,
@@ -133,26 +141,36 @@ export async function createTeacher(data: FormData) {
 export async function updateTeacher(id: string, data: FormData) {
     try {
         const name = data.get("name") as string;
+        const slug = data.get("slug") as string;
         const role = data.get("role") as string;
         const email = data.get("email") as string;
         const bio = data.get("bio") as string;
         const dob = data.get("dob") as string;
         const education = data.get("education") as string;
         const experience = data.get("experience") as string;
-        
+
         try {
             const skills = JSON.parse(data.get("skills") as string || "[]");
             const socials = JSON.parse(data.get("socials") as string || "{}");
             console.log("Parsed skills/socials");
-            
+
             const imageFile = data.get("image") as File;
-            
+
             console.log("Updating teacher:", id);
             console.log("New Email:", email);
             console.log("New Name:", name);
+            console.log("New Slug:", slug);
 
             const teacher = await prisma.teacher.findUnique({ where: { id } });
             if (!teacher) return { success: false, error: "Teacher not found" };
+
+            // Uniqueness check for update
+            if (slug && slug !== teacher.slug) {
+                const existingTeacher = await prisma.teacher.findUnique({ where: { slug } });
+                if (existingTeacher) {
+                    return { success: false, error: "Slug already exists. Please choose a unique one." };
+                }
+            }
 
             let imagePath = teacher.image;
             let detailImagePath = teacher.detailImage;
@@ -184,6 +202,7 @@ export async function updateTeacher(id: string, data: FormData) {
                     where: { id },
                     data: {
                         name,
+                        slug,
                         role,
                         email,
                         bio,
@@ -211,15 +230,15 @@ export async function updateTeacher(id: string, data: FormData) {
                 })
             ]);
             console.log("Transaction successful");
-            
+
             revalidatePath("/admin/teachers");
             revalidatePath(`/admin/teachers/${id}`);
             revalidatePath("/about");
             revalidatePath(`/teachers/${teacher.slug}`);
             return { success: true };
         } catch (e: any) {
-             console.error("Inner update error:", e);
-             throw e; // Rethrow to outer catch
+            console.error("Inner update error:", e);
+            throw e; // Rethrow to outer catch
         }
     } catch (error: any) {
         console.error("Failed to update teacher:", error);
@@ -279,16 +298,16 @@ export async function seedTeachers() {
 async function saveImage(file: File): Promise<string> {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    
+
     // Ensure unique filename
     const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
     const uploadDir = join(process.cwd(), "public", "uploads", "teachers");
-    
+
     // Create dir if not exists
     await mkdir(uploadDir, { recursive: true });
-    
+
     const filepath = join(uploadDir, filename);
     await writeFile(filepath, buffer);
-    
+
     return `/uploads/teachers/${filename}`;
 }

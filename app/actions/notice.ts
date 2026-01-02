@@ -8,7 +8,7 @@ import { join } from "path";
 export async function getNotice() {
     try {
         let notice = await prisma.notice.findFirst();
-        
+
         if (!notice) {
             notice = await prisma.notice.create({
                 data: {
@@ -17,7 +17,7 @@ export async function getNotice() {
                 }
             });
         }
-        
+
         return { success: true, data: notice };
     } catch (error) {
         console.error("Failed to fetch notice:", error);
@@ -30,7 +30,7 @@ export async function updateNotice(formData: FormData) {
         const content = formData.get("content") as string;
         const isActive = formData.get("isActive") === "true";
         const imageFile = formData.get("image") as File | null;
-        
+
         // Get existing notice ID
         const existingNotice = await prisma.notice.findFirst();
         const id = existingNotice?.id;
@@ -62,6 +62,9 @@ export async function updateNotice(formData: FormData) {
                 }
             });
         } else {
+            // New notice creation
+            // If they are creating a notice, they should probably upload an image or content.
+            // If image is uploaded it's in imageUrl.
             await prisma.notice.create({
                 data: {
                     content,
@@ -72,6 +75,16 @@ export async function updateNotice(formData: FormData) {
             });
         }
 
+        // Handle image removal if explicitly requested and no new image uploaded
+        if (formData.get("removeImage") === "true" && !imageFile?.size && id) {
+            await prisma.notice.update({
+                where: { id },
+                data: {
+                    // @ts-ignore
+                    image: null
+                }
+            });
+        }
         revalidatePath("/");
         revalidatePath("/admin/notices");
         return { success: true };

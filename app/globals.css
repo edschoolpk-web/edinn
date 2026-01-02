@@ -15,7 +15,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: clip; */
 }
 
 body {
@@ -29,7 +29,7 @@ body {
 * {
   box-sizing: border-box;
   /* padding: 0; */
-  margin: 0;
+  /* margin: 0; */
 }
 
 a {
@@ -105,4 +105,9 @@ textarea {
 
 .footer-social-icons a.youtube:hover {
   background-color: #FF0000;
+}
+
+/* User Fix: Remove max-width from teacher content paragraphs */
+.teacher-single-page .teacher-content p {
+  max-width: none !important;
 }

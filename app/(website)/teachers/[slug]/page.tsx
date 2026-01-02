@@ -1,13 +1,15 @@
-
-import { getTeacherBySlug } from "@/app/actions/teacher";
+import TeacherBio from "@/components/TeacherBio";
+import { getTeacherBySlug, getTeachers } from "@/app/actions/teacher";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TeacherList } from "../../about/teacher-list";
+import TeachersSlider from "@/components/TeachersSlider";
+import StickyWrapper from "./StickyWrapper"; // Import the client component
 
 export default async function TeacherDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { success, data: teacher } = await getTeacherBySlug(slug);
+  const { success: successTeachers, data: teachersList } = await getTeachers();
 
   if (!success || !teacher) {
     notFound();
@@ -35,38 +37,47 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
       <section className="teacher-single-section">
         <div className="container">
           <div className="teacher-single-page">
-            <div className="row">
-              <div className="col-lg-4">
-                <div className="teacher-coly">
-                  {teacher.image ? (
-                    <Image
-                      src={teacher.image}
-                      alt={teacher.name}
-                      width={500}
-                      height={600}
-                      className="w-100"
-                      style={{ height: 'auto' }}
-                    />
-                  ) : (
-                    <div className="w-100 bg-gray-200" style={{ height: '400px' }}></div>
-                  )}
-                  <ul className="social-icons">
-                    {teacher.socials?.facebook && (
-                      <li><a href={teacher.socials.facebook} title="Facebook"><i className="fab fa-facebook-f"></i></a></li>
+            {/* Replaced Bootstrap row with Flexbox for reliable sticky behavior */}
+            <div className="flex flex-col lg:flex-row gap-8 relative">
+
+
+
+              {/* Left Column - Sticky Image */}
+              <div className="w-full lg:w-1/3 flex-shrink-0">
+                <StickyWrapper>
+                  <div className="teacher-coly">
+                    {teacher.image ? (
+                      <Image
+                        src={teacher.image}
+                        alt={teacher.name}
+                        width={500}
+                        height={600}
+                        className="w-100"
+                        style={{ height: 'auto' }}
+                      />
+                    ) : (
+                      <div className="w-100 bg-gray-200" style={{ height: '400px' }}></div>
                     )}
-                    {teacher.socials?.twitter && (
-                      <li><a href={teacher.socials.twitter} title="Twitter"><i className="fab fa-twitter"></i></a></li>
-                    )}
-                    {teacher.socials?.linkedin && (
-                      <li><a href={teacher.socials.linkedin} title="LinkedIn"><i className="fab fa-linkedin-in"></i></a></li>
-                    )}
-                    {teacher.socials?.instagram && (
-                      <li><a href={teacher.socials.instagram} title="Instagram"><i className="fab fa-instagram"></i></a></li>
-                    )}
-                  </ul>
-                </div>
+                    <ul className="social-icons">
+                      {teacher.socials?.facebook && (
+                        <li><a href={teacher.socials.facebook} title="Facebook"><i className="fab fa-facebook-f"></i></a></li>
+                      )}
+                      {teacher.socials?.twitter && (
+                        <li><a href={teacher.socials.twitter} title="Twitter"><i className="fab fa-twitter"></i></a></li>
+                      )}
+                      {teacher.socials?.linkedin && (
+                        <li><a href={teacher.socials.linkedin} title="LinkedIn"><i className="fab fa-linkedin-in"></i></a></li>
+                      )}
+                      {teacher.socials?.instagram && (
+                        <li><a href={teacher.socials.instagram} title="Instagram"><i className="fab fa-instagram"></i></a></li>
+                      )}
+                    </ul>
+                  </div>
+                </StickyWrapper>
               </div>
-              <div className="col-lg-8">
+
+              {/* Right Column - Scrollable Content */}
+              <div className="w-full lg:w-2/3">
                 <div className="teacher-content">
                   <h3>{teacher.name}</h3>
                   <p>{teacher.role}</p>
@@ -81,7 +92,9 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
                       </div>
                     </div>
                   </div>
-                  <p>{teacher.bio}</p>
+
+                  <TeacherBio content={teacher.bio} />
+
                   <ul className="tech-detils">
                     <li>
                       <h3>DOB</h3>
@@ -131,9 +144,11 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
               </div>
 
               <div className="teachers">
-                <div className="row">
-                  <TeacherList />
-                </div>
+                {successTeachers && teachersList ? (
+                  <TeachersSlider teachers={teachersList} />
+                ) : (
+                  <p className="text-center text-red-500">Failed to load teachers.</p>
+                )}
               </div>
             </div>
           </section>

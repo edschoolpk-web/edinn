@@ -17,8 +17,8 @@ export default function NoticePopup() {
             try {
                 const res = await getNotice();
                 if (res.success && res.data && res.data.isActive) {
-                    setNotice(res.data as any); 
-                    setTimeout(() => setIsVisible(true), 1000); 
+                    setNotice(res.data as any);
+                    setTimeout(() => setIsVisible(true), 1000);
                 }
             } catch (err) {
                 console.error("Error loading notice:", err);
@@ -40,22 +40,22 @@ export default function NoticePopup() {
                     <span className="notice-label">NOTICE BOARD</span>
                     <button onClick={handleClose} className="close-btn">×</button>
                 </div>
-                
+
                 <div className="popup-body">
                     {notice.image && (
                         <div className="popup-image-container">
-                            <Image 
-                                src={notice.image} 
-                                alt="Notice" 
-                                width={500} 
-                                height={300} 
+                            <Image
+                                src={notice.image}
+                                alt="Notice"
+                                width={500}
+                                height={300}
                                 className="popup-image"
                                 unoptimized
                             />
                         </div>
                     )}
                     <div className="popup-content">
-                        <p>{notice.content}</p>
+                        <div dangerouslySetInnerHTML={{ __html: notice.content }}></div>
                     </div>
                 </div>
             </div>
@@ -134,15 +134,44 @@ export default function NoticePopup() {
 
                 .popup-content {
                     padding: 30px;
-                    text-align: center;
+                    /* text-align: center; Removed default center */
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    word-break: break-word;
                 }
+                
+                /* Quill Alignment Classes */
+                .popup-content :global(.ql-align-center) { text-align: center; }
+                .popup-content :global(.ql-align-right) { text-align: right; }
+                .popup-content :global(.ql-align-justify) { text-align: justify; }
+                .popup-content :global(.ql-align-left) { text-align: left; }
 
-                .popup-content p {
+                .popup-content :global(*) {
+                    color: #000;
+                }
+                .popup-content :global(p) {
                     font-size: 16px;
                     line-height: 1.6;
-                    color: #000;
-                    margin: 0;
-                    white-space: pre-wrap; /* Preserve line breaks */
+                    margin: 0 0 10px 0;
+                }
+                .popup-content :global(strong) { font-weight: 700; }
+                .popup-content :global(em) { font-style: italic; }
+                .popup-content :global(ul) {
+                    text-align: left;
+                    padding-left: 20px;
+                    margin-bottom: 10px;
+                    list-style-type: disc !important;
+                }
+                .popup-content :global(ol) {
+                    text-align: left;
+                    padding-left: 20px;
+                    margin-bottom: 10px;
+                    list-style-type: decimal !important;
+                }
+                .popup-content :global(li) { margin-bottom: 5px; list-style: inherit !important; }
+                .popup-content :global(h1), .popup-content :global(h2), .popup-content :global(h3) {
+                    margin-bottom: 10px;
+                    line-height: 1.3;
                 }
 
                 @keyframes fadeIn {
