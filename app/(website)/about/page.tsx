@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { TeacherList } from "./teacher-list";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -286,91 +287,7 @@ export default function About() {
 
           <div className="teachers">
             <div className="row">
-              <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
-                <div className="teacher">
-                  <div className="teacher-img">
-                    <Image src="/webImages/img5.jpg" alt="Sir Gohar" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
-                    <div className="sc-div">
-                      <ul>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
-                      </ul>
-                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
-                    </div>
-                  </div>
-                  <div className="teacher-info">
-                    <h3>
-                      <Link href="/teachers/sir-gohar" title="Sir Gohar">
-                        Sir Gohar
-                      </Link>
-                    </h3>
-                    <span>Math Teacher</span>
-                  </div>
-                </div>
-                {/* teacher end */}
-              </div>
-
-               <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
-                <div className="teacher">
-                  <div className="teacher-img">
-                    <Image src="/webImages/img6.jpg" alt="Miss Ayesha" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
-                    <div className="sc-div">
-                      <ul>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
-                      </ul>
-                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
-                    </div>
-                  </div>
-                  <div className="teacher-info">
-                    <h3><a href="#">Miss Ayesha</a></h3>
-                    <span>English Teacher</span>
-                  </div>
-                </div>
-              </div>
-
-               <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
-                <div className="teacher">
-                  <div className="teacher-img">
-                     <Image src="/webImages/img7.jpg" alt="Miss Sumaiqa" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
-                    <div className="sc-div">
-                      <ul>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
-                      </ul>
-                      <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
-                    </div>
-                  </div>
-                  <div className="teacher-info">
-                    <h3><a href="#">Miss Sumaiqa</a></h3>
-                    <span>Biology Teacher</span>
-                  </div>
-                </div>
-              </div>
-
-               <div className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth">
-                <div className="teacher">
-                   <div className="teacher-img">
-                     <Image src="/webImages/img8.jpg" alt="Miss Afsha" width={0} height={0} sizes="100vw" className="w-100 h-auto" />
-                    <div className="sc-div">
-                      <ul>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i className="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
-                      </ul>
-                       <span><Image src="/webImages/plus.png" alt="plus" width={20} height={20} /></span>
-                    </div>
-                  </div>
-                  <div className="teacher-info">
-                    <h3><a href="#">Miss Afsha</a></h3>
-                    <span>Islamiat Teacher</span>
-                  </div>
-                </div>
-              </div>
-
+              <TeacherList />
             </div>
           </div>
           {/* teachers end */}
