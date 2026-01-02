@@ -2,8 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
+import { put } from "@vercel/blob";
 
 export async function getNotice() {
     try {
@@ -40,15 +39,10 @@ export async function updateNotice(formData: FormData) {
 
         // Handle Image Upload
         if (imageFile && imageFile.size > 0) {
-            const uploadDir = join(process.cwd(), "public", "uploads", "notices");
-            await mkdir(uploadDir, { recursive: true });
-
-            const buffer = Buffer.from(await imageFile.arrayBuffer());
-            const filename = `${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
-            const filepath = join(uploadDir, filename);
-
-            await writeFile(filepath, buffer);
-            imageUrl = `/uploads/notices/${filename}`;
+            const blob = await put(imageFile.name, imageFile, {
+                access: 'public',
+            });
+            imageUrl = blob.url;
         }
 
         if (id) {

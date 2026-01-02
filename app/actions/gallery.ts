@@ -3,9 +3,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile, mkdir, unlink } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
+import { put, del } from "@vercel/blob";
 
 export async function getGalleryImages(category: string = "general") {
     try {
@@ -24,7 +22,7 @@ export async function uploadGalleryImage(formData: FormData) {
     try {
         const files = formData.getAll("image") as File[];
         const category = (formData.get("category") as string) || "general";
-        
+
         if (!files || files.length === 0) {
             return { success: false, error: "No image files provided" };
         }
@@ -39,28 +37,18 @@ export async function uploadGalleryImage(formData: FormData) {
             }
         }
 
-        const uploadDir = join(process.cwd(), "public", "uploads", "gallery");
-        await mkdir(uploadDir, { recursive: true });
-
         const savedImages = [];
 
         for (const file of files) {
-            if (file.size === 0) continue;
-
-            const bytes = await file.arrayBuffer();
-            const buffer = Buffer.from(bytes);
-
-            // Ensure unique filename
-            const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
-            const filepath = join(uploadDir, filename);
-            await writeFile(filepath, buffer);
-
-            const url = `/uploads/gallery/${filename}`;
+            // Upload to Vercel Blob
+            const blob = await put(file.name, file, {
+                access: 'public',
+            });
 
             const newImage = await prisma.galleryImage.create({
                 data: {
-                    url,
-                    title: file.name, // Use filename as default title
+                    url: blob.url,
+                    title: file.name,
                     category,
                     width: 0,
                     height: 0,
@@ -89,17 +77,13 @@ export async function deleteGalleryImage(id: string) {
         await prisma.galleryImage.delete({ where: { id } });
 
         // Try to delete local file
-        try {
-            const filePath = join(process.cwd(), "public", image.url.replace(/^\//, "").replace(/\//g, "\\")); // Adjust for Windows path if needed, or just use forward slashes which join handles
-             // Actually join handles separators, but we need to strip leading slash from url
-            const localPath = join(process.cwd(), "public", ...image.url.split("/").filter(Boolean));
-            
-            if (existsSync(localPath)) {
-                await unlink(localPath);
+        // Delete from Blob
+        if (image.url) {
+            try {
+                await del(image.url);
+            } catch (err) {
+                console.warn("Failed to delete blob:", err);
             }
-        } catch (filesErr) {
-            console.warn("Could not delete file from disk:", filesErr);
-            // Non-blocking, continue
         }
 
         revalidatePath("/admin/gallery");
@@ -124,16 +108,14 @@ export async function deleteBulkGalleryImages(ids: string[]) {
         });
 
         // Delete local files
+        // Delete from Blob
         for (const image of images) {
-            try {
-                // Determine local path safely
-                const localPath = join(process.cwd(), "public", ...image.url.split("/").filter(Boolean));
-                
-                if (existsSync(localPath)) {
-                    await unlink(localPath);
+            if (image.url) {
+                try {
+                    await del(image.url);
+                } catch (err) {
+                    console.warn(`Failed to delete blob for image ${image.id}:`, err);
                 }
-            } catch (err) {
-                console.warn(`Failed to delete file for image ${image.id}:`, err);
             }
         }
 
