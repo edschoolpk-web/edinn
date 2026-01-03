@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
-import { updatePassword } from '@/app/actions/settings';
+import { updatePassword, createAdminUser } from '@/app/actions/settings';
 import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
     const [loading, setLoading] = useState(false);
+    const [userLoading, setUserLoading] = useState(false);
 
     async function handleSubmit(formData: FormData) {
         setLoading(true);
@@ -14,8 +15,20 @@ export default function SettingsPage() {
 
         if (result.success) {
             toast.success(result.message || 'Updated successfully');
-            // clear form
             (document.getElementById('password-form') as HTMLFormElement).reset();
+        } else {
+            toast.error(result.error as string);
+        }
+    }
+
+    async function handleCreateUser(formData: FormData) {
+        setUserLoading(true);
+        const result = await createAdminUser(formData);
+        setUserLoading(false);
+
+        if (result.success) {
+            toast.success(result.message || 'User created successfully');
+            (document.getElementById('create-user-form') as HTMLFormElement).reset();
         } else {
             toast.error(result.error as string);
         }
@@ -73,6 +86,46 @@ export default function SettingsPage() {
                         <div className="form-actions">
                             <button type="submit" className="save-btn" disabled={loading}>
                                 {loading ? 'Updating...' : 'Update Password'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                {/* Create User Card */}
+                <div className="settings-card user-card">
+                    <div className="card-header">
+                        <h2>Create New Admin</h2>
+                        <p>Register a new user to access the admin panel.</p>
+                    </div>
+
+                    <form id="create-user-form" action={handleCreateUser} className="user-form">
+                        <div className="form-group">
+                            <label>Full Name</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-user input-icon"></i>
+                                <input type="text" name="name" placeholder="Ex: John Doe" required />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Email Address</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-envelope input-icon"></i>
+                                <input type="email" name="email" placeholder="admin@example.com" required />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Password</label>
+                            <div className="input-wrapper">
+                                <i className="fas fa-lock input-icon"></i>
+                                <input type="password" name="password" placeholder="Min 6 characters" required minLength={6} />
+                            </div>
+                        </div>
+
+                        <div className="form-actions">
+                            <button type="submit" className="save-btn" disabled={userLoading}>
+                                {userLoading ? 'Creating...' : 'Create Admin'}
                             </button>
                         </div>
                     </form>

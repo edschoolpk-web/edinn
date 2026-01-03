@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -22,8 +23,9 @@ interface DashboardProps {
 }
 
 export default function DashboardClient({ stats }: DashboardProps) {
+  const { data: session } = useSession();
   // Safe defaults
-  const counts = stats?.counts || { teachers: 0, gallery: 0, activeNotice: false };
+  const counts = stats?.counts || { teachers: 0, activeNotice: false };
   const recent = stats?.recentActivity || [];
 
   const [currentDate, setCurrentDate] = React.useState('');
@@ -42,7 +44,7 @@ export default function DashboardClient({ stats }: DashboardProps) {
       {/* Welcome Section */}
       <div className="welcome-banner">
         <div>
-          <h1 className="welcome-title">Welcome Back, Admin!</h1>
+          <h1 className="welcome-title">Welcome Back, {session?.user?.name || 'Admin'}!</h1>
           <p className="welcome-date">{currentDate}</p>
         </div>
         <div className="branding-badge">

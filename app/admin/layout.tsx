@@ -5,12 +5,13 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 import Image from 'next/image';
 import './admin.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false); // Track if we are on mobile/tablet
   const pathname = usePathname();
@@ -136,8 +137,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
 
             <div className="user-profile">
-              <div className="avatar">A</div>
-              <span className="user-name">Admin User</span>
+              <div className="avatar">
+                {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : 'A'}
+              </div>
+              <span className="user-name">{session?.user?.name || 'Admin User'}</span>
             </div>
           </header>
         )}

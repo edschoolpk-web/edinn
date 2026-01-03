@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { TeacherList } from "./teacher-list";
 import type { Metadata } from "next";
+import TeachersSlider from "@/components/TeachersSlider";
+import { getTeachers } from "@/app/actions/teacher";
 
 export const metadata: Metadata = {
   title: "About Engineers & Doctors School | Vision, Mission & Values",
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
   }
 };
 
-export default function About() {
+export default async function About() {
+  const { success, data: teachersList } = await getTeachers();
   return (
     <>
       <section className="pager-section">
@@ -160,6 +163,32 @@ export default function About() {
         </div>
       </section>
       {/* benifit-section end */}
+
+      <section className="teachers-section">
+        <div className="container">
+          <div className="section-title text-center">
+            <h2>Meet Our<br />Teachers</h2>
+            <p>
+              Our teaching team combines strong subject expertise with care and guidance,
+              helping students learn confidently through modern, student-centered methods.
+            </p>
+          </div>
+
+          <div className="teachers">
+            {success && teachersList ? (
+              <TeachersSlider teachers={teachersList} />
+            ) : (
+              <p className="text-center text-red-500">Failed to load teachers.</p>
+            )}
+          </div>
+
+          <div className="lnk-dv text-center mt-5">
+             <Link href="/teachers" title="View More Teachers" className="btn-default">
+               View More Teachers <i className="fa fa-long-arrow-alt-right"></i>
+             </Link>
+          </div>
+        </div>
+      </section>
 
       {/* classes-section start */}
       <section className="classes-section">

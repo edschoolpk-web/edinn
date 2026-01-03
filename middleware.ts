@@ -1,27 +1,7 @@
-import { auth } from "./auth";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
-  const isOnAdminPanel = req.nextUrl.pathname.startsWith("/admin");
-  const isOnLoginPage = req.nextUrl.pathname.startsWith("/admin/login");
-
-  if (isOnAdminPanel) {
-    if (isOnLoginPage) {
-      if (isLoggedIn) {
-        return NextResponse.redirect(new URL("/admin", req.nextUrl));
-      }
-      return NextResponse.next();
-    }
-
-    if (!isLoggedIn) {
-      return NextResponse.redirect(new URL("/admin/login", req.nextUrl));
-    }
-  }
-
-  return NextResponse.next();
-});
+export default NextAuth(authConfig).auth;
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],

@@ -3,20 +3,20 @@ import { TeacherList } from "../about/teacher-list";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Team | Engineers & Doctors School",
+  title: "Our Teachers | Engineers & Doctors School",
   description: "Meet the dedicated team of educators at Engineers & Doctors School.",
   alternates: {
-      canonical: "https://edschool.pk/team"
+      canonical: "https://edschool.pk/teachers"
   }
 };
 
-export default function TeamPage() {
+export default function TeachersPage() {
   return (
     <>
       <section className="pager-section">
         <div className="container">
           <div className="pager-content text-center">
-            <h2>Our Team</h2>
+            <h2>Our Teachers</h2>
             <ul>
               <li>
                 <Link href="/" title="Home">
@@ -24,7 +24,7 @@ export default function TeamPage() {
                 </Link>
               </li>
               <li>
-                <span>Team</span>
+                <span>Teachers</span>
               </li>
             </ul>
           </div>

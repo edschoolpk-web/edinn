@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
+import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
   title: 'Engineers & Doctors School | Karachi',
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/webImages/favicon.png" />
       </head>
       <body>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
