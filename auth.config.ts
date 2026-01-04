@@ -24,17 +24,17 @@ export const authConfig = {
       return true;
     },
     async jwt({ token, user }) {
-        if (user) {
-          token.role = (user as any).role;
-        }
-        return token;
-      },
-      async session({ session, token }) {
-        if (token && session.user) {
-          (session.user as any).role = token.role;
-        }
-        return session;
-      },
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.role = token.role;
+      }
+      return session;
+    },
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

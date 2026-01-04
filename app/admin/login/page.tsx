@@ -5,15 +5,15 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { signIn } from "next-auth/react";
 
+import { toast } from "react-hot-toast";
+
 export default function AdminLogin() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [isPending, setIsPending] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
-    setErrorMessage(null);
 
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
@@ -27,18 +27,19 @@ export default function AdminLogin() {
       });
 
       if (result?.error) {
-        setErrorMessage("Invalid credentials.");
+        toast.error("Invalid credentials.");
         setIsPending(false);
       } else if (result?.ok) {
+        toast.success("Welcome back!");
         router.push("/admin");
         router.refresh();
       } else {
-        setErrorMessage("Something went wrong.");
+        toast.error("Something went wrong.");
         setIsPending(false);
       }
     } catch (error) {
       console.error("Login error:", error);
-      setErrorMessage("An unexpected error occurred.");
+      toast.error("An unexpected error occurred.");
       setIsPending(false);
     }
   };
@@ -66,18 +67,7 @@ export default function AdminLogin() {
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
-          <AnimatePresence mode="wait">
-            {errorMessage && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="error-message"
-              >
-                <i className="fas fa-exclamation-circle"></i> {errorMessage}
-              </motion.div>
-            )}
-          </AnimatePresence>
+
 
           <div className="form-group">
             <label>Email Address</label>

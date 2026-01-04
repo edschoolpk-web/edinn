@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { updatePassword, createAdminUser } from '@/app/actions/settings';
 import toast from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
 
 export default function SettingsPage() {
+    const { data: session } = useSession();
     const [loading, setLoading] = useState(false);
     const [userLoading, setUserLoading] = useState(false);
 
@@ -36,25 +38,24 @@ export default function SettingsPage() {
 
     return (
         <div className="settings-container">
-            <div className="settings-header">
-                <h1>Settings</h1>
-                <p>Manage your account settings and security preferences.</p>
-            </div>
+            {/* ... header ... */}
 
             <div className="settings-grid">
-                {/* Profile Card (Static for now) */}
+                {/* Profile Card */}
                 <div className="settings-card profile-card">
                     <div className="card-content">
                         <div className="profile-header">
-                            <div className="profile-avatar">A</div>
+                            <div className="profile-avatar">
+                                {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : 'A'}
+                            </div>
                             <div>
-                                <h3>Admin User</h3>
-                                <span className="badge">Administrator</span>
+                                <h3>{session?.user?.name || 'Admin User'}</h3>
+                                <span className="badge">{session?.user?.role || 'Administrator'}</span>
                             </div>
                         </div>
                         <div className="profile-info">
-                            <p><strong>Email:</strong> admin@itn.com.pk</p>
-                            <p><strong>Role:</strong> Super Admin</p>
+                            <p><strong>Email:</strong> {session?.user?.email || 'Loading...'}</p>
+                            <p><strong>Role:</strong> {session?.user?.role || 'Super Admin'}</p>
                         </div>
                     </div>
                 </div>
