@@ -110,7 +110,7 @@ export default function CertificateGenerator() {
                             <p className="text-green-800 font-bold mb-2">Certificate Ready!</p>
                             <div className="flex gap-2">
                                 <a
-                                    href={generatedPdf}
+                                    href={`${generatedPdf}?t=${Date.now()}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex-1 text-center py-2 px-4 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition shadow-sm"

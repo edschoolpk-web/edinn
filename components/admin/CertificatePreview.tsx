@@ -15,7 +15,6 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
-    const [height, setHeight] = useState('auto');
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -23,14 +22,12 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
         const observer = new ResizeObserver(([entry]) => {
             const width = entry.contentRect.width;
             const newScale = width / 2000;
-            const newHeight = newScale * 1414;
 
             // Prevent infinite loops by checking for significant changes
             setScale(prev => {
                 if (Math.abs(prev - newScale) < 0.002) return prev;
                 return newScale;
             });
-            setHeight(`${newHeight}px`);
         });
 
         observer.observe(containerRef.current);
@@ -50,7 +47,7 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
             className="w-full bg-gray-100 border rounded-lg relative"
             ref={containerRef}
             style={{
-                height: height,
+                height: containerRef.current ? (containerRef.current.offsetWidth / 2000) * 1414 : 'auto',
                 overflow: 'hidden',
                 transition: 'height 0.1s ease-out'
             }}
