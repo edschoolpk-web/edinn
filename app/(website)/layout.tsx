@@ -12,15 +12,19 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       {/* Legacy CSS - Scoped to Website Layout */}
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-      {/* Legacy CSS - Scoped to Website Layout */}
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
       <link rel="stylesheet" type="text/css" href="/css/main.min.css" />
       <link rel="stylesheet" type="text/css" href="/css/button.min.css" />
 
       <Header />
       {children}
       <Footer />
+
+      <div className="mdp-float mdp-float-init mdp-float-always">
+        <div className="mdp-tooltip">Ask the AI Tutor</div>
+        <a href="https://ai.edschool.pk" target="_blank" className="mdp-float-btn" title="Open AI Chatbot" aria-label="Open AI Chatbot" rel="noopener noreferrer">
+          <img src="/webImages/ai-chatbot.png" alt="ai-tutor" />
+        </a>
+      </div>
 
       {/* Legacy Scripts */}
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" strategy="beforeInteractive" />
@@ -31,6 +35,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" strategy="afterInteractive" />
       <Script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" strategy="afterInteractive" />
+      <Script src="/js/ajax.js" strategy="lazyOnload" />
 
       <Scripts />
 
