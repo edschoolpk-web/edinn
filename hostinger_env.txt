@@ -19,4 +19,5 @@ NEXTAUTH_URL="https://lawngreen-manatee-104708.hostingersite.com"
 AUTH_TRUST_HOST="true"
 
 # Node Environment
-NODE_ENV="production"
+# Do NOT set NODE_ENV=production in Hostinger dashboard, as it breaks the build (skips installing TypeScript/Prisma).
+# Next.js sets this automatically during 'next start'.
