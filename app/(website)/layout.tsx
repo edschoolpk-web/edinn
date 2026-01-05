@@ -25,7 +25,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       </div>
 
       {/* Legacy Scripts */}
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" strategy="beforeInteractive" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.5/js/lightbox.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" strategy="afterInteractive" />
       <Script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js" strategy="afterInteractive" />
