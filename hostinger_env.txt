@@ -1,0 +1,14 @@
+# Production Environment Variables for Hostinger
+# Copy these values to the Hostinger Dashboard -> Environment Variables
+# OR upload this file as '.env' to your public_html folder using File Manager.
+# DO NOT COMMIT THIS FILE TO GITHUB IF YOUR REPO IS PUBLIC!
+
+# Database Connection (Fixed URL)
+DATABASE_URL="mysql://u511174624_edschool_pk:7Os%3AC%2B%3AW@srv2024.hstgr.io:3306/u511174624_edschool_pk"
+
+# Authentication Secrets
+NEXTAUTH_SECRET="438cc16dca061850487092f3aabd7b27e8dd99ff3415ce7097bed56a69455844"
+NEXTAUTH_URL="https://your-domain.com" 
+
+# Node Environment
+NODE_ENV="production"
