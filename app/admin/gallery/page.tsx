@@ -19,7 +19,7 @@ export default function AdminGallery() {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const fetchImages = async () => {
+  const fetchImages = React.useCallback(async () => {
     setLoading(true);
     const res = await getGalleryImages(activeTab);
     if (res.success && res.data) {
@@ -28,12 +28,12 @@ export default function AdminGallery() {
       toast.error('Failed to load images');
     }
     setLoading(false);
-  };
+  }, [activeTab]);
 
   useEffect(() => {
     fetchImages();
     setSelectedImages([]); // Reset selection on tab change
-  }, [activeTab]);
+  }, [fetchImages]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
