@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getTeachers } from "@/app/actions/teacher";
 import TeachersListClient from "./TeachersListClient";
 import { Teacher, Skill, Social } from "@prisma/client";

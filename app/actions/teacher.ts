@@ -131,9 +131,9 @@ export async function createTeacher(data: FormData) {
         revalidatePath("/admin/teachers");
         revalidatePath("/about");
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Failed to create teacher:", error);
-        return { success: false, error: "Failed to create teacher" };
+        return { success: false, error: error.message || "Failed to create teacher" };
     }
 }
 
@@ -247,13 +247,27 @@ export async function updateTeacher(id: string, data: FormData) {
 
 export async function deleteTeacher(id: string) {
     try {
-        await prisma.teacher.delete({ where: { id } });
+        // Use a transaction to ensure all related data is cleaned up
+        // We check if teacher exists first to provide a better error, but still revalidate
+        const teacher = await prisma.teacher.findUnique({ where: { id } });
+        
+        if (teacher) {
+            await prisma.$transaction([
+                prisma.skill.deleteMany({ where: { teacherId: id } }),
+                prisma.social.deleteMany({ where: { teacherId: id } }),
+                prisma.teacher.delete({ where: { id } }),
+            ]);
+        }
+        
+        // Always revalidate even if not found, in case of ghost records in the cache
         revalidatePath("/admin/teachers");
         revalidatePath("/about");
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Failed to delete teacher:", error);
-        return { success: false, error: "Failed to delete teacher" };
+        // Still revalidate on error just in case
+        revalidatePath("/admin/teachers");
+        return { success: false, error: error.message || "Failed to delete teacher" };
     }
 }
 

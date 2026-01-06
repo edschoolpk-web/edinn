@@ -11,9 +11,12 @@ export function DeleteTeacherButton({ id }: { id: string }) {
         
         setIsDeleting(true);
         try {
-            await deleteTeacher(id);
-        } catch (error) {
-            alert("Failed to delete");
+            const res = await deleteTeacher(id);
+            if (res && !res.success) {
+                alert(res.error || "Failed to delete teacher");
+            }
+        } catch (error: any) {
+            alert(error.message || "Failed to delete");
         } finally {
             setIsDeleting(false);
         }

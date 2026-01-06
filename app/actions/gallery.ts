@@ -68,7 +68,7 @@ export async function uploadGalleryImage(formData: FormData): Promise<SingleGall
     return { success: true, data: newImage };
   } catch (error) {
     console.error("Failed to upload image:", error);
-    return { success: false, error: "Failed to upload image" };
+    return { success: false, error: error instanceof Error ? error.message : "Failed to upload image" };
   }
 }
 
@@ -100,9 +100,9 @@ export async function deleteGalleryImage(id: string): Promise<GalleryResponse> {
     revalidatePath("/");
 
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to delete image:", error);
-    return { success: false, error: "Failed to delete image" };
+    return { success: false, error: error.message || "Failed to delete image" };
   }
 }
 

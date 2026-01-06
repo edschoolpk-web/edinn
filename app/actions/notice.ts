@@ -39,7 +39,8 @@ export async function updateNotice(formData: FormData) {
 
         // Handle Image Upload
         if (imageFile && imageFile.size > 0) {
-            const blob = await put(imageFile.name, imageFile, {
+            const filename = `${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
+            const blob = await put(`notices/${filename}`, imageFile, {
                 access: 'public',
             });
             imageUrl = blob.url;
