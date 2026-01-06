@@ -84,6 +84,7 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
       }
 
       toast.success("Teacher saved successfully!");
+      router.refresh();
       router.push("/admin/teachers");
     } catch (error: any) {
       console.error(error);

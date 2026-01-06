@@ -2,9 +2,11 @@
 
 import { deleteTeacher } from "@/app/actions/teacher";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function DeleteTeacherButton({ id }: { id: string }) {
     const [isDeleting, setIsDeleting] = useState(false);
+    const router = useRouter();
 
     const handleDelete = async () => {
         if (!confirm("Are you sure you want to delete this teacher?")) return;
@@ -12,7 +14,9 @@ export function DeleteTeacherButton({ id }: { id: string }) {
         setIsDeleting(true);
         try {
             const res = await deleteTeacher(id);
-            if (res && !res.success) {
+            if (res && res.success) {
+                router.refresh();
+            } else if (res && !res.success) {
                 alert(res.error || "Failed to delete teacher");
             }
         } catch (error: any) {
