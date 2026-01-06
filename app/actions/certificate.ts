@@ -61,6 +61,15 @@ export async function generateCertificateAction(formData: FormData) {
             pdfUrl = blob.url;
         } else {
             // Fallback: Save locally to public/certificates
+            
+            // CRITICAL CHECK: Vercel Serverless Functions have a Read-Only Filesystem (EROFS).
+            // We cannot write to 'public/' at runtime in production.
+            if (process.env.VERCEL) {
+                throw new Error(
+                    'Missing BLOB_READ_WRITE_TOKEN. On Vercel, you must configure Vercel Blob storage in your environment variables. Local filesystem writing is not supported in serverless functions.'
+                );
+            }
+
             const fs = await import('fs');
             const path = await import('path');
             
