@@ -56,24 +56,39 @@ export default function AdminGallery() {
     }
 
     setUploading(true);
-    const formData = new FormData();
+    const files = Array.from(e.target.files);
+    let successCount = 0;
+    let failCount = 0;
 
-    // Append all selected files
-    Array.from(e.target.files).forEach(file => {
-      formData.append('image', file);
-    });
+    for (const file of files) {
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('category', activeTab);
 
-    formData.append('category', activeTab);
-
-    const res = await uploadGalleryImage(formData);
-    if (res.success) {
-      toast.success('Images uploaded successfully');
-      fetchImages();
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    } else {
-      console.error(res.error);
-      toast.error(res.error || 'Upload failed');
+        const res = await uploadGalleryImage(formData);
+        if (res.success) {
+          successCount++;
+        } else {
+          failCount++;
+          console.error(`Failed to upload ${file.name}:`, res.error);
+        }
+      } catch (err) {
+        failCount++;
+        console.error(`Error uploading ${file.name}:`, err);
+      }
     }
+
+    if (successCount > 0) {
+      toast.success(`Successfully uploaded ${successCount} image(s)`);
+      fetchImages();
+    }
+    
+    if (failCount > 0) {
+      toast.error(`Failed to upload ${failCount} image(s)`);
+    }
+
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setUploading(false);
   };
 
