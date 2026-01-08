@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { put } from "@vercel/blob";
+import { storage } from "@/lib/storage";
 
 export async function getNotice() {
     try {
@@ -39,12 +39,7 @@ export async function updateNotice(formData: FormData) {
 
         // Handle Image Upload
         if (imageFile && imageFile.size > 0) {
-            const filename = `${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
-            const blob = await put(`notices/${filename}`, imageFile, {
-                access: 'public',
-                token: process.env.BLOB_READ_WRITE_TOKEN,
-            });
-            imageUrl = blob.url;
+            imageUrl = await storage.upload(imageFile, 'notices');
         }
 
         if (id) {

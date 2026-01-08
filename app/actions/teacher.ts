@@ -4,7 +4,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { teachers as staticTeachers } from "@/lib/teachers";
-import { put } from "@vercel/blob";
+import { storage } from "@/lib/storage";
 
 export async function getTeachers() {
     try {
@@ -310,10 +310,5 @@ export async function seedTeachers() {
 // Helper to save uploaded images
 // Helper to save uploaded images
 async function saveImage(file: File): Promise<string> {
-    const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
-    const blob = await put(`teachers/${filename}`, file, {
-        access: 'public',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
-    });
-    return blob.url;
+    return await storage.upload(file, 'teachers');
 }

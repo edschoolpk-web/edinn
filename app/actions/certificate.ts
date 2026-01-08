@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { generateCertificatePDF } from '@/lib/certificate-utils';
 import { z } from 'zod';
-import { put, del } from '@vercel/blob';
+import { storage } from '@/lib/storage';
 import crypto from 'crypto';
 import { revalidatePath } from 'next/cache';
 
@@ -48,52 +48,11 @@ export async function generateCertificateAction(formData: FormData) {
             verifyCode
         }, baseUrl);
 
-        let pdfUrl = '';
+        const pdfBuffer = Buffer.from(pdfBytes);
+        const fileName = `${verifyCode}.pdf`;
 
-        // DEBUG LOGGING
-        console.log('Certificate Generation Debug:', {
-            hasToken: !!process.env.BLOB_READ_WRITE_TOKEN,
-            nodeEnv: process.env.NODE_ENV,
-            vercel: process.env.VERCEL,
-            allKeys: Object.keys(process.env).filter(k => k.includes('BLOB'))
-        });
-
-        // Check if Vercel Blob is configured
-        if (process.env.BLOB_READ_WRITE_TOKEN) {
-             const fileName = `${verifyCode}.pdf`;
-            // Upload to Vercel Blob
-            const blob = await put(`certificates/${fileName}`, Buffer.from(pdfBytes), {
-                access: 'public',
-                contentType: 'application/pdf',
-                token: process.env.BLOB_READ_WRITE_TOKEN,
-            });
-            pdfUrl = blob.url;
-        } else {
-            // Fallback: Save locally to public/certificates
-            
-            // CRITICAL CHECK: Vercel Serverless Functions have a Read-Only Filesystem (EROFS).
-            // We cannot write to 'public/' at runtime in production.
-            if (process.env.VERCEL) {
-                throw new Error(
-                    'Missing BLOB_READ_WRITE_TOKEN. On Vercel, you must configure Vercel Blob storage in your environment variables. Local filesystem writing is not supported in serverless functions.'
-                );
-            }
-
-            const fs = await import('fs');
-            const path = await import('path');
-            
-            const certDir = path.join(process.cwd(), 'public', 'certificates');
-            if (!fs.existsSync(certDir)) {
-                fs.mkdirSync(certDir, { recursive: true });
-            }
-            
-            const fileName = `${verifyCode}.pdf`;
-            const filePath = path.join(certDir, fileName);
-            fs.writeFileSync(filePath, Buffer.from(pdfBytes));
-            
-            // Construct URL relative to public
-            pdfUrl = `/certificates/${fileName}`;
-        }
+        // Use storage adapter
+        const pdfUrl = await storage.upload(pdfBuffer, 'certificates', fileName);
 
         // Save to DB
         const certificate = await prisma.certificate.create({
@@ -106,6 +65,7 @@ export async function generateCertificateAction(formData: FormData) {
                 status: 'VALID',
             },
         });
+
 
         revalidatePath('/admin/certificate');
         return { success: true, certificate };
@@ -178,29 +138,7 @@ export async function deleteCertificateAction(verifyCode: string) {
 
         // 2. Delete file
         if (cert.pdfPath) {
-            if (cert.pdfPath.startsWith('http')) {
-                // Vercel Blob
-                try {
-                    await del(cert.pdfPath);
-                } catch (blobError) {
-                    console.warn("Failed to delete certificate from blob:", blobError);
-                }
-            } else {
-                // Local File
-                try {
-                    const fs = await import('fs');
-                    const path = await import('path');
-                    // Remove leading slash to join correctly
-                    const relativePath = cert.pdfPath.startsWith('/') ? cert.pdfPath.substring(1) : cert.pdfPath;
-                    const filePath = path.join(process.cwd(), 'public', relativePath);
-                    
-                    if (fs.existsSync(filePath)) {
-                        fs.unlinkSync(filePath);
-                    }
-                } catch (localError) {
-                    console.warn("Failed to delete local certificate file:", localError);
-                }
-            }
+            await storage.delete(cert.pdfPath);
         }
 
         // 3. Delete from database

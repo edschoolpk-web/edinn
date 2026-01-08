@@ -29,8 +29,38 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Storage Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project uses an environment-agnostic storage adapter (`lib/storage.ts`) that supports Vercel Blob, Local Storage (VPS/Shared Hosting), and a Dev Fallback.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Priority Logic
+
+1. **Vercel Blob**: Used if `BLOB_READ_WRITE_TOKEN` is set.
+2. **Local Storage (VPS)**: Used if `LOCAL_UPLOADS_DIR` (absolute path) is set.
+3. **Dev Fallback**: Defaults to `public/` folder only in `development` mode.
+4. **Error**: Throws an error in `production` if no storage is configured.
+
+### Environment Variables
+
+Add these to your `.env.local`:
+
+```bash
+# Optional: For Vercel Blob
+BLOB_READ_WRITE_TOKEN=your_token_here
+
+# Optional: For VPS / Shared Hosting
+LOCAL_UPLOADS_DIR=/var/www/edinn/uploads
+PUBLIC_UPLOADS_BASE_URL=https://edinnschool.com/uploads
+```
+
+### Nginx Configuration (VPS)
+
+If using `LOCAL_UPLOADS_DIR` on a VPS, map the public URL path to the directory:
+
+```nginx
+location /uploads/ {
+    alias /var/www/edinn/uploads/;
+    expires 30d;
+    add_header Cache-Control "public, no-transform";
+}
+```

@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { put, del } from "@vercel/blob";
+import { storage } from "@/lib/storage";
 
 import { GalleryImage } from "@prisma/client";
 
@@ -43,16 +43,8 @@ export async function uploadGalleryImage(formData: FormData): Promise<SingleGall
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure unique filename
-    const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
-
-    // Upload to Vercel Blob
-    const blob = await put(`gallery/${filename}`, file, {
-      access: 'public',
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    });
-
-    const imageUrl = blob.url;
+    // Upload using storage adapter
+    const imageUrl = await storage.upload(file, 'gallery');
 
     const newImage = await prisma.galleryImage.create({
       data: {
@@ -83,13 +75,9 @@ export async function deleteGalleryImage(id: string): Promise<GalleryResponse> {
       return { success: false, error: "Image not found" };
     }
 
-    // Attempt to delete file from blob storage
-    try {
-      if (image.url.startsWith('http')) {
-        await del(image.url);
-      }
-    } catch (blobError) {
-      console.warn("Failed to delete file from blob storage:", blobError);
+    // Attempt to delete file using storage adapter
+    if (image.url) {
+      await storage.delete(image.url);
     }
 
     await prisma.galleryImage.delete({
