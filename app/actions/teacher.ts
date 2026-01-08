@@ -130,6 +130,8 @@ export async function createTeacher(data: FormData) {
 
         revalidatePath("/admin/teachers");
         revalidatePath("/about");
+        revalidatePath("/teachers");
+        revalidatePath("/");
         return { success: true };
     } catch (error: any) {
         console.error("Failed to create teacher:", error);
@@ -233,6 +235,8 @@ export async function updateTeacher(id: string, data: FormData) {
             revalidatePath("/admin/teachers");
             revalidatePath(`/admin/teachers/${id}`);
             revalidatePath("/about");
+            revalidatePath("/teachers");
+            revalidatePath("/");
             revalidatePath(`/teachers/${teacher.slug}`);
             return { success: true };
         } catch (e: any) {
@@ -262,6 +266,8 @@ export async function deleteTeacher(id: string) {
         // Always revalidate even if not found, in case of ghost records in the cache
         revalidatePath("/admin/teachers");
         revalidatePath("/about");
+        revalidatePath("/teachers");
+        revalidatePath("/");
         return { success: true };
     } catch (error: any) {
         console.error("Failed to delete teacher:", error);
