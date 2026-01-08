@@ -82,7 +82,7 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
                   <h3>{teacher.name}</h3>
                   <p>{teacher.role}</p>
                   <div className="row">
-                    <div className="col-lg-4 col-md-4 col-sm-6">
+                    <div className="col-lg-6 col-md-6 col-sm-12">
                       <div className="rol-z">
                         <Image src="/webImages/ro2.png" alt="" width={30} height={30} />
                         <div className="rol-info">

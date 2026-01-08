@@ -146,6 +146,8 @@ export async function updateTeacher(id: string, data: FormData) {
         const role = data.get("role") as string;
         const email = data.get("email") as string;
         const bio = data.get("bio") as string;
+        console.log("SERVER RECEIVED BIO. Length:", bio?.length);
+        console.log("BIO PREVIEW:", bio?.substring(0, 100));
         const dob = data.get("dob") as string;
         const education = data.get("education") as string;
         const experience = data.get("experience") as string;
@@ -197,8 +199,7 @@ export async function updateTeacher(id: string, data: FormData) {
             };
 
             console.log("Executing DB transaction...");
-            // Transaction to update teacher and replace skills/socials
-            await prisma.$transaction([
+            const result = await prisma.$transaction([
                 prisma.teacher.update({
                     where: { id },
                     data: {
@@ -231,6 +232,7 @@ export async function updateTeacher(id: string, data: FormData) {
                 })
             ]);
             console.log("Transaction successful");
+            console.log("VERIFIED SAVED BIO LENGTH:", result[0].bio.length);
 
             revalidatePath("/admin/teachers");
             revalidatePath(`/admin/teachers/${id}`);

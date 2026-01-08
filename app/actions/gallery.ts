@@ -40,6 +40,14 @@ export async function uploadGalleryImage(formData: FormData): Promise<SingleGall
       return { success: false, error: "No file provided" };
     }
 
+    // Limit Check for home category only
+    if (category === 'home') {
+      const currentCount = await prisma.galleryImage.count({ where: { category } });
+      if (currentCount >= 10) {
+        return { success: false, error: "Limit reached for home gallery (10)." };
+      }
+    }
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 

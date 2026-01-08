@@ -111,6 +111,16 @@ textarea {
 /* User Fix: Remove max-width from teacher content paragraphs */
 .teacher-single-page .teacher-content p {
   max-width: none !important;
+  display: block !important;
+  overflow: visible !important;
+  -webkit-line-clamp: none !important;
+  line-clamp: none !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+.teacher-single-page .teacher-content {
+  overflow: visible !important;
 }
 
 /* Custom Scrollbar Styles */

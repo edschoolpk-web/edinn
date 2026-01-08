@@ -46,13 +46,11 @@ export default function AdminGallery() {
       return;
     }
 
-    // Client-side limit check for 'home'
-    if (activeTab === 'home') {
-      if (images.length + e.target.files.length > 10) {
-        toast.error(`Limit exceeded. You can add max ${10 - images.length} more images.`);
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        return;
-      }
+    // Client-side limit check for categories
+    if (activeTab === 'home' && images.length + e.target.files.length > 10) {
+      toast.error(`Limit exceeded. You can add max ${10 - images.length} more images to Home Slider.`);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
     }
 
     setUploading(true);
@@ -160,7 +158,7 @@ export default function AdminGallery() {
               >
                 <div className="tab-info">
                   <span className="tab-label">Main Gallery</span>
-                  <span className="tab-count">Unlimited</span>
+                  <span className="tab-count">{images.length} Image{images.length !== 1 ? 's' : ''}</span>
                 </div>
                 <i className="fas fa-images tab-icon"></i>
               </button>
@@ -199,7 +197,7 @@ export default function AdminGallery() {
               <button
                 className={`btn-primary ${activeTab === 'home' && images.length >= 10 ? 'disabled' : ''}`}
                 onClick={() => {
-                  if (activeTab !== 'home' || images.length < 10) {
+                  if (activeTab === 'main' || images.length < 10) {
                     fileInputRef.current?.click();
                   } else {
                     toast.error('Limit reached (10). Delete images to add more.');
@@ -230,9 +228,12 @@ export default function AdminGallery() {
             )}
 
             {loading ? (
-              <div className="loading-state">
-                <div className="spinner"></div>
-                <p>Loading gallery...</p>
+              <div className="gallery-grid">
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="skeleton-item shimmer">
+                    <div className="skeleton-img"></div>
+                  </div>
+                ))}
               </div>
             ) : (
               <>
@@ -507,7 +508,49 @@ export default function AdminGallery() {
             margin: 0 auto 10px;
         }
 
-        .uploading-state, .loading-state {
+        .skeleton-item {
+          background: #f6f7f8;
+          border-radius: 16px;
+          overflow: hidden;
+          aspect-ratio: 4/3;
+        }
+
+        .skeleton-img {
+          width: 100%;
+          height: 100%;
+          background: #f0f2f5;
+        }
+
+        .shimmer {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .shimmer::after {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transform: translateX(-100%);
+          background-image: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0,
+            rgba(255, 255, 255, 0.2) 20%,
+            rgba(255, 255, 255, 0.5) 60%,
+            rgba(255, 255, 255, 0)
+          );
+          animation: shimmer 2s infinite;
+          content: '';
+        }
+
+        @keyframes shimmer {
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        .uploading-state {
             text-align: center;
             padding: 40px;
             color: #A3AED0;

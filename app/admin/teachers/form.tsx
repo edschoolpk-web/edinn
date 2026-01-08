@@ -60,7 +60,9 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
       formData.append("slug", data.slug);
       formData.append("role", data.role);
       formData.append("email", data.email);
-      formData.append("bio", data.bio.replace(/&nbsp;/g, ' '));
+      const sanitizedBio = data.bio.replace(/&nbsp;/g, ' ');
+      console.log("Submitting Biography. Length:", sanitizedBio.length);
+      formData.append("bio", sanitizedBio);
       formData.append("dob", data.dob);
       formData.append("education", data.education);
       formData.append("experience", data.experience);

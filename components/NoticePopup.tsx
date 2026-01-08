@@ -31,6 +31,27 @@ export default function NoticePopup() {
         setIsVisible(false);
     };
 
+    if (isVisible && !notice) {
+        return (
+            <div className="notice-overlay">
+                <div className="notice-popup">
+                    <div className="popup-header">
+                        <span className="notice-label">NOTICE BOARD</span>
+                        <div className="close-btn" style={{ opacity: 0 }}>×</div>
+                    </div>
+                    <div className="popup-body">
+                        <div className="skeleton-image shimmer" style={{ height: '200px', width: '100%' }}></div>
+                        <div className="popup-content">
+                            <div className="skeleton-line shimmer" style={{ width: '90%' }}></div>
+                            <div className="skeleton-line shimmer" style={{ width: '100%' }}></div>
+                            <div className="skeleton-line shimmer" style={{ width: '80%' }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     if (!notice || !isVisible) return null;
 
     return (
@@ -119,11 +140,14 @@ export default function NoticePopup() {
                 .popup-body {
                     max-height: 80vh;
                     overflow-y: auto;
+                    display: flex;
+                    flex-direction: column;
                 }
 
                 .popup-image-container {
                     width: 100%;
                     background: #f5f5f5;
+                    flex-shrink: 0;
                 }
 
                 .popup-image {
@@ -134,10 +158,41 @@ export default function NoticePopup() {
 
                 .popup-content {
                     padding: 30px;
-                    /* text-align: center; Removed default center */
                     word-wrap: break-word;
                     overflow-wrap: break-word;
                     word-break: break-word;
+                    white-space: normal;
+                }
+
+                /* Skeleton Loader Support */
+                .shimmer {
+                    position: relative;
+                    overflow: hidden;
+                    background: #f2f2f2;
+                }
+
+                .shimmer::after {
+                    position: absolute;
+                    top: 0; right: 0; bottom: 0; left: 0;
+                    transform: translateX(-100%);
+                    background-image: linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 0,
+                        rgba(255, 255, 255, 0.2) 20%,
+                        rgba(255, 255, 255, 0.5) 60%,
+                        rgba(255, 255, 255, 0)
+                    );
+                    animation: shimmer 2s infinite;
+                    content: '';
+                }
+
+                @keyframes shimmer { 100% { transform: translateX(100%); } }
+
+                .skeleton-line {
+                    height: 16px;
+                    margin-bottom: 15px;
+                    border-radius: 4px;
+                    width: 100%;
                 }
                 
                 /* Quill Alignment Classes */
