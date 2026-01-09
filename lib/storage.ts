@@ -2,109 +2,107 @@ import { put, del } from '@vercel/blob';
 import fs from 'fs';
 import path from 'path';
 
-/**
- * Environment-agnostic storage adapter
- * Priority: 
- * 1. Vercel Blob (if BLOB_READ_WRITE_TOKEN is set)
- * 2. Local absolute path (if LOCAL_UPLOADS_DIR is set)
- * 3. Local public/ fallback (only in development)
- */
+const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN ?? null;
 
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
-const LOCAL_DIR = process.env.LOCAL_UPLOADS_DIR;
-const PUBLIC_BASE_URL = process.env.PUBLIC_UPLOADS_BASE_URL || '';
-const IS_DEV = process.env.NODE_ENV === 'development';
+function getFileExtension(name: string) {
+  const idx = name.lastIndexOf('.');
+  return idx === -1 ? '' : name.slice(idx);
+}
+
+function randomName(originalName?: string) {
+  const ext = originalName ? getFileExtension(originalName) : '';
+  const rand = Math.random().toString(36).substring(2, 8);
+  const ts = Date.now();
+  return `${ts}-${rand}${ext}`;
+}
 
 export const storage = {
   /**
-   * Upload a file or buffer to the storage
+   * Upload a file/buffer to a folder.
+   * Returns a URL that you can store in DB and pass to <Image src="..."/>.
    */
   async upload(file: File | Buffer, folder: string, filename?: string): Promise<string> {
-    const name = filename || `${Date.now()}-${Math.random().toString(36).substring(2, 7)}${file instanceof File ? getsuffix(file.name) : ''}`;
+    const name =
+      filename ||
+      (file instanceof File ? randomName(file.name) : randomName('upload.bin'));
+
     const key = `${folder}/${name}`;
 
-    // 1. Vercel Blob
+    // 1) If Vercel Blob token exists -> use Blob
     if (BLOB_TOKEN) {
       const blob = await put(key, file, {
         access: 'public',
         token: BLOB_TOKEN,
       });
-      return blob.url;
+      return blob.url; // e.g. https://...vercel-storage.com/folder/name
     }
 
-    // 2. Local Storage (VPS) OR Dev Fallback
-    if (LOCAL_DIR || IS_DEV) {
-      const baseDir = LOCAL_DIR ? path.resolve(LOCAL_DIR) : path.join(process.cwd(), 'public', 'uploads');
-      const targetDir = path.join(baseDir, folder);
-      
-      if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
+    // 2) Local filesystem -> public/uploads/<folder>/<name>
+    const baseDir = path.join(process.cwd(), 'public', 'uploads');
+    const targetDir = path.join(baseDir, folder);
 
-      const filePath = path.join(targetDir, name);
-      const buffer = file instanceof File ? Buffer.from(await file.arrayBuffer()) : file;
-      
-      fs.writeFileSync(filePath, buffer);
+    await fs.promises.mkdir(targetDir, { recursive: true });
 
-      // Return URL
-      if (LOCAL_DIR) {
-        // Ensure PUBLIC_BASE_URL doesn't end with slash
-        const baseUrl = PUBLIC_BASE_URL.replace(/\/$/, '');
-        return `${baseUrl}/${folder}/${name}`;
-      } else {
-        // Public fallback - now includes /uploads/ prefix
-        return `/uploads/${folder}/${name}`;
-      }
-    }
+    const filePath = path.join(targetDir, name);
+    const buffer = Buffer.isBuffer(file)
+      ? file
+      : Buffer.from(await (file as File).arrayBuffer());
 
+    await fs.promises.writeFile(filePath, buffer);
 
-    throw new Error('Storage not configured. Set BLOB_READ_WRITE_TOKEN or LOCAL_UPLOADS_DIR.');
+    // URL that Next will serve statically
+    return `/uploads/${folder}/${name}`;
   },
 
   /**
-   * Delete a file from storage given its URL
+   * Delete a file, given the folder and the stored URL or blob URL.
    */
-  async delete(url: string): Promise<void> {
-    if (!url) return;
+  async delete(folder: string, urlOrKey: string | null | undefined): Promise<void> {
+    if (!urlOrKey) return;
 
-    // 1. Vercel Blob (starts with http and contains vercel-storage)
-    if (url.startsWith('http') && url.includes('public.blob.vercel-storage.com')) {
-      if (!BLOB_TOKEN) {
-        console.warn('Cannot delete from Blob: BLOB_READ_WRITE_TOKEN not set');
-        return;
+    // 1) Blob deletion
+    if (BLOB_TOKEN && urlOrKey.startsWith('http')) {
+      try {
+        await del(urlOrKey, { token: BLOB_TOKEN });
+      } catch {
+        // ignore failures, don't crash app
       }
-      await del(url, { token: BLOB_TOKEN });
       return;
     }
 
-    // 2. Local Storage
+    // 2) Local deletion (public/uploads)
+    const baseDir = path.join(process.cwd(), 'public', 'uploads');
+
+    let key = urlOrKey;
+
+    // If it's a full URL, extract pathname
     try {
-      let relativePath = '';
-      let baseDir = '';
-
-      if (url.startsWith('http') && PUBLIC_BASE_URL && url.startsWith(PUBLIC_BASE_URL)) {
-          // Absolute URL from LOCAL_DIR
-          relativePath = url.replace(PUBLIC_BASE_URL, '');
-          baseDir = LOCAL_DIR ? path.resolve(LOCAL_DIR) : '';
-      } else if (url.startsWith('/uploads/')) {
-          // Relative URL from public/uploads/
-          relativePath = url.replace('/uploads/', '');
-          baseDir = path.join(process.cwd(), 'public', 'uploads');
+      if (key.startsWith('http://') || key.startsWith('https://')) {
+        const u = new URL(key);
+        key = u.pathname;
       }
-
-      if (baseDir && relativePath) {
-          const filePath = path.join(baseDir, relativePath);
-          if (fs.existsSync(filePath)) {
-              fs.unlinkSync(filePath);
-          }
-      }
-    } catch (error) {
-      console.error('Failed to delete local file:', error);
+    } catch {
+      // ignore
     }
-  }
-};
 
-function getsuffix(filename: string): string {
-    const ext = path.extname(filename);
-    return ext || '';
-}
+    // key might be "/uploads/gallery/file.jpg" or "gallery/file.jpg"
+    key = key.replace(/^\/uploads\//, '');
+    key = key.replace(/^\/+/, '');
+
+    // Optional: make sure folder matches, but don't be too strict
+    if (!key.startsWith(`${folder}/`)) {
+      // we still try to delete, but you could early-return here if you want
+    }
+
+    const filePath = path.join(baseDir, key);
+    try {
+      await fs.promises.unlink(filePath);
+    } catch (err) {
+      const e = err as NodeJS.ErrnoException;
+      if (e.code !== 'ENOENT') {
+        // log if you want, but don't crash
+        console.error('Error deleting file:', e);
+      }
+    }
+  },
+};

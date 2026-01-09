@@ -33,26 +33,26 @@ export async function getGalleryImages(category: string): Promise<GalleryRespons
 
 export async function uploadGalleryImage(formData: FormData): Promise<SingleGalleryResponse> {
   try {
-    const file = formData.get("image") as File;
-    const category = formData.get("category") as string || "general";
+    const file = formData.get("image") as File | null;
+    const category = (formData.get("category") as string) || "general";
 
-    if (!file) {
+    if (!file || file.size === 0) {
       return { success: false, error: "No file provided" };
     }
 
     // Limit Check for home category only
-    if (category === 'home') {
+    if (category === "home") {
       const currentCount = await prisma.galleryImage.count({ where: { category } });
       if (currentCount >= 10) {
-        return { success: false, error: "Limit reached for home gallery (10)." };
+        return {
+          success: false,
+          error: "Limit reached for home gallery (10).",
+        };
       }
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
     // Upload using storage adapter
-    const imageUrl = await storage.upload(file, 'gallery');
+    const imageUrl = await storage.upload(file, "gallery");
 
     const newImage = await prisma.galleryImage.create({
       data: {
@@ -69,7 +69,10 @@ export async function uploadGalleryImage(formData: FormData): Promise<SingleGall
     return { success: true, data: newImage };
   } catch (error) {
     console.error("Failed to upload image:", error);
-    return { success: false, error: error instanceof Error ? error.message : "Failed to upload image" };
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to upload image",
+    };
   }
 }
 
@@ -85,7 +88,7 @@ export async function deleteGalleryImage(id: string): Promise<GalleryResponse> {
 
     // Attempt to delete file using storage adapter
     if (image.url) {
-      await storage.delete(image.url);
+      await storage.delete("gallery", image.url);
     }
 
     await prisma.galleryImage.delete({
@@ -99,7 +102,10 @@ export async function deleteGalleryImage(id: string): Promise<GalleryResponse> {
     return { success: true };
   } catch (error: any) {
     console.error("Failed to delete image:", error);
-    return { success: false, error: error.message || "Failed to delete image" };
+    return {
+      success: false,
+      error: error.message || "Failed to delete image",
+    };
   }
 }
 
@@ -109,7 +115,7 @@ export async function deleteBulkGalleryImages(ids: string[]): Promise<GalleryRes
       await deleteGalleryImage(id);
     }
 
-    // Bulk revalidation is handled inside deleteGalleryImage, but specific checks technically safer
+    // Revalidation is already inside deleteGalleryImage, but this is fine too
     revalidatePath("/admin/gallery");
 
     return { success: true };
