@@ -199,7 +199,7 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
                   <div className="date-picker-wrapper w-full relative">
                     <DatePicker
                       selected={field.value ? parse(field.value, "d MMM yyyy", new Date()) : null}
-                      onChange={(date) => field.onChange(date ? format(date, "d MMM yyyy") : "")}
+                      onChange={(date: Date | null) => field.onChange(date ? format(date, "d MMM yyyy") : "")}
                       dateFormat="d MMM yyyy"
                       placeholderText="Select date of birth"
                       className="w-full !h-12 !px-4 border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all duration-200 outline-none placeholder:text-slate-400 font-semibold text-slate-700"
