@@ -12,7 +12,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       {/* Legacy CSS - Scoped to Website Layout */}
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-      
+
       {/* Local CSS - Moved from Root Layout */}
       <link rel="stylesheet" type="text/css" href="/css/main.min.css" />
       <link rel="stylesheet" type="text/css" href="/css/button.min.css" />
@@ -22,7 +22,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       <Footer />
 
       <div className="mdp-float mdp-float-init mdp-float-always">
-        <div className="mdp-tooltip">Ask the AI Tutor</div>
+        <div className="mdp-tooltip">Ask AI Tutor</div>
         <a href="https://ai.edschool.pk" target="_blank" className="mdp-float-btn" title="Open AI Chatbot" aria-label="Open AI Chatbot" rel="noopener noreferrer">
           <img src="/webImages/ai-chatbot.png" alt="ai-tutor" />
         </a>
