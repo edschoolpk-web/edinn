@@ -129,6 +129,7 @@ export async function createTeacher(data: FormData) {
         });
 
         revalidatePath("/admin/teachers");
+        revalidatePath("/admin");
         revalidatePath("/about");
         revalidatePath("/teachers");
         revalidatePath("/");
@@ -235,6 +236,7 @@ export async function updateTeacher(id: string, data: FormData) {
             console.log("VERIFIED SAVED BIO LENGTH:", result[0].bio.length);
 
             revalidatePath("/admin/teachers");
+            revalidatePath("/admin");
             revalidatePath(`/admin/teachers/${id}`);
             revalidatePath("/about");
             revalidatePath("/teachers");
@@ -256,7 +258,7 @@ export async function deleteTeacher(id: string) {
         // Use a transaction to ensure all related data is cleaned up
         // We check if teacher exists first to provide a better error, but still revalidate
         const teacher = await prisma.teacher.findUnique({ where: { id } });
-        
+
         if (teacher) {
             await prisma.$transaction([
                 prisma.skill.deleteMany({ where: { teacherId: id } }),
@@ -264,9 +266,10 @@ export async function deleteTeacher(id: string) {
                 prisma.teacher.delete({ where: { id } }),
             ]);
         }
-        
+
         // Always revalidate even if not found, in case of ghost records in the cache
         revalidatePath("/admin/teachers");
+        revalidatePath("/admin");
         revalidatePath("/about");
         revalidatePath("/teachers");
         revalidatePath("/");

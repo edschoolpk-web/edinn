@@ -63,6 +63,7 @@ export async function uploadGalleryImage(formData: FormData): Promise<SingleGall
     });
 
     revalidatePath("/admin/gallery");
+    revalidatePath("/admin");
     revalidatePath("/gallery");
     revalidatePath("/"); // For home gallery
 
@@ -96,6 +97,7 @@ export async function deleteGalleryImage(id: string): Promise<GalleryResponse> {
     });
 
     revalidatePath("/admin/gallery");
+    revalidatePath("/admin");
     revalidatePath("/gallery");
     revalidatePath("/");
 

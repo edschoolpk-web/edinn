@@ -77,6 +77,7 @@ export async function updateNotice(formData: FormData) {
             });
         }
         revalidatePath("/");
+        revalidatePath("/admin");
         revalidatePath("/admin/notices");
         return { success: true };
 
