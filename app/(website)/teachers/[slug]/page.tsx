@@ -97,7 +97,7 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
 
                   <ul className="tech-detils">
                     <li>
-                      <h3>DOB</h3>
+                      <h3>Date of birth</h3>
                       <span>{teacher.dob || 'N/A'}</span>
                     </li>
                     <li>

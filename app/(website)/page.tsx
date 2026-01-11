@@ -36,8 +36,8 @@ export default function Home() {
 
               <div className="col-lg-5 col-md-5">
                 <div className="banner-img wow zoomIn" data-wow-duration="1000ms">
-                  <Image 
-                    src="/webImages/banner-img.png" 
+                  <Image
+                    src="/webImages/banner-img2.png"
                     alt="Students learning at Engineers & Doctors School"
                     width={500}
                     height={375} // Aspect ratio estimation
@@ -143,13 +143,12 @@ export default function Home() {
       <section className="classes-section">
         <div className="container">
           <div className="sec-title">
-            <h2>Events & Student Activities</h2>
+            <h2>Academic Programs & Activities</h2>
             <p>
-              At Engineers & Doctors School, students take part in engaging
-              event projects, sports
-              activities, art and cultural programs, and STEM-based competitions
-              that build confidence,
-              teamwork, and real-world skills beyond the classroom.
+              At Engineers & Doctors School, we provide a robust academic framework
+              that combines rigorous classroom instruction with practical
+              application, empowering students to master core subjects and develop
+              the analytical skills required for future professional success.
             </p>
           </div>
           {/* sec-title end */}
@@ -350,7 +349,7 @@ export default function Home() {
 
             <div className="lnk-dv text-center">
               <Link href="/academics" title="View all events and activities" className="btn-default">
-                View All Events & Activities <i className="fa fa-long-arrow-alt-right"></i>
+                View All Academics & Activities <i className="fa fa-long-arrow-alt-right"></i>
               </Link>
             </div>
           </div>
@@ -382,7 +381,7 @@ export default function Home() {
                 </div>
                 {/* sec-title end */}
                 <div className="course-img">
-                  <Image src="/webImages/course-img.png" alt="Students at Engineers & Doctors School" width={500} height={300} style={{ width: '100%'}} />
+                  <Image src="/webImages/course-img.png" alt="Students at Engineers & Doctors School" width={500} height={300} style={{ width: '100%' }} />
                 </div>
                 {/* course-img end */}
               </div>
@@ -448,8 +447,8 @@ export default function Home() {
                       </Link>
                     </div>
                     <span className="locat">
-                      <i className="fa-solid fa-location-dot"></i>Digital, STEM &
-                      Language Labs
+                      <i className="fa-solid fa-location-dot"></i>Islam Nagar Campus,
+                      Karachi
                     </span>
                   </div>
                 </div>
@@ -479,8 +478,8 @@ export default function Home() {
                       </Link>
                     </div>
                     <span className="locat">
-                      <i className="fa-solid fa-location-dot"></i>Visit Campus for Test
-                      & Registration
+                      <i className="fa-solid fa-location-dot"></i>Islam Nagar Campus,
+                      Karachi
                     </span>
                   </div>
                 </div>

@@ -20066,6 +20066,8 @@ a.crt-btn i {
   line-height: 24px;
   font-weight: 600;
   margin-bottom: 13px;
+  height: 48px;
+  overflow: hidden;
 }
 
 .classes-section .classes-col .class-info>span {
@@ -20767,6 +20769,7 @@ footer .bottom-footer .social-links {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: none;
 }
 
 .about-page-content {
@@ -22751,9 +22754,9 @@ footer .bottom-footer .social-links {
 }
 
 .teacher-single-page .teacher-content>h3 {
-  color: #63f101;
+  color: #164793;
   font-size: 24px;
-  font-style: italic;
+  font-weight: bold;
   margin-bottom: 0;
 }
 
@@ -22805,9 +22808,9 @@ footer .bottom-footer .social-links {
 .teacher-single-page .teacher-content .tech-detils {
   max-width: 460px;
   background-color: #fff;
-  border: 1px solid #e9723a;
+  border: 1px solid #08fbff;
   border-radius: 20px;
-  padding: 40px;
+  padding: 20px;
   margin-bottom: 25px;
   background-repeat: no-repeat;
   background-position: 4px 0;
@@ -22853,7 +22856,6 @@ footer .bottom-footer .social-links {
   display: inline-block;
   color: #575757;
   font-size: 14px;
-  font-style: italic;
   width: 145px;
 }
 
@@ -22861,7 +22863,6 @@ footer .bottom-footer .social-links {
   display: inline-block;
   color: #155799;
   font-size: 14px;
-  font-style: italic;
   font-weight: 700;
 }
 
