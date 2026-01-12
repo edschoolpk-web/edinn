@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "About Engineers & Doctors School | Vision, Mission & Values",
   description: "Discover Engineers & Doctors School in Karachi—our vision, mission, teaching approach, and commitment to academic excellence and student development.",
   alternates: {
-      canonical: "https://edschool.pk/about"
+    canonical: "https://edschool.pk/about"
   }
 };
 
@@ -37,6 +37,35 @@ export default async function About() {
         </div>
       </section>
       {/* pager-section end */}
+
+      <section className="principal-message-section ">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="avt-img">
+                <Image src="/webImages/gallery_edmin/gallery34.jpg" alt="Principal" width={500} height={500} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} className="mb-4 lg:mb-0" />
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="section-title">
+                <h2>Principal's <span>Message</span></h2>
+                <ul className="mb-4">
+                  <li><strong className="text-xl">Ms. Salma Khan</strong></li>
+                </ul>
+                <p>
+                  "Welcome to Engineers & Doctors School. We believe in nurturing not just students, but future leaders.
+                  Our curriculum is designed to challenge and inspire, fostering a love for learning that lasts a lifetime.
+                  We are committed to providing a safe, inclusive, and innovative environment where every child can thrive."
+                </p>
+                <p className="mt-4">
+                  Together with our dedicated staff and supportive community, we aim to build strong character and
+                  academic excellence in every student.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="about-page-content">
         <div className="container">
@@ -183,9 +212,9 @@ export default async function About() {
           </div>
 
           <div className="lnk-dv text-center mt-5">
-             <Link href="/teachers" title="View More Teachers" className="btn-default">
-               View More Teachers <i className="fa fa-long-arrow-alt-right"></i>
-             </Link>
+            <Link href="/teachers" title="View More Teachers" className="btn-default">
+              View More Teachers <i className="fa fa-long-arrow-alt-right"></i>
+            </Link>
           </div>
         </div>
       </section>
@@ -205,7 +234,7 @@ export default async function About() {
 
           <div className="classes-sec">
             <div className="row classes-carousel">
-               {/* Card 1 */}
+              {/* Card 1 */}
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms">
                   <div className="class-thumb">
@@ -226,7 +255,7 @@ export default async function About() {
                 {/* classes-col end */}
               </div>
 
-               {/* Card 2 */}
+              {/* Card 2 */}
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">
                   <div className="class-thumb">
@@ -247,19 +276,19 @@ export default async function About() {
                 {/* classes-col end */}
               </div>
 
-               {/* Card 3 */}
-               <div className="col-lg-12">
+              {/* Card 3 */}
+              <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
                   <div className="class-thumb">
                     <Image src="/webImages/img3.jpg" alt="Sports Day" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                     <Link href="/academics" title="Sports Day & Outdoor Games" className="crt-btn">
+                    <Link href="/academics" title="Sports Day & Outdoor Games" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
                       <Link href="/academics" title="Sports Day & Outdoor Games">
-                       Sports Day &amp; Outdoor Games
+                        Sports Day &amp; Outdoor Games
                       </Link>
                     </h3>
                     <p>Sports activities build fitness, discipline, teamwork and resilience.</p>
@@ -267,19 +296,19 @@ export default async function About() {
                 </div>
               </div>
 
-               {/* Card 4 */}
-               <div className="col-lg-12">
+              {/* Card 4 */}
+              <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
                   <div className="class-thumb">
                     <Image src="/webImages/img4.jpg" alt="Clubs & Trips" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                     <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
+                    <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
                       <Link href="/academics" title="Clubs, Trips & Co-Curriculars">
-                       Clubs, Trips &amp; Co-Curriculars
+                        Clubs, Trips &amp; Co-Curriculars
                       </Link>
                     </h3>
                     <p>Clubs and trips explore interests, friendships and experiences.</p>
