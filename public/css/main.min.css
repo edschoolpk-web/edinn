@@ -21947,7 +21947,7 @@ footer .bottom-footer .social-links {
 .menu-btn {
   text-align: center;
   position: relative;
-  z-index: 9999999;
+  z-index: 999;
   cursor: pointer;
   margin-left: auto;
   width: 50px;
