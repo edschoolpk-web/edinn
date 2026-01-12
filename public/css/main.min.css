@@ -22019,7 +22019,9 @@ footer .bottom-footer .social-links {
 .responsive-menu ul li:last-child {
   margin-bottom: 0;
 }
-
+.principal-message-section {
+    padding: 138px 0 0;
+}
 .responsive-menu ul li a {
   color: #fff;
   font-size: 20px;
@@ -23042,7 +23044,7 @@ footer .bottom-footer .social-links {
     margin-bottom: 25px;
   }
 
-  .about-page-content {
+  .about-page-content, .principal-message-section {
     padding: 90px 0 0;
   }
 

@@ -39,7 +39,34 @@ export default async function About() {
       {/* pager-section end */}
 
 
-
+      <section className="principal-message-section ">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="avt-img">
+                <Image src="/webImages/gallery_edmin/gallery34.jpg" alt="Principal" width={500} height={500} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} className="mb-4 lg:mb-0" />
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="section-title">
+                <h2>Principal's <span>Message</span></h2>
+                <ul className="mb-4">
+                  <li><strong className="text-xl">Ms. Salma Khan</strong></li>
+                </ul>
+                <p>
+                  "Welcome to Engineers & Doctors School. We believe in nurturing not just students, but future leaders.
+                  Our curriculum is designed to challenge and inspire, fostering a love for learning that lasts a lifetime.
+                  We are committed to providing a safe, inclusive, and innovative environment where every child can thrive."
+                </p>
+                <p className="mt-4">
+                  Together with our dedicated staff and supportive community, we aim to build strong character and
+                  academic excellence in every student.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="about-page-content">
         <div className="container">
           <div className="abt-page-row">
