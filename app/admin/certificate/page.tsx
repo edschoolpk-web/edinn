@@ -11,8 +11,9 @@ export default async function CertificateAdminPage() {
     const serializedCertificates = recentCertificates.map(cert => ({
         id: cert.id,
         studentName: cert.studentName,
-        designation: cert.designation,
-        universityName: cert.universityName,
+        type: cert.type || 'CHARACTER',
+        commendation1: cert.commendation1 || '',
+        commendation2: cert.commendation2 || '',
         verifyCode: cert.verifyCode,
         status: cert.status,
         pdfPath: cert.pdfPath,

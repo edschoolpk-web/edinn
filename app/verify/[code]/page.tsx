@@ -53,18 +53,20 @@ export default async function VerifyPage({ params }: VerifyPageProps) {
                     {certificate && (
                         <div className="text-left bg-gray-50 rounded-lg p-6 border border-gray-100 space-y-4">
                             <div>
+                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Certificate Type</label>
+                                <p className="text-lg font-bold text-[#4318FF]">{certificate.type.replace(/_/g, ' ')}</p>
+                            </div>
+
+                            <div>
                                 <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Student Name</label>
                                 <p className="text-lg font-medium text-gray-900">{certificate.studentName}</p>
                             </div>
 
                             <div>
-                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Designation</label>
-                                <p className="text-lg font-medium text-gray-900">{certificate.designation}</p>
-                            </div>
-
-                            <div>
-                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">University</label>
-                                <p className="text-base text-gray-700">{certificate.universityName}</p>
+                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Commendation</label>
+                                <p className="text-base text-gray-700">
+                                    {certificate.commendation1} {certificate.commendation2}
+                                </p>
                             </div>
 
                             <div>
@@ -74,7 +76,7 @@ export default async function VerifyPage({ params }: VerifyPageProps) {
 
                             <div>
                                 <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Issued On</label>
-                                <p className="text-sm text-gray-600">{new Date(certificate.createdAt).toLocaleDateString()}</p>
+                                <p className="text-sm text-gray-600">{new Date(certificate.createdAt).toLocaleDateString('en-GB')}</p>
                             </div>
                         </div>
                     )}

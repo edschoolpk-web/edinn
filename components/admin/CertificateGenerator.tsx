@@ -10,15 +10,18 @@ export default function CertificateGenerator() {
     const router = useRouter();
     const [formData, setFormData] = useState({
         studentName: '',
-        universityName: ''
+        type: 'CHARACTER',
+        commendation1: '',
+        commendation2: ''
     });
     const [loading, setLoading] = useState(false);
     const [generatedPdf, setGeneratedPdf] = useState<string | null>(null);
 
     const isFormValid = formData.studentName.trim() !== '' &&
-        formData.universityName.trim() !== '';
+        formData.commendation1.trim() !== '' &&
+        formData.commendation2.trim() !== '';
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -33,7 +36,9 @@ export default function CertificateGenerator() {
 
         const data = new FormData();
         data.append('studentName', formData.studentName);
-        data.append('universityName', formData.universityName);
+        data.append('type', formData.type);
+        data.append('commendation1', formData.commendation1);
+        data.append('commendation2', formData.commendation2);
 
         const result = await generateCertificateAction(data);
 
@@ -47,6 +52,14 @@ export default function CertificateGenerator() {
         setLoading(false);
     };
 
+    const certificateTypes = [
+        { value: 'CHARACTER', label: 'Character Certificate' },
+        { value: 'PROVISIONAL', label: 'Provisional Certificate' },
+        { value: 'LEAVING', label: 'School Leaving Certificate' },
+        { value: 'APPRECIATION', label: 'Certificate of Appreciation' },
+        { value: 'EXPERIENCE', label: 'Teachers Experience Certificate' },
+    ];
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Left Panel: Inputs */}
@@ -54,6 +67,20 @@ export default function CertificateGenerator() {
                 <h2 className="text-xl font-bold mb-4 text-[#2B3674]">Certificate Details</h2>
 
                 <div className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Certificate Type</label>
+                        <select
+                            name="type"
+                            value={formData.type}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-[#E0E5F2] rounded-xl text-[#1B2559] focus:border-[#4318FF] focus:ring-1 focus:ring-[#4318FF] outline-none transition font-medium bg-white"
+                        >
+                            {certificateTypes.map(type => (
+                                <option key={type.value} value={type.value}>{type.label}</option>
+                            ))}
+                        </select>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-bold text-[#2B3674] mb-2">Student Name</label>
                         <input
@@ -67,14 +94,26 @@ export default function CertificateGenerator() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold text-[#2B3674] mb-2">In recognition of...</label>
+                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Commendation Text – Line 1</label>
                         <input
                             type="text"
-                            name="universityName"
-                            value={formData.universityName}
+                            name="commendation1"
+                            value={formData.commendation1}
                             onChange={handleChange}
                             className="w-full px-4 py-3 border border-[#E0E5F2] rounded-xl text-[#1B2559] placeholder-[#A3AED0] focus:border-[#4318FF] focus:ring-1 focus:ring-[#4318FF] outline-none transition font-medium"
-                            placeholder="In recognition of..."
+                            placeholder="e.g. For outstanding performance"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Commendation Text – Line 2</label>
+                        <input
+                            type="text"
+                            name="commendation2"
+                            value={formData.commendation2}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-[#E0E5F2] rounded-xl text-[#1B2559] placeholder-[#A3AED0] focus:border-[#4318FF] focus:ring-1 focus:ring-[#4318FF] outline-none transition font-medium"
+                            placeholder="e.g. and achieving clinical excellence"
                         />
                     </div>
 
@@ -112,12 +151,13 @@ export default function CertificateGenerator() {
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">
                 <div className="w-full flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-gray-700">Live Preview</h2>
-                    {/* <span className="text-xs text-gray-400"></span> */}
                 </div>
 
                 <CertificatePreview
                     studentName={formData.studentName}
-                    universityName={formData.universityName}
+                    type={formData.type}
+                    commendation1={formData.commendation1}
+                    commendation2={formData.commendation2}
                 />
             </div>
         </div>
