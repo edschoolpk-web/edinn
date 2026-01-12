@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { storage } from '@/lib/storage';
 import crypto from 'crypto';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 const generateSchema = z.object({
     studentName: z.string().min(1, 'Recipient Name is required'),
@@ -33,10 +34,12 @@ export async function generateCertificateAction(formData: FormData) {
     // Generate Verify Code
     const verifyCode = crypto.randomBytes(16).toString('hex'); // 32 chars
 
-    // Base URL
-    let baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.BASE_URL || 'http://localhost:3000';
+    // Dynamic Base URL detection
+    const host = (await headers()).get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    let baseUrl = host ? `${protocol}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'https://edschool.pk');
 
-    // Ensure protocol exists because QR scanners need it to recognize a link
+    // Ensure protocol exists
     if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
         baseUrl = `https://${baseUrl}`;
     }
