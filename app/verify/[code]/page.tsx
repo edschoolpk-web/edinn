@@ -2,6 +2,13 @@ import React from 'react';
 import { getCertificateByCode } from '@/app/actions/certificate';
 import { notFound } from 'next/navigation';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Certificate Verification | Engineers & Doctors School',
+    description: 'Verify the authenticity of certificates issued by Engineers & Doctors School.',
+};
+
 interface VerifyPageProps {
     params: Promise<{
         code: string;
@@ -54,18 +61,18 @@ export default async function VerifyPage({ params }: VerifyPageProps) {
                         <div className="text-left bg-gray-50 rounded-lg p-6 border border-gray-100 space-y-4">
                             <div>
                                 <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Certificate Type</label>
-                                <p className="text-lg font-bold text-[#4318FF]">{certificate.type.replace(/_/g, ' ')}</p>
+                                <p className="text-lg font-bold text-[#4318FF]">{(certificate as any).type?.replace(/_/g, ' ') || 'CERTIFICATE'}</p>
                             </div>
 
                             <div>
-                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Student Name</label>
+                                <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Recipient Name</label>
                                 <p className="text-lg font-medium text-gray-900">{certificate.studentName}</p>
                             </div>
 
                             <div>
                                 <label className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Commendation</label>
                                 <p className="text-base text-gray-700">
-                                    {certificate.commendation1} {certificate.commendation2}
+                                    {(certificate as any).commendation1} {(certificate as any).commendation2}
                                 </p>
                             </div>
 

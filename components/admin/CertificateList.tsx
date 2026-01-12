@@ -98,7 +98,7 @@ export default function CertificateList({ initialCertificates }: CertificateList
                 <table className="min-w-full divide-y divide-[#E0E5F2]">
                     <thead>
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-bold text-[#A3AED0] uppercase tracking-wider">Student</th>
+                            <th className="px-6 py-3 text-left text-xs font-bold text-[#A3AED0] uppercase tracking-wider">Recipient</th>
                             <th className="px-6 py-3 text-left text-xs font-bold text-[#A3AED0] uppercase tracking-wider">Type</th>
                             <th className="px-6 py-3 text-left text-xs font-bold text-[#A3AED0] uppercase tracking-wider">Status</th>
                             <th className="px-6 py-3 text-left text-xs font-bold text-[#A3AED0] uppercase tracking-wider">Date</th>

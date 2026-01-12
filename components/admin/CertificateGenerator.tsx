@@ -82,7 +82,7 @@ export default function CertificateGenerator() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Student Name</label>
+                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Recipient Name</label>
                         <input
                             type="text"
                             name="studentName"

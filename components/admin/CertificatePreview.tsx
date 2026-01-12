@@ -84,7 +84,7 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
                         transform: 'translateY(-100%)',
                     }}
                 >
-                    {studentName || 'Student Name'}
+                    {studentName || 'Recipient Name'}
                 </div>
 
                 {/* Commendation Line 1 */}

@@ -8,7 +8,7 @@ import crypto from 'crypto';
 import { revalidatePath } from 'next/cache';
 
 const generateSchema = z.object({
-    studentName: z.string().min(1, 'Student Name is required'),
+    studentName: z.string().min(1, 'Recipient Name is required'),
     type: z.string().min(1, 'Certificate Type is required'),
     commendation1: z.string().min(1, 'Commendation Line 1 is required'),
     commendation2: z.string().min(1, 'Commendation Line 2 is required'),
