@@ -49,7 +49,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class1.jpg" alt="Montessori" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/7.jpg" alt="Montessori" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -70,7 +70,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class2.jpg" alt="Primary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/8.jpg" alt="Primary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -91,7 +91,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                       <Image src="/webImages/class3.jpg" alt="Secondary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                       <Image src="/webImages/academics/2.jpg" alt="Secondary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -112,7 +112,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class4.jpg" alt="STEM" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/9.jpg" alt="STEM" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -154,7 +154,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class6.jpg" alt="Computer" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/6.jpg" alt="Computer" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -175,7 +175,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class7.jpg" alt="Art" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/5.jpg" alt="Art" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -196,7 +196,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                    <div className="classes-col">
                     <div className="class-thumb">
-                      <Image src="/webImages/class8.jpg" alt="Co-Curricular" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/1.jpg" alt="Co-Curricular" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">

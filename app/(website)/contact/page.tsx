@@ -150,7 +150,7 @@ export default function Contact() {
                         <div className="dd-cont">
                           <h4>Call</h4>
                           <span>
-                            <a href="tel:+923032660229">+92 303 2660229</a>
+                            <a href="tel:+923112197685">+92 311 2197685</a>
                           </span>
                         </div>
                       </div>

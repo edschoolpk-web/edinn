@@ -375,7 +375,7 @@ export default function Home() {
                   </p>
                   <h3>
                     <i className="fa-solid fa-phone"></i>Call / WhatsApp:
-                    <strong><a href="tel:+923032660229">+92 303 2660229</a></strong>
+                    <strong><a href="tel:+923112197685">+92 311 2197685</a></strong>
                   </h3>
                 </div>
                 {/* sec-title end */}
