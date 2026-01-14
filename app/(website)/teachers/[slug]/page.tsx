@@ -165,8 +165,8 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
                 </div>
               </div>
               <div className="col-lg-6">
-                <Link href="/career" title="Career Opportunities" className="btn-default">
-                  Career Opportunities <i className="fa fa-long-arrow-alt-right"></i>
+                <Link href="/contact" title="Book an Appointment" className="btn-default">
+                  Book an Appointment <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
               </div>
             </div>

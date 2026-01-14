@@ -7,10 +7,11 @@ import { getTeachers } from "@/app/actions/teacher";
 
 export const metadata: Metadata = {
   title: "About Engineers & Doctors School | Vision, Mission & Values",
-  description: "Discover Engineers & Doctors School in Karachi—our vision, mission, teaching approach, and commitment to academic excellence and student development.",
+  description:
+    "Discover Engineers & Doctors School in Karachi—our vision, mission, teaching approach, and commitment to academic excellence and student development.",
   alternates: {
-    canonical: "https://edschool.pk/about"
-  }
+    canonical: "https://edschool.pk/about",
+  },
 };
 
 export default async function About() {
@@ -38,29 +39,53 @@ export default async function About() {
       </section>
       {/* pager-section end */}
 
-
       <section className="principal-message-section ">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="avt-img">
-                <Image src="/webImages/gallery_edmin/gallery34.jpg" alt="Principal" width={500} height={500} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} className="mb-4 lg:mb-0" />
+                <Image
+                  src="/webImages/principle/principal-image.png"
+                  alt="Principal"
+                  width={500}
+                  height={500}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "10px",
+                  }}
+                  className="mb-4 lg:mb-0"
+                />
               </div>
             </div>
             <div className="col-lg-6">
               <div className="section-title">
-                <h2>Principal's <span>Message</span></h2>
+                <h2>
+                  Principal's <span>Message</span>
+                </h2>
                 <ul className="mb-4">
-                  <li><strong className="text-xl">Mr. Sadquain Salahuddin</strong></li>
+                  <li>
+                    <strong className="text-xl">Mr. Sadquain Salahuddin</strong>
+                  </li>
                 </ul>
                 <p>
-                  "Welcome to Engineers & Doctors School. We believe in nurturing not just students, but future leaders.
-                  Our curriculum is designed to challenge and inspire, fostering a love for learning that lasts a lifetime.
-                  We are committed to providing a safe, inclusive, and innovative environment where every child can thrive."
+                  "Welcome to Engineers & Doctors School! Founded on October
+                  1st, 2020, our institution is proudly registered with the
+                  Board of Secondary Education Karachi. At E&D, we emphasize a
+                  holistic approach to education, focusing on STEM learning,
+                  robotics, and multi-language proficiency. We are dedicated to
+                  nurturing digital literacy and providing a wide range of
+                  extracurricular activities to ensure well-rounded
+                  development."
                 </p>
                 <p className="mt-4">
-                  Together with our dedicated staff and supportive community, we aim to build strong character and
-                  academic excellence in every student.
+                  I am Muhammad Sadquain Salahuddin, the founder and principal
+                  of this institution. I hold a Bachelor of Engineering from NED
+                  University of Engineering and Technology (Class of 2010), and
+                  I have been actively involved in the education sector since
+                  2012. We are committed to fostering a nurturing and innovative
+                  environment for our students, preparing them for a successful
+                  future.
                 </p>
               </div>
             </div>
@@ -74,15 +99,22 @@ export default async function About() {
               <div className="col-lg-6 col-md-6">
                 <div className="section-title">
                   <h2>
-                    Welcome to<br />
+                    Welcome to
+                    <br />
                     <span>Engineers &amp; Doctors</span> School
                   </h2>
                   <p className="mw-100">
-                    Engineers &amp; Doctors School is a future-focused learning environment where students grow through
-                    STEM-based education, robotics and technology integration, strong language development, arts and
-                    creativity, and digital literacy — all within a caring and supportive culture.
+                    Engineers &amp; Doctors School is a future-focused learning
+                    environment where students grow through STEM-based
+                    education, robotics and technology integration, strong
+                    language development, arts and creativity, and digital
+                    literacy — all within a caring and supportive culture.
                   </p>
-                  <Link href="/admission" title="Admissions" className="btn-default">
+                  <Link
+                    href="/admission"
+                    title="Admissions"
+                    className="btn-default"
+                  >
                     Admissions <i className="fa fa-long-arrow-alt-right"></i>
                   </Link>
                 </div>
@@ -90,7 +122,13 @@ export default async function About() {
               </div>
               <div className="col-lg-6 col-md-6">
                 <div className="avt-img">
-                  <Image src="/webImages/abt1.png" alt="About Image 1" width={500} height={400} style={{ width: '100%', height: 'auto' }} />
+                  <Image
+                    src="/webImages/abt1.png"
+                    alt="About Image 1"
+                    width={500}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
                 </div>
                 {/* avt-img end */}
               </div>
@@ -99,7 +137,13 @@ export default async function About() {
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-6">
                 <div className="avt-img">
-                  <Image src="/webImages/abt2.png" alt="About Image 2" width={500} height={400} style={{ width: '100%', height: 'auto' }} />
+                  <Image
+                    src="/webImages/abt2.png"
+                    alt="About Image 2"
+                    width={500}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
                 </div>
                 {/* avt-img end */}
               </div>
@@ -108,13 +152,18 @@ export default async function About() {
                   <span>ABOUT US</span>
                   <h2>Our Mission</h2>
                   <p>
-                    Our mission is to provide quality education that develops confident learners, strong character,
-                    and real-world skills through modern teaching methods and a nurturing environment.
+                    Our mission is to provide quality education that develops
+                    confident learners, strong character, and real-world skills
+                    through modern teaching methods and a nurturing environment.
                   </p>
                   <ul>
                     <li>Build critical thinking through STEM-based learning</li>
-                    <li>Encourage creativity with arts, craft, and activities</li>
-                    <li>Support every child with care, discipline, and guidance</li>
+                    <li>
+                      Encourage creativity with arts, craft, and activities
+                    </li>
+                    <li>
+                      Support every child with care, discipline, and guidance
+                    </li>
                   </ul>
                 </div>
                 {/* act-inffo end */}
@@ -133,11 +182,17 @@ export default async function About() {
               <div className="section-title">
                 <h2>Why Choose Us</h2>
                 <p>
-                  Engineers &amp; Doctors School provides a balanced, future-focused education where students learn
-                  through modern teaching methods, strong academic foundations, and a caring environment that supports
-                  every child’s growth in and beyond the classroom.
+                  Engineers &amp; Doctors School provides a balanced,
+                  future-focused education where students learn through modern
+                  teaching methods, strong academic foundations, and a caring
+                  environment that supports every child’s growth in and beyond
+                  the classroom.
                 </p>
-                <Link href="/contact" title="Contact Engineers & Doctors School" className="btn-default">
+                <Link
+                  href="/contact"
+                  title="Contact Engineers & Doctors School"
+                  className="btn-default"
+                >
                   Contact Us <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
               </div>
@@ -150,36 +205,67 @@ export default async function About() {
                   <div className="row">
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <Image src="/webImages/icon5.png" alt="Qualified Teachers" width={64} height={64} />
+                        <Image
+                          src="/webImages/icon5.png"
+                          alt="Qualified Teachers"
+                          width={64}
+                          height={64}
+                        />
                         <h3>Qualified Teachers</h3>
-                        <p>Experienced and caring teachers who guide every student.</p>
+                        <p>
+                          Experienced and caring teachers who guide every
+                          student.
+                        </p>
                       </div>
                       {/* abt-col end */}
                     </div>
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <Image src="/webImages/icon7.png" alt="STEM-Based Learning" width={64} height={64} />
+                        <Image
+                          src="/webImages/icon7.png"
+                          alt="STEM-Based Learning"
+                          width={64}
+                          height={64}
+                        />
                         <h3>STEM-Based Learning</h3>
-                        <p>Hands-on STEM activities that strengthen critical thinking skills.</p>
+                        <p>
+                          Hands-on STEM activities that strengthen critical
+                          thinking skills.
+                        </p>
                       </div>
                       {/* abt-col end */}
                     </div>
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <Image src="/webImages/icon9.png" alt="Student Support" width={64} height={64} />
+                        <Image
+                          src="/webImages/icon9.png"
+                          alt="Student Support"
+                          width={64}
+                          height={64}
+                        />
                         <h3>Student Support</h3>
-                        <p>A safe, supportive environment focused on every child.</p>
+                        <p>
+                          A safe, supportive environment focused on every child.
+                        </p>
                       </div>
                       {/* abt-col end */}
                     </div>
 
                     <div className="col-lg-6 col-md-6 col-sm-6">
                       <div className="abt-col">
-                        <Image src="/webImages/icon8.png" alt="Robotics & Technology" width={64} height={64} />
+                        <Image
+                          src="/webImages/icon8.png"
+                          alt="Robotics & Technology"
+                          width={64}
+                          height={64}
+                        />
                         <h3>Robotics &amp; Technology</h3>
-                        <p>Technology integration that prepares students for the future.</p>
+                        <p>
+                          Technology integration that prepares students for the
+                          future.
+                        </p>
                       </div>
                       {/* abt-col end */}
                     </div>
@@ -196,10 +282,15 @@ export default async function About() {
       <section className="teachers-section">
         <div className="container">
           <div className="section-title text-center">
-            <h2>Meet Our<br />Teachers</h2>
+            <h2>
+              Meet Our
+              <br />
+              Teachers
+            </h2>
             <p>
-              Our teaching team combines strong subject expertise with care and guidance,
-              helping students learn confidently through modern, student-centered methods.
+              Our teaching team combines strong subject expertise with care and
+              guidance, helping students learn confidently through modern,
+              student-centered methods.
             </p>
           </div>
 
@@ -207,12 +298,18 @@ export default async function About() {
             {success && teachersList ? (
               <TeachersSlider teachers={teachersList} />
             ) : (
-              <p className="text-center text-red-500">Failed to load teachers.</p>
+              <p className="text-center text-red-500">
+                Failed to load teachers.
+              </p>
             )}
           </div>
 
           <div className="lnk-dv text-center mt-5">
-            <Link href="/teachers" title="View More Teachers" className="btn-default">
+            <Link
+              href="/teachers"
+              title="View More Teachers"
+              className="btn-default"
+            >
               View More Teachers <i className="fa fa-long-arrow-alt-right"></i>
             </Link>
           </div>
@@ -225,9 +322,10 @@ export default async function About() {
           <div className="sec-title">
             <h2>Events &amp; Student Activities</h2>
             <p>
-              At Engineers &amp; Doctors School, students take part in engaging event projects, sports
-              activities, art and cultural programs, and STEM-based competitions that build confidence,
-              teamwork, and real-world skills beyond the classroom.
+              At Engineers &amp; Doctors School, students take part in engaging
+              event projects, sports activities, art and cultural programs, and
+              STEM-based competitions that build confidence, teamwork, and
+              real-world skills beyond the classroom.
             </p>
           </div>
           {/* sec-title end */}
@@ -236,20 +334,39 @@ export default async function About() {
             <div className="row classes-carousel">
               {/* Card 1 */}
               <div className="col-lg-12">
-                <div className="classes-col wow fadeInUp" data-wow-duration="1000ms">
+                <div
+                  className="classes-col wow fadeInUp"
+                  data-wow-duration="1000ms"
+                >
                   <div className="class-thumb">
-                    <Image src="/webImages/img1.jpg" alt="Robotics Fair" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                    <Link href="/academics" title="Robotics Fair & Science Projects" className="crt-btn">
+                    <Image
+                      src="/webImages/img1.jpg"
+                      alt="Robotics Fair"
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="w-100 h-auto"
+                    />
+                    <Link
+                      href="/academics"
+                      title="Robotics Fair & Science Projects"
+                      className="crt-btn"
+                    >
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
-                      <Link href="/academics" title="Robotics Fair & Science Projects">
+                      <Link
+                        href="/academics"
+                        title="Robotics Fair & Science Projects"
+                      >
                         Robotics Fair &amp; Science Projects
                       </Link>
                     </h3>
-                    <p>Robotics projects spark curiosity and love for science.</p>
+                    <p>
+                      Robotics projects spark curiosity and love for science.
+                    </p>
                   </div>
                 </div>
                 {/* classes-col end */}
@@ -257,20 +374,41 @@ export default async function About() {
 
               {/* Card 2 */}
               <div className="col-lg-12">
-                <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">
+                <div
+                  className="classes-col wow fadeInUp"
+                  data-wow-duration="1000ms"
+                  data-wow-delay="200ms"
+                >
                   <div className="class-thumb">
-                    <Image src="/webImages/img2.jpg" alt="Art Exhibitions" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                    <Link href="/academics" title="Art Exhibitions & Cultural Festivals" className="crt-btn">
+                    <Image
+                      src="/webImages/img2.jpg"
+                      alt="Art Exhibitions"
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="w-100 h-auto"
+                    />
+                    <Link
+                      href="/academics"
+                      title="Art Exhibitions & Cultural Festivals"
+                      className="crt-btn"
+                    >
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
-                      <Link href="/academics" title="Art Exhibitions & Cultural Festivals">
+                      <Link
+                        href="/academics"
+                        title="Art Exhibitions & Cultural Festivals"
+                      >
                         Art Exhibitions &amp; Cultural Festivals
                       </Link>
                     </h3>
-                    <p>Art events grow confidence, celebrate culture and creativity.</p>
+                    <p>
+                      Art events grow confidence, celebrate culture and
+                      creativity.
+                    </p>
                   </div>
                 </div>
                 {/* classes-col end */}
@@ -278,48 +416,95 @@ export default async function About() {
 
               {/* Card 3 */}
               <div className="col-lg-12">
-                <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
+                <div
+                  className="classes-col wow fadeInUp"
+                  data-wow-duration="1000ms"
+                  data-wow-delay="400ms"
+                >
                   <div className="class-thumb">
-                    <Image src="/webImages/img3.jpg" alt="Sports Day" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                    <Link href="/academics" title="Sports Day & Outdoor Games" className="crt-btn">
+                    <Image
+                      src="/webImages/img3.jpg"
+                      alt="Sports Day"
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="w-100 h-auto"
+                    />
+                    <Link
+                      href="/academics"
+                      title="Sports Day & Outdoor Games"
+                      className="crt-btn"
+                    >
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
-                      <Link href="/academics" title="Sports Day & Outdoor Games">
+                      <Link
+                        href="/academics"
+                        title="Sports Day & Outdoor Games"
+                      >
                         Sports Day &amp; Outdoor Games
                       </Link>
                     </h3>
-                    <p>Sports activities build fitness, discipline, teamwork and resilience.</p>
+                    <p>
+                      Sports activities build fitness, discipline, teamwork and
+                      resilience.
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Card 4 */}
               <div className="col-lg-12">
-                <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
+                <div
+                  className="classes-col wow fadeInUp"
+                  data-wow-duration="1000ms"
+                  data-wow-delay="600ms"
+                >
                   <div className="class-thumb">
-                    <Image src="/webImages/img4.jpg" alt="Clubs & Trips" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
-                    <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
+                    <Image
+                      src="/webImages/img4.jpg"
+                      alt="Clubs & Trips"
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="w-100 h-auto"
+                    />
+                    <Link
+                      href="/academics"
+                      title="Clubs, Trips & Co-Curriculars"
+                      className="crt-btn"
+                    >
                       <i className="fa fa-arrow-right"></i>
                     </Link>
                   </div>
                   <div className="class-info">
                     <h3>
-                      <Link href="/academics" title="Clubs, Trips & Co-Curriculars">
+                      <Link
+                        href="/academics"
+                        title="Clubs, Trips & Co-Curriculars"
+                      >
                         Clubs, Trips &amp; Co-Curriculars
                       </Link>
                     </h3>
-                    <p>Clubs and trips explore interests, friendships and experiences.</p>
+                    <p>
+                      Clubs and trips explore interests, friendships and
+                      experiences.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="lnk-dv text-center">
-              <Link href="/academics" title="View all events and activities" className="btn-default">
-                View All Events &amp; Activities <i className="fa fa-long-arrow-alt-right"></i>
+              <Link
+                href="/academics"
+                title="View all events and activities"
+                className="btn-default"
+              >
+                View All Events &amp; Activities{" "}
+                <i className="fa fa-long-arrow-alt-right"></i>
               </Link>
             </div>
           </div>
@@ -328,8 +513,6 @@ export default async function About() {
       </section>
       {/* classes-section end */}
 
-
-
       {/* newsletter-sec starts here */}
       <section className="newsletter-section">
         <div className="container">
@@ -337,14 +520,23 @@ export default async function About() {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                  <h2>Build Your Career<br />With Us</h2>
+                  <h2>
+                    Build Your Career
+                    <br />
+                    With Us
+                  </h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>
 
               <div className="col-lg-6">
-                <Link href="/career" title="Career Opportunities" className="btn-default">
-                  Career Opportunities <i className="fa fa-long-arrow-alt-right"></i>
+                <Link
+                  href="/contact"
+                  title="Book an Appointment"
+                  className="btn-default"
+                >
+                  Book an Appointment{" "}
+                  <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
                 {/* newsletter-form end */}
               </div>

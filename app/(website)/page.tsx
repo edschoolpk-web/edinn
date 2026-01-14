@@ -37,7 +37,7 @@ export default function Home() {
               <div className="col-lg-5 col-md-5">
                 <div className="banner-img wow zoomIn" data-wow-duration="1000ms">
                   <Image
-                    src="/webImages/banner-img2.png"
+                    src="/webImages/banner-img1.png"
                     alt="Students learning at Engineers & Doctors School"
                     width={500}
                     height={375} // Aspect ratio estimation
@@ -52,8 +52,7 @@ export default function Home() {
           </div>
         </section>
         {/* main-banner end */}
-        <h2 className="main-title">E&D</h2>
-      </div>
+      </div> 
       {/* main-section end */}
 
       {/* About Section starts */}
@@ -159,7 +158,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms">
                   <div className="class-thumb">
-                    <Image src="/webImages/img1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                    <Image src="/webImages/Rebotics-Science.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Robotics Fair & Science Projects" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -230,7 +229,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
                   <div className="class-thumb">
-                    <Image src="/webImages/img4.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                    <Image src="/webImages/ClubsTrips.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Clubs, Trips & Co-Curriculars" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -254,7 +253,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <Image src="/webImages/img1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                    <Image src="/webImages/Rebotics-Science.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Science & Robotics Exhibitions" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -326,7 +325,7 @@ export default function Home() {
               <div className="col-lg-12">
                 <div className="classes-col">
                   <div className="class-thumb">
-                    <Image src="/webImages/img4.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                    <Image src="/webImages/ClubsTrips.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <Link href="/academics" title="Club Activities & Educational Tours" className="crt-btn">
                       <i className="fa fa-arrow-right"></i>
                     </Link>
@@ -621,8 +620,8 @@ export default function Home() {
               </div>
 
               <div className="col-lg-6">
-                <Link href="/career" title="Career Opportunities" className="btn-default">
-                  Career Opportunities <i className="fa fa-long-arrow-alt-right"></i>
+                <Link href="/contact" title="Book an Appointment" className="btn-default">
+                  Book an Appointment <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
                 {/* newsletter-form end */}
               </div>

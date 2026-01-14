@@ -249,8 +249,8 @@ include "header.php";
                 </div>
 
                 <div class="col-lg-6">
-                    <a href="career" title="Career Opportunities" class="btn-default">
-                        Career Opportunities <i class="fa fa-long-arrow-alt-right"></i>
+                    <a href="/contact" title="Book an Appointment" class="btn-default">
+                        Book an Appointment <i class="fa fa-long-arrow-alt-right"></i>
                     </a>
                     <!--newsletter-form end-->
                 </div>
