@@ -51,7 +51,7 @@ export default async function About() {
               <div className="section-title">
                 <h2>Principal's <span>Message</span></h2>
                 <ul className="mb-4">
-                  <li><strong className="text-xl">Ms. Salma Khan</strong></li>
+                  <li><strong className="text-xl">Mr. Sadquain Salahuddin</strong></li>
                 </ul>
                 <p>
                   "Welcome to Engineers & Doctors School. We believe in nurturing not just students, but future leaders.
