@@ -45,6 +45,35 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
 
     const backgroundImage = `/webImages/certificates/${CERTIFICATE_TEMPLATES[type] || 'character-certificate.jpg'}`;
 
+    // Helper to calculate font size based on text width
+    const calculateFontSize = (text: string, maxWidth: number, baseFontSize: number, fontFamily: string) => {
+        if (typeof document === 'undefined') return baseFontSize;
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (!context) return baseFontSize;
+
+        let currentFontSize = baseFontSize;
+        context.font = `${currentFontSize}px ${fontFamily}`;
+        let textWidth = context.measureText(text).width;
+
+        while (textWidth > maxWidth && currentFontSize > 10) {
+            currentFontSize -= 1;
+            context.font = `${currentFontSize}px ${fontFamily}`;
+            textWidth = context.measureText(text).width;
+        }
+        return currentFontSize;
+    };
+
+    const MAX_TEXT_WIDTH = 1800;
+    const presentationText = "This certificate is presented to";
+
+    const nameSize = calculateFontSize(studentName || 'Recipient Name', MAX_TEXT_WIDTH, 105, "'Great Vibes', cursive");
+    const sizePresentation = calculateFontSize(presentationText, MAX_TEXT_WIDTH, 53, "'Playfair Display', serif");
+    const comm1Size = calculateFontSize(commendation1 || 'Commendation Text – Line 1', MAX_TEXT_WIDTH, 53, "'Playfair Display', serif");
+    const comm2Size = calculateFontSize(commendation2 || 'Commendation Text – Line 2', MAX_TEXT_WIDTH, 53, "'Playfair Display', serif");
+
+    const sharedCommSize = Math.min(sizePresentation, comm1Size, comm2Size);
+
     return (
         <div
             className="w-full bg-gray-100 border rounded-lg relative"
@@ -68,19 +97,38 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
                     backgroundSize: 'cover',
                 }}
             >
+                {/* Presentation Text */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '500px',
+                        left: 0,
+                        width: '2000px',
+                        textAlign: 'center',
+                        fontSize: `${sharedCommSize}px`,
+                        fontFamily: "'Playfair Display', serif",
+                        color: '#000000',
+                        fontWeight: 600,
+                        lineHeight: 1.2,
+                        transform: 'translateY(-100%)',
+                    }}
+                >
+                    {presentationText}
+                </div>
+
                 {/* Student Name */}
                 <div
                     style={{
                         position: 'absolute',
-                        top: '750px', // user updated baseline
+                        top: '750px',
                         left: 0,
                         width: '2000px',
                         textAlign: 'center',
-                        fontSize: '105px',
+                        fontSize: `${nameSize}px`,
                         fontFamily: "'Great Vibes', cursive",
                         color: '#000000',
                         fontWeight: 'normal',
-                        lineHeight: 1,
+                        lineHeight: 1.1,
                         transform: 'translateY(-100%)',
                     }}
                 >
@@ -95,11 +143,11 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
                         left: 0,
                         width: '2000px',
                         textAlign: 'center',
-                        fontSize: '53px',
+                        fontSize: `${sharedCommSize}px`,
                         fontFamily: "'Playfair Display', serif",
                         color: '#000000',
                         fontWeight: 600,
-                        lineHeight: 1,
+                        lineHeight: 1.2,
                         transform: 'translateY(-100%)',
                     }}
                 >
@@ -114,11 +162,11 @@ const CertificatePreview: React.FC<CertificatePreviewProps> = ({
                         left: 0,
                         width: '2000px',
                         textAlign: 'center',
-                        fontSize: '53px',
+                        fontSize: `${sharedCommSize}px`,
                         fontFamily: "'Playfair Display', serif",
                         color: '#000000',
                         fontWeight: 600,
-                        lineHeight: 1,
+                        lineHeight: 1.2,
                         transform: 'translateY(-100%)',
                     }}
                 >

@@ -82,6 +82,16 @@ export default function CertificateGenerator() {
                     </div>
 
                     <div>
+                        <label className="block text-sm font-bold text-[#2B3674] mb-2">Presentation Text</label>
+                        <input
+                            type="text"
+                            value="This certificate is presented to"
+                            readOnly
+                            className="w-full px-4 py-3 border border-[#E0E5F2] rounded-xl text-[#A3AED0] bg-gray-50 focus:outline-none transition font-medium cursor-not-allowed"
+                        />
+                    </div>
+
+                    <div>
                         <label className="block text-sm font-bold text-[#2B3674] mb-2">Recipient Name</label>
                         <input
                             type="text"

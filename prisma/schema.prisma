@@ -102,3 +102,20 @@ model Certificate {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
+
+model Appointment {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  purpose   String
+  date      DateTime @db.Date
+  timeSlot  String
+  message   String?  @db.Text
+  status    String   @default("CONFIRMED")
+  createdAt DateTime @default(now())
+
+  @@unique([date, timeSlot])
+  @@map("appointment")
+}
+

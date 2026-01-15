@@ -79,7 +79,7 @@ export async function generateCertificatePDF(data: CertificateData, baseUrl: str
     }
 
     // 4. Draw Text
-    const drawCenteredText = (text: string, yBase: number, maxWidth: number, fontSize: number, font: any) => {
+    const calculateFontSize = (text: string, maxWidth: number, fontSize: number, font: any) => {
         let currentFontSize = fontSize;
         let textWidth = font.widthOfTextAtSize(text, currentFontSize);
 
@@ -87,7 +87,11 @@ export async function generateCertificatePDF(data: CertificateData, baseUrl: str
             currentFontSize -= 1;
             textWidth = font.widthOfTextAtSize(text, currentFontSize);
         }
+        return currentFontSize;
+    };
 
+    const drawCenteredText = (text: string, yBase: number, currentFontSize: number, font: any) => {
+        const textWidth = font.widthOfTextAtSize(text, currentFontSize);
         const x = (CANVAS_WIDTH - textWidth) / 2;
         const pdfY = CANVAS_HEIGHT - yBase;
 
@@ -100,14 +104,31 @@ export async function generateCertificatePDF(data: CertificateData, baseUrl: str
         });
     };
 
+    const MAX_TEXT_WIDTH = 1800; // Increased from 1400
+
     // 1) Student Name: baselineY: 750 (user updated manually). Size: 105. Font: Great Vibes.
-    drawCenteredText(studentName, 750, 1400, 105, greatVibesFont);
+    const nameFontSize = calculateFontSize(studentName, MAX_TEXT_WIDTH, 105, greatVibesFont);
+    drawCenteredText(studentName, 750, nameFontSize, greatVibesFont);
 
-    // 2) Commendation Text - Line 1: baselineY: 860. Size: 53. Font: Playfair Display.
-    drawCenteredText(commendation1, 860, 1400, 53, playfairFont);
+    // 2, 3 & 4) Synchronized Lines: "This certificate is presented to", Commendation 1, and Commendation 2
+    const presentationText = "This certificate is presented to";
 
-    // 3) Commendation Text - Line 2: baselineY: 930. Size: 53. Font: Playfair Display.
-    drawCenteredText(commendation2, 930, 1400, 53, playfairFont);
+    // Calculate sizes for all three synchronized lines
+    const sizePresentation = calculateFontSize(presentationText, MAX_TEXT_WIDTH, 53, playfairFont);
+    const size1 = calculateFontSize(commendation1, MAX_TEXT_WIDTH, 53, playfairFont);
+    const size2 = calculateFontSize(commendation2, MAX_TEXT_WIDTH, 53, playfairFont);
+
+    // Find the smallest size among the three
+    const sharedCommSize = Math.min(sizePresentation, size1, size2);
+
+    // Draw "This certificate is presented to": baselineY: 500.
+    drawCenteredText(presentationText, 500, sharedCommSize, playfairFont);
+
+    // Draw Commendation Line 1: baselineY: 860.
+    drawCenteredText(commendation1, 860, sharedCommSize, playfairFont);
+
+    // Draw Commendation Line 2: baselineY: 930.
+    drawCenteredText(commendation2, 930, sharedCommSize, playfairFont);
 
     // 5. Generate and Draw QR Code
     const verifyUrl = `${baseUrl}/verify/${verifyCode}`;

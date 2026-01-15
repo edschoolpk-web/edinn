@@ -3,17 +3,27 @@
 import Link from "next/link";
 import { useState } from "react";
 
+const PURPOSE_OPTIONS = [
+  { value: "", label: "Select Purpose..." },
+  { value: "admission", label: "Admission Enquiry" },
+  { value: "complaint", label: "Complaint" },
+  { value: "academic", label: "Academic Performance Discussion" },
+  { value: "fees", label: "Fees Discussion" },
+  { value: "principal", label: "Meeting with Principal" },
+];
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     Name: "",
     email: "",
     phone: "",
+    purpose: "",
     Message: ""
   });
-  const [status, setStatus] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [status, setStatus] = useState<{ ok: boolean; msg: string; slot?: { date: string; time: string } } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -33,9 +43,9 @@ export default function Contact() {
       const contentType = res.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
         const result = await res.json();
-        setStatus({ ok: result.ok, msg: result.message });
+        setStatus({ ok: result.ok, msg: result.message, slot: result.slot });
         if (result.ok) {
-          setFormData({ Name: "", email: "", phone: "", Message: "" });
+          setFormData({ Name: "", email: "", phone: "", purpose: "", Message: "" });
         }
       } else {
         const text = await res.text();
@@ -50,6 +60,7 @@ export default function Contact() {
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <>
@@ -112,6 +123,30 @@ export default function Contact() {
 
                       <div className="col-lg-12">
                         <div className="fl-field">
+                          <select
+                            name="purpose"
+                            id="purpose"
+                            required
+                            value={formData.purpose}
+                            onChange={handleChange}
+                            style={{
+                              width: '100%',
+                              padding: '12px 15px',
+                              border: '1px solid #ddd',
+                              borderRadius: '5px',
+                              fontSize: '16px',
+                              backgroundColor: '#fff'
+                            }}
+                          >
+                            {PURPOSE_OPTIONS.map(opt => (
+                              <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-12">
+                        <div className="fl-field">
                           <textarea name="Message" id="Message" placeholder=" " required value={formData.Message} onChange={handleChange}></textarea>
                           <label htmlFor="Message">Message</label>
                         </div>
@@ -122,9 +157,17 @@ export default function Contact() {
                         <div className="col-lg-12 mb-3">
                           <div className={`alert ${status.ok ? "alert-success" : "alert-danger"}`}>
                             {status.msg}
+                            {status.ok && status.slot && (
+                              <div style={{ marginTop: '10px', padding: '10px', backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '5px' }}>
+                                <strong>Your Appointment:</strong><br />
+                                📅 {status.slot.date}<br />
+                                🕐 {status.slot.time}
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
+
 
                       <div className="col-lg-12">
                         <div className="form-submit">
