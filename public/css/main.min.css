@@ -20890,7 +20890,7 @@ footer .bottom-footer .social-links {
   left: 0;
   width: 100%;
   height: 100%;
- background: #63f1011f;
+ background:#00000030;
     z-index: -1;
     /* opacity: 0.1; */
 }
@@ -20906,7 +20906,7 @@ footer .bottom-footer .social-links {
 }
 
 .classes-page .classes-banner>h2 {
-  color: #2b2b2b;
+  color: #fff;
   font-size: 48.78px;
   margin-bottom: 21px;
 }
@@ -23263,7 +23263,7 @@ footer .bottom-footer .social-links {
   }
 
   .classes-page .classes-banner {
-    padding: 90px 20px;
+    padding: 100px 0 20px 20px;
   }
 
   .mdp-contact .comment-area form .form-submit {
@@ -23429,7 +23429,7 @@ footer .bottom-footer .social-links {
   }
 
   .classes-page .classes-banner>h2 {
-    font-size: 36px;
+    font-size: 24px;
   }
 
   .blog-post.single blockquote {
@@ -23876,11 +23876,11 @@ footer .bottom-footer .social-links {
   }
 
   .classes-page .classes-banner>h2 {
-    font-size: 23px;
+    font-size: 18px;
   }
 
   .classes-page .classes-banner {
-    padding: 50px 20px;
+    padding:120px 0 10px 20px;
   }
 
   .mdp-map iframe {

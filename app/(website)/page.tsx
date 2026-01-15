@@ -414,10 +414,7 @@ export default function Home() {
                         Caring & Qualified Teachers
                       </Link>
                     </div>
-                    <span className="locat">
-                      <i className="fa-solid fa-location-dot"></i>Islam Nagar Campus,
-                      Karachi
-                    </span>
+                  
                   </div>
                 </div>
                 {/* course-card end */}
@@ -445,10 +442,7 @@ export default function Home() {
                         STEM, Labs & Facilities
                       </Link>
                     </div>
-                    <span className="locat">
-                      <i className="fa-solid fa-location-dot"></i>Islam Nagar Campus,
-                      Karachi
-                    </span>
+                   
                   </div>
                 </div>
                 {/* course-card end */}
@@ -476,10 +470,7 @@ export default function Home() {
                         View Admission FAQs
                       </Link>
                     </div>
-                    <span className="locat">
-                      <i className="fa-solid fa-location-dot"></i>Islam Nagar Campus,
-                      Karachi
-                    </span>
+                   
                   </div>
                 </div>
                 {/* course-card end */}

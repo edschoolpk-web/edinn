@@ -96,7 +96,7 @@ export default function Contact() {
             <div className="row">
               <div className="col-lg-8 col-md-7">
                 <div className="comment-area">
-                  <h3>Leave Your Message</h3>
+                  <h3>Book an Appointment</h3>
                   <form id="contact-form" onSubmit={handleSubmit}>
 
                     <div className="row">

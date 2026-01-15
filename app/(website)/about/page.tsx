@@ -69,14 +69,14 @@ export default async function About() {
                   </li>
                 </ul>
                 <p>
-                  "Welcome to Engineers & Doctors School! Founded on October
+                  Welcome to Engineers & Doctors School! Founded on October
                   1st, 2020, our institution is proudly registered with the
                   Board of Secondary Education Karachi. At E&D, we emphasize a
                   holistic approach to education, focusing on STEM learning,
                   robotics, and multi-language proficiency. We are dedicated to
                   nurturing digital literacy and providing a wide range of
                   extracurricular activities to ensure well-rounded
-                  development."
+                  development.
                 </p>
                 <p className="mt-4">
                   I am Muhammad Sadquain Salahuddin, the founder and principal
