@@ -21,7 +21,6 @@ type TeacherFormData = {
   dob: string;
   education: string;
   experience: string;
-  sortOrder: number;
   skills: { name: string; percentage: number; color: string }[];
   socials: {
     facebook?: string;
@@ -46,7 +45,6 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
       dob: teacher?.dob || "",
       education: teacher?.education || "",
       experience: teacher?.experience || "",
-      sortOrder: teacher?.sortOrder || 0,
       skills: teacher?.skills || [],
       socials: teacher?.socials || {},
     }
@@ -71,7 +69,6 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
       formData.append("dob", data.dob);
       formData.append("education", data.education);
       formData.append("experience", data.experience);
-      formData.append("sortOrder", data.sortOrder?.toString() || "0");
       formData.append("skills", JSON.stringify(data.skills));
       formData.append("socials", JSON.stringify(data.socials));
 
