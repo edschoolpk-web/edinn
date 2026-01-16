@@ -35,6 +35,7 @@ model Teacher {
   updatedAt   DateTime @updatedAt
   skills      Skill[]
   socials     Social?
+  sortOrder   Int      @default(0)
 
   @@map("teacher")
 }

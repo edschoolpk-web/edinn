@@ -13,7 +13,7 @@ export async function getTeachers() {
                 skills: true,
                 socials: true,
             },
-            orderBy: { createdAt: "desc" },
+            orderBy: { sortOrder: "asc" },
         });
         return { success: true, data: teachers };
     } catch (error) {
@@ -64,6 +64,7 @@ export async function createTeacher(data: FormData) {
         const dob = data.get("dob") as string;
         const education = data.get("education") as string;
         const experience = data.get("experience") as string;
+        const sortOrder = parseInt(data.get("sortOrder") as string || "0");
 
         // JSON parsed fields
         const skills = JSON.parse(data.get("skills") as string || "[]");
@@ -113,6 +114,7 @@ export async function createTeacher(data: FormData) {
                 dob,
                 education,
                 experience,
+                sortOrder,
                 image: imagePath,
                 detailImage: detailImagePath,
                 skills: {
@@ -152,6 +154,7 @@ export async function updateTeacher(id: string, data: FormData) {
         const dob = data.get("dob") as string;
         const education = data.get("education") as string;
         const experience = data.get("experience") as string;
+        const sortOrder = parseInt(data.get("sortOrder") as string || "0");
 
         try {
             const skills = JSON.parse(data.get("skills") as string || "[]");
@@ -322,4 +325,27 @@ export async function seedTeachers() {
 // Helper to save uploaded images
 async function saveImage(file: File): Promise<string> {
     return await storage.upload(file, 'teachers');
+}
+
+export async function updateTeacherOrder(items: { id: string; sortOrder: number }[]) {
+    try {
+        console.log("Updating teacher order...", items.length);
+        await prisma.$transaction(
+            items.map((item) =>
+                prisma.teacher.update({
+                    where: { id: item.id },
+                    data: { sortOrder: item.sortOrder },
+                })
+            )
+        );
+
+        revalidatePath("/admin/teachers");
+        revalidatePath("/teachers");
+        revalidatePath("/");
+        revalidatePath("/about");
+        return { success: true };
+    } catch (error: any) {
+        console.error("Failed to update teacher order:", error);
+        return { success: false, error: error.message || "Failed to update order" };
+    }
 }
