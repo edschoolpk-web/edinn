@@ -506,7 +506,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="blog-post">
                   <div className="blog-thumbnail">
-                    <Image src="/webImages/blog1.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                    <Image src="/webImages/blog4.jpg" alt="" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                     <span className="category">Admissions</span>
                   </div>
                   <div className="blog-info">
