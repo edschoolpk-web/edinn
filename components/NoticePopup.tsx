@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getNotice } from "@/app/actions/notice";
 import Image from 'next/image';
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 export default function NoticePopup() {
     const [isVisible, setIsVisible] = useState(false);
@@ -66,12 +67,11 @@ export default function NoticePopup() {
                     {notice.image && (
                         <div className="popup-image-container">
                             <Image
-                                src={notice.image}
+                                src={toAbsoluteUploadsUrl(notice.image)}
                                 alt="Notice"
                                 width={500}
                                 height={300}
                                 className="popup-image"
-                                unoptimized
                             />
                         </div>
                     )}

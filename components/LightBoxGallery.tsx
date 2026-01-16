@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Image from "next/image";
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 interface GalleryImage {
     src: string;
@@ -119,7 +120,7 @@ export default function LightBoxGallery({
                             >
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <Image
-                                    src={img.src}
+                                    src={toAbsoluteUploadsUrl(img.src)}
                                     alt={img.alt}
                                     width={0}
                                     height={0}
@@ -157,7 +158,7 @@ export default function LightBoxGallery({
                             title={img.title || ""}
                         >
                             <Image
-                                src={img.src}
+                                src={toAbsoluteUploadsUrl(img.src)}
                                 alt={img.alt}
                                 width={0}
                                 height={0}

@@ -4,6 +4,7 @@ import { getNotice, updateNotice } from '@/app/actions/notice';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import RichTextEditor from '@/components/RichTextEditor';
+import { toAbsoluteUploadsUrl, isOptimizableUrl } from "@/lib/image-utils";
 
 export default function AdminNotices() {
   const [notice, setNotice] = useState({
@@ -164,13 +165,17 @@ export default function AdminNotices() {
                   />
                   {currentDisplayImage ? (
                     <div className="preview-container">
-                      <Image
-                        src={currentDisplayImage}
-                        alt="Preview"
-                        fill
-                        className="preview-img"
-                        unoptimized
-                      />
+                      {isOptimizableUrl(currentDisplayImage) ? (
+                        <Image
+                          src={toAbsoluteUploadsUrl(currentDisplayImage)}
+                          alt="Preview"
+                          fill
+                          className="preview-img"
+                        />
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={currentDisplayImage} alt="Preview" className="preview-img" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      )}
                       <div className="overlay">
                         <i className="fas fa-camera"></i>
                         <span>Change Image</span>
@@ -228,14 +233,18 @@ export default function AdminNotices() {
                 <div className="popup-body">
                   {currentDisplayImage && (
                     <div className="popup-img-container">
-                      <Image
-                        src={currentDisplayImage}
-                        alt="Notice"
-                        width={400}
-                        height={200}
-                        className="popup-main-image"
-                        unoptimized
-                      />
+                      {isOptimizableUrl(currentDisplayImage) ? (
+                        <Image
+                          src={toAbsoluteUploadsUrl(currentDisplayImage)}
+                          alt="Notice"
+                          width={400}
+                          height={200}
+                          className="popup-main-image"
+                        />
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={currentDisplayImage} alt="Notice" className="popup-main-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      )}
                     </div>
                   )}
                   <div

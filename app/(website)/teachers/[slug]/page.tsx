@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import TeachersSlider from "@/components/TeachersSlider";
 import StickyWrapper from "./StickyWrapper"; // Import the client component
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 export default async function TeacherDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -48,7 +49,7 @@ export default async function TeacherDetailPage({ params }: { params: Promise<{ 
                   <div className="teacher-coly">
                     {teacher.image ? (
                       <Image
-                        src={teacher.image}
+                        src={toAbsoluteUploadsUrl(teacher.image)}
                         alt={teacher.name}
                         width={500}
                         height={600}

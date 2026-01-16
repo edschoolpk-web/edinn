@@ -4,6 +4,7 @@ import React from "react";
 // import Slider from "react-slick"; // Removed
 import Image from "next/image";
 import Link from "next/link";
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 // import "slick-carousel/slick/slick.css"; // Removed
 // import "slick-carousel/slick/slick-theme.css"; // Removed
 
@@ -40,7 +41,7 @@ export default function TeachersSlider({ teachers }: TeachersSliderProps) {
                         <div className="teacher px-2">
                             <div className="teacher-img">
                                 <Image
-                                    src={teacher.image || "/webImages/tech1.jpg"}
+                                    src={toAbsoluteUploadsUrl(teacher.image) || "/webImages/tech1.jpg"}
                                     alt={teacher.name}
                                     width={300}
                                     height={405}

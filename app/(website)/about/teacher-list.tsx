@@ -2,6 +2,7 @@
 import { getTeachers } from "@/app/actions/teacher";
 import Link from "next/link";
 import Image from "next/image";
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 export async function TeacherList() {
   const { success, data: teachers } = await getTeachers();
@@ -14,11 +15,11 @@ export async function TeacherList() {
         <div key={teacher.id} className="col-lg-3 col-md-3 col-sm-6 col-6 full-wdth mb-4">
           <div className="teacher">
             <div className="teacher-img">
-              <Image 
-                src={teacher.image || '/webImages/tech1.jpg'} 
-                alt={teacher.name} 
-                width={300} 
-                height={405} 
+              <Image
+                src={toAbsoluteUploadsUrl(teacher.image) || '/webImages/tech1.jpg'}
+                alt={teacher.name}
+                width={300}
+                height={405}
                 className="w-100"
                 style={{ height: '405px', objectFit: 'cover' }}
               />

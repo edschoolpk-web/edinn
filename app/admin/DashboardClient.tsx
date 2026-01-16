@@ -4,6 +4,7 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 interface DashboardProps {
   stats: {
@@ -111,7 +112,7 @@ export default function DashboardClient({ stats }: DashboardProps) {
                 <div key={teacher.id} className="activity-item">
                   <div className="activity-avatar">
                     {teacher.image ? (
-                      <Image src={teacher.image} alt={teacher.name} width={40} height={40} className="avatar-img" />
+                      <Image src={toAbsoluteUploadsUrl(teacher.image)} alt={teacher.name} width={40} height={40} className="avatar-img" />
                     ) : (
                       <span className="avatar-placeholder">{teacher.name.charAt(0)}</span>
                     )}

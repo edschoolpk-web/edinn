@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { DeleteTeacherButton } from "./DeleteTeacherButton";
 import { Teacher, Skill, Social } from "@prisma/client";
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 type TeacherWithRelations = Teacher & {
     skills: Skill[];
@@ -41,11 +42,10 @@ export default function TeachersListClient({ teachers }: { teachers: TeacherWith
                         <div className="card-image-wrapper relative h-[200px] bg-[#F4F7FE]">
                             {teacher.image ? (
                                 <Image
-                                    src={teacher.image}
+                                    src={toAbsoluteUploadsUrl(teacher.image)}
                                     alt={teacher.name}
                                     fill
                                     className="object-cover"
-                                    unoptimized
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#E0E5F2] to-[#F4F7FE]">

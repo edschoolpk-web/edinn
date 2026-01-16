@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { getGalleryImages, uploadGalleryImage, deleteGalleryImage, deleteBulkGalleryImages } from '@/app/actions/gallery';
 import toast from 'react-hot-toast';
+import { toAbsoluteUploadsUrl } from "@/lib/image-utils";
 
 type GalleryImage = {
   id: string;
@@ -81,7 +82,7 @@ export default function AdminGallery() {
       toast.success(`Successfully uploaded ${successCount} image(s)`);
       fetchImages();
     }
-    
+
     if (failCount > 0) {
       toast.error(`Failed to upload ${failCount} image(s)`);
     }
@@ -252,7 +253,7 @@ export default function AdminGallery() {
                         onClick={() => toggleSelect(img.id)}
                       >
                         <div className="img-wrapper">
-                          <Image src={img.url} alt={img.title || 'Gallery Image'} width={300} height={200} className="gallery-img" unoptimized />
+                          <Image src={toAbsoluteUploadsUrl(img.url)} alt={img.title || 'Gallery Image'} width={300} height={200} className="gallery-img" />
                           <div className={`checkbox-overlay ${selectedImages.includes(img.id) ? 'visible' : ''}`}>
                             <div className="custom-checkbox">
                               {selectedImages.includes(img.id) && <i className="fas fa-check"></i>}
