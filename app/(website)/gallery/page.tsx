@@ -37,19 +37,19 @@ export default async function Gallery() {
         <div className="container content-standard">
           <div className="insta-flex">
             {images.length > 0 ? (
-                <LightBoxGallery
+              <LightBoxGallery
                 className="insta-flex"
                 layout="insta"
                 images={images.map((img, index) => ({
-                    src: img.url,
-                    alt: img.title || `Gallery Image ${index + 1}`,
-                    className: "insta-item"
+                  src: img.url,
+                  alt: img.title || `Gallery Image ${index + 1}`,
+                  className: "insta-item"
                 }))}
-                />
+              />
             ) : (
-                <div className="text-center py-5">
-                    <p>No images found in the gallery.</p>
-                </div>
+              <div className="text-center py-5">
+                <p>No images found in the gallery.</p>
+              </div>
             )}
           </div>
         </div>
@@ -62,7 +62,7 @@ export default async function Gallery() {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                  <h2>Build Your Career<br />With Us</h2>
+                  <h2>Ready to Meet? Book <br />Your Appointment</h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>

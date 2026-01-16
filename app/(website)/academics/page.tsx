@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Academics at Engineers & Doctors School | Curriculum & Learning",
   description: "Explore academics at Engineers & Doctors School in Karachi, offering a well-structured curriculum, qualified faculty, and a student-focused learning approach.",
   alternates: {
-      canonical: "https://edschool.pk/academics"
+    canonical: "https://edschool.pk/academics"
   }
 };
 
@@ -91,7 +91,7 @@ export default function Academics() {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="classes-col">
                     <div className="class-thumb">
-                       <Image src="/webImages/academics/2.jpg" alt="Secondary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
+                      <Image src="/webImages/academics/2.jpg" alt="Secondary" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
                     </div>
                     <div className="class-info">
@@ -163,7 +163,7 @@ export default function Academics() {
                       <span>Computers</span> <span>Digital</span>
                       <div className="d-flex flex-wrap align-items-center">
                         <div className="posted-by">
-                           <i className="fas fa-laptop-code"></i>
+                          <i className="fas fa-laptop-code"></i>
                           <a href="#">Computer Lab</a>
                         </div>
                       </div>
@@ -194,7 +194,7 @@ export default function Academics() {
                 </div>
 
                 <div className="col-lg-3 col-md-6 col-sm-6">
-                   <div className="classes-col">
+                  <div className="classes-col">
                     <div className="class-thumb">
                       <Image src="/webImages/academics/1.jpg" alt="Co-Curricular" width={0} height={0} sizes="(max-width: 768px) 100vw, 33vw" className="w-100 h-auto" />
                       <a href="#" className="crt-btn"><i className="fas fa-arrow-right"></i></a>
@@ -228,7 +228,7 @@ export default function Academics() {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                  <h2>Build Your Career<br />With Us</h2>
+                  <h2>Ready to Meet? Book <br />Your Appointment</h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>

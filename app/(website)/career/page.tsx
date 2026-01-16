@@ -291,7 +291,7 @@ export default function Career() {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                  <h2>Build Your Career<br />With Us</h2>
+                  <h2>Ready to Meet? Book <br />Your Appointment</h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>

@@ -243,7 +243,7 @@ include "header.php";
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="newsz-ltr-text">
-                        <h2>Build Your Career<br />With Us</h2>
+                        <h2>Ready to Meet? Book <br />Your Appointment</h2>
                     </div>
                     <!--newsz-ltr-text end-->
                 </div>

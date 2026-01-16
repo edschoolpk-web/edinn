@@ -52,7 +52,7 @@ export default function Home() {
           </div>
         </section>
         {/* main-banner end */}
-      </div> 
+      </div>
       {/* main-section end */}
 
       {/* About Section starts */}
@@ -414,7 +414,7 @@ export default function Home() {
                         Caring & Qualified Teachers
                       </Link>
                     </div>
-                  
+
                   </div>
                 </div>
                 {/* course-card end */}
@@ -442,7 +442,7 @@ export default function Home() {
                         STEM, Labs & Facilities
                       </Link>
                     </div>
-                   
+
                   </div>
                 </div>
                 {/* course-card end */}
@@ -470,7 +470,7 @@ export default function Home() {
                         View Admission FAQs
                       </Link>
                     </div>
-                   
+
                   </div>
                 </div>
                 {/* course-card end */}
@@ -605,7 +605,7 @@ export default function Home() {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="newsz-ltr-text">
-                  <h2>Build Your Career<br />With Us</h2>
+                  <h2>Ready to Meet? Book <br />Your Appointment</h2>
                 </div>
                 {/* newsz-ltr-text end */}
               </div>

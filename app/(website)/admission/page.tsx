@@ -307,8 +307,8 @@ export default function Admission() {
               </div>
 
               <div className="col-lg-6">
-                <Link href="/contact" title="Book an Appointment" className="btn-default">
-                  Book an Appointment <i className="fa fa-long-arrow-alt-right"></i>
+                <Link href="/contact" title="Build your career with us" className="btn-default">
+                  Apply Now <i className="fa fa-long-arrow-alt-right"></i>
                 </Link>
                 {/* newsletter-form end */}
               </div>
