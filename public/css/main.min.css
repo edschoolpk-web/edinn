@@ -20890,9 +20890,9 @@ footer .bottom-footer .social-links {
   left: 0;
   width: 100%;
   height: 100%;
- background:#00000030;
-    z-index: -1;
-    /* opacity: 0.1; */
+  background: #00000030;
+  z-index: -1;
+  /* opacity: 0.1; */
 }
 
 .classes-page .classes-banner>span {
@@ -22019,9 +22019,11 @@ footer .bottom-footer .social-links {
 .responsive-menu ul li:last-child {
   margin-bottom: 0;
 }
+
 .principal-message-section {
-    padding: 138px 0 0;
+  padding: 138px 0 0;
 }
+
 .responsive-menu ul li a {
   color: #fff;
   font-size: 20px;
@@ -23044,7 +23046,8 @@ footer .bottom-footer .social-links {
     margin-bottom: 25px;
   }
 
-  .about-page-content, .principal-message-section {
+  .about-page-content,
+  .principal-message-section {
     padding: 90px 0 0;
   }
 
@@ -23880,7 +23883,7 @@ footer .bottom-footer .social-links {
   }
 
   .classes-page .classes-banner {
-    padding:120px 0 10px 20px;
+    padding: 120px 0 10px 20px;
   }
 
   .mdp-map iframe {
