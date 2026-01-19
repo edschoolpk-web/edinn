@@ -61,7 +61,8 @@ export default function Contact() {
     if (purpose !== "principal") return;
     setLoadingSlots(true);
     try {
-      const res = await fetch(`/api/available-slots?date=${date.toISOString()}&purpose=${purpose}`);
+      const dateStr = toLocalDateString(date);
+      const res = await fetch(`/api/available-slots?date=${dateStr}&purpose=${purpose}`);
       const data = await res.json();
       if (data.ok) {
         setAvailableSlots(data.availableSlots);

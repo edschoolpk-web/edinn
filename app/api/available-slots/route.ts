@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// Helper function to get local date string (YYYY-MM-DD) without timezone conversion
+// Helper function to get local date string (YYYY-MM-DD) in Pakistan timezone
 function toLocalDateString(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return date.toLocaleDateString("en-CA", {
+        timeZone: "Asia/Karachi",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    });
+}
+
+// Helper to get day of week in Pakistan timezone
+function getPakistanDay(date: Date): number {
+    const s = date.toLocaleString("en-US", { timeZone: "Asia/Karachi" });
+    return new Date(s).getDay();
 }
 
 export async function GET(request: Request) {
@@ -43,9 +51,6 @@ export async function GET(request: Request) {
         // If a specific date is provided, fetch available slots for that date
         let availableSlots: string[] = [];
         if (dateStr && purpose) {
-            const date = new Date(dateStr);
-            const dayOfWeek = date.getDay();
-
             if (purpose === "principal") {
                 // Get ALL active principal slots
                 const allPrincipalSlots = await prisma.principalSlot.findMany({
@@ -53,7 +58,11 @@ export async function GET(request: Request) {
                 });
 
                 // Filter for matching slots (either specific date or recurring day)
-                const dateString = toLocalDateString(date);
+                // dateStr is expected to be YYYY-MM-DD from the client
+                const dateString = dateStr;
+                // Use robust helper to get the day of week in Pakistan
+                const dayOfWeek = getPakistanDay(new Date(dateStr + 'T12:00:00+05:00'));
+
                 const matchingSlots = allPrincipalSlots.filter(slot => {
                     // Check if it matches a specific date
                     if (slot.date) {
