@@ -112,10 +112,114 @@ model Appointment {
   date      DateTime @db.Date
   timeSlot  String
   message   String?  @db.Text
-  status    String   @default("CONFIRMED")
+  status    String   @default("PENDING") // PENDING, CONFIRMED, REJECTED, RESCHEDULED
+  adminNote String?  @db.Text
   createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@unique([date, timeSlot])
   @@map("appointment")
+}
+
+// General time range settings (any time within range allowed)
+model TimeSlotSettings {
+  id        String   @id @default(cuid())
+  startTime String   // e.g., "10:00"
+  endTime   String   // e.g., "14:00"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("timeslot_settings")
+}
+
+// Principal meeting slots - specific dates/days with times
+model PrincipalSlot {
+  id        String    @id @default(cuid())
+  date      DateTime? @db.Date  // Specific date (optional)
+  dayOfWeek Int?      // 0=Sunday...6=Saturday (optional)
+  time      String    // e.g., "10:00 AM"
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("principal_slot")
+}
+
+// Day-of-week availability
+model DateAvailability {
+  id          String  @id @default(cuid())
+  dayOfWeek   Int     @unique // 0=Sunday...6=Saturday
+  isAvailable Boolean @default(true)
+
+  @@map("date_availability")
+}
+
+// Specific blocked dates (holidays, closures)
+model BlockedDate {
+  id        String   @id @default(cuid())
+  date      DateTime @db.Date @unique
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@map("blocked_date")
+}
+
+// Career/Job Applications
+model CareerApplication {
+  id              String   @id @default(cuid())
+  post            String
+  fullName        String
+  guardianName    String
+  cnic            String
+  phone           String
+  email           String?
+  gender          String
+  dob             String
+  maritalStatus   String
+  qualification   String
+  experienceYears String
+  subjectArea     String
+  lastInstitute   String
+  city            String
+  expectedSalary  String?
+  address         String   @db.Text
+  message         String?  @db.Text
+  cvFile          String?
+  meetingDate     DateTime? @db.Date
+  meetingTime     String?
+  status          String   @default("NEW") // NEW, VIEWED, CONTACTED
+  createdAt       DateTime @default(now())
+
+  @@map("career_application")
+}
+
+// Student Admission Applications
+model AdmissionApplication {
+  id               String   @id @default(cuid())
+  admissionClass   String
+  session          String
+  studentName      String
+  gender           String
+  dob              String
+  bform            String?
+  lastSchool       String?
+  address          String   @db.Text
+  fatherName       String
+  fatherCnic       String
+  fatherOccupation String?
+  fatherCell       String
+  email            String
+  motherName       String?
+  motherOccupation String?
+  motherCell       String?
+  emergencyName    String
+  emergencyPhone   String
+  studentImage     String?
+  meetingDate      DateTime? @db.Date
+  meetingTime      String?
+  status           String    @default("NEW") // NEW, VIEWED, ENROLLED
+  createdAt        DateTime  @default(now())
+
+  @@map("admission_application")
 }
 

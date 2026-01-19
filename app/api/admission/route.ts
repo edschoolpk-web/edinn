@@ -1,29 +1,33 @@
 import { NextResponse } from "next/server";
 import { sendEmail, isValidCnic } from "@/lib/email-utils";
+import { prisma } from "@/lib/prisma";
+import { storage } from "@/lib/storage";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const {
-      admission_class,
-      session,
-      student_name,
-      gender,
-      dob,
-      bform,
-      last_school,
-      address,
-      father_name,
-      father_cnic,
-      father_occupation,
-      father_cell,
-      email,
-      mother_name,
-      mother_occupation,
-      mother_cell,
-      emergency_name,
-      emergency_phone,
-    } = body;
+    const formData = await request.formData();
+
+    const admission_class = formData.get("admission_class") as string;
+    const session = formData.get("session") as string;
+    const student_name = formData.get("student_name") as string;
+    const gender = formData.get("gender") as string;
+    const dob = formData.get("dob") as string;
+    const bform = formData.get("bform") as string;
+    const last_school = formData.get("last_school") as string;
+    const address = formData.get("address") as string;
+    const father_name = formData.get("father_name") as string;
+    const father_cnic = formData.get("father_cnic") as string;
+    const father_occupation = formData.get("father_occupation") as string;
+    const father_cell = formData.get("father_cell") as string;
+    const email = formData.get("email") as string;
+    const mother_name = formData.get("mother_name") as string;
+    const mother_occupation = formData.get("mother_occupation") as string;
+    const mother_cell = formData.get("mother_cell") as string;
+    const emergency_name = formData.get("emergency_name") as string;
+    const emergency_phone = formData.get("emergency_phone") as string;
+    const studentImageFile = formData.get("student_image") as File;
+    const meeting_date = formData.get("meeting_date") as string;
+    const meeting_time = formData.get("meeting_time") as string;
 
     // Required checks
     const required = [
@@ -37,8 +41,6 @@ export async function POST(request: Request) {
       father_cnic,
       father_occupation,
       father_cell,
-      // Parent Email is required in PHP but let's check exactness
-      // PHP: 'Parent Email' => clean($_POST['email'] ?? ''), -> required list includes 'Parent Email'
       email,
       emergency_name,
       emergency_phone,
@@ -53,10 +55,50 @@ export async function POST(request: Request) {
 
     if (!isValidCnic(father_cnic)) {
       return NextResponse.json(
-        { ok: false, message: "Invalid Father CNIC format." },
+        { ok: false, message: "Invalid Father CNIC format (Exactly 13 digits required)." },
         { status: 400 }
       );
     }
+
+    if (!/^\d{11}$/.test(father_cell)) {
+      return NextResponse.json(
+        { ok: false, message: "Father Mobile must be exactly 11 digits." },
+        { status: 400 }
+      );
+    }
+
+    // Handle Image Upload
+    let studentImagePath = "";
+    if (studentImageFile && studentImageFile.size > 0) {
+      studentImagePath = await storage.upload(studentImageFile, "admissions");
+    }
+
+    // Save to database
+    await prisma.admissionApplication.create({
+      data: {
+        admissionClass: admission_class,
+        session,
+        studentName: student_name,
+        gender,
+        dob,
+        bform: bform || null,
+        lastSchool: last_school || null,
+        address,
+        fatherName: father_name,
+        fatherCnic: father_cnic,
+        fatherOccupation: father_occupation || null,
+        fatherCell: father_cell,
+        email,
+        motherName: mother_name || null,
+        motherOccupation: mother_occupation || null,
+        motherCell: mother_cell || null,
+        emergencyName: emergency_name,
+        emergencyPhone: emergency_phone,
+        studentImage: studentImagePath,
+        meetingDate: meeting_date ? new Date(meeting_date + 'T12:00:00') : null,
+        meetingTime: meeting_time || null,
+      }
+    });
 
     const siteName = "Engineers & Doctors School";
     const date = new Date().toLocaleString("en-PK", {
@@ -83,6 +125,8 @@ export async function POST(request: Request) {
       "Mother Mobile": mother_cell || "",
       "Emergency Name": emergency_name,
       "Emergency Mobile": emergency_phone,
+      "Preferred Visit Date": meeting_date || "Not Scheduled",
+      "Preferred Visit Time": meeting_time || "Not Scheduled",
     };
 
     let rows = "";

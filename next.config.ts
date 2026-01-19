@@ -22,6 +22,14 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "194.163.173.45",
       },
+      {
+        protocol: "http",
+        hostname: "192.168.1.104",
+      },
+      {
+        protocol: "https",
+        hostname: "edinn2.vercel.app",
+      },
     ],
   },
 };

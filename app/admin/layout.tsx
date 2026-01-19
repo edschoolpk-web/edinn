@@ -65,6 +65,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Gallery', icon: 'fa-images', href: '/admin/gallery' },
     { name: 'Notices', icon: 'fa-bullhorn', href: '/admin/notices' },
     { name: 'Certificates', icon: 'fa-certificate', href: '/admin/certificate' },
+    { name: 'Appointments', icon: 'fa-calendar-check', href: '/admin/appointments' },
+    { name: 'Admissions', icon: 'fa-user-graduate', href: '/admin/admissions' },
+    { name: 'Careers', icon: 'fa-briefcase', href: '/admin/careers' },
     { name: 'Settings', icon: 'fa-cog', href: '/admin/settings' },
   ];
 

@@ -1,28 +1,32 @@
 import { NextResponse } from "next/server";
 import { sendEmail, isValidCnic } from "@/lib/email-utils";
+import { prisma } from "@/lib/prisma";
+import { storage } from "@/lib/storage";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const {
-      post,
-      full_name,
-      guardian_name,
-      cnic,
-      phone,
-      email,
-      gender,
-      dob,
-      marital_status,
-      qualification,
-      experience_years,
-      subject_area,
-      last_institute,
-      city,
-      expected_salary,
-      address,
-      message,
-    } = body;
+    const formData = await request.formData();
+
+    const post = formData.get("post") as string;
+    const full_name = formData.get("full_name") as string;
+    const guardian_name = formData.get("guardian_name") as string;
+    const cnic = formData.get("cnic") as string;
+    const phone = formData.get("phone") as string;
+    const email = formData.get("email") as string;
+    const gender = formData.get("gender") as string;
+    const dob = formData.get("dob") as string;
+    const marital_status = formData.get("marital_status") as string;
+    const qualification = formData.get("qualification") as string;
+    const experience_years = formData.get("experience_years") as string;
+    const subject_area = formData.get("subject_area") as string;
+    const last_institute = formData.get("last_institute") as string;
+    const city = formData.get("city") as string;
+    const expected_salary = formData.get("expected_salary") as string;
+    const address = formData.get("address") as string;
+    const message = formData.get("message") as string;
+    const cvFile = formData.get("cv_file") as File;
+    const meeting_date = formData.get("meeting_date") as string;
+    const meeting_time = formData.get("meeting_time") as string;
 
     // Required checks
     if (
@@ -50,10 +54,49 @@ export async function POST(request: Request) {
     // CNIC validation
     if (!isValidCnic(cnic)) {
       return NextResponse.json(
-        { ok: false, message: "Please enter a valid CNIC (12345-1234567-1)." },
+        { ok: false, message: "Invalid CNIC format (Exactly 13 digits required)." },
         { status: 400 }
       );
     }
+
+    if (!/^\d{11}$/.test(phone)) {
+      return NextResponse.json(
+        { ok: false, message: "Mobile Number must be exactly 11 digits." },
+        { status: 400 }
+      );
+    }
+
+    // Handle CV Upload
+    let cvPath = "";
+    if (cvFile && cvFile.size > 0) {
+      cvPath = await storage.upload(cvFile, "careers");
+    }
+
+    // Save to database
+    await prisma.careerApplication.create({
+      data: {
+        post,
+        fullName: full_name,
+        guardianName: guardian_name,
+        cnic,
+        phone,
+        email: email || null,
+        gender,
+        dob,
+        maritalStatus: marital_status,
+        qualification,
+        experienceYears: experience_years,
+        subjectArea: subject_area,
+        lastInstitute: last_institute,
+        city,
+        expectedSalary: expected_salary || null,
+        address,
+        message: message || null,
+        cvFile: cvPath,
+        meetingDate: meeting_date ? new Date(meeting_date + 'T12:00:00') : null,
+        meetingTime: meeting_time || null,
+      }
+    });
 
     const siteName = "Engineers & Doctors School";
     const submittedAt = new Date().toLocaleString("en-PK", {
@@ -116,6 +159,10 @@ export async function POST(request: Request) {
                         <td style="padding:10px 12px;background:#fff;border:1px solid #e9eef3;font-size:13px;color:#0f172a;">${city}</td></tr>
                     <tr><td style="padding:10px 12px;background:#f8fafc;border:1px solid #e9eef3;font-size:13px;color:#475569;"><strong>Expected Salary</strong></td>
                         <td style="padding:10px 12px;background:#fff;border:1px solid #e9eef3;font-size:13px;color:#0f172a;">${expected_salary || "N/A"}</td></tr>
+                    <tr><td style="padding:10px 12px;background:#f8fafc;border:1px solid #e9eef3;font-size:13px;color:#475569;"><strong>Preferred Interview Date</strong></td>
+                        <td style="padding:10px 12px;background:#fff;border:1px solid #e9eef3;font-size:13px;color:#0f172a;">${meeting_date || "Not Scheduled"}</td></tr>
+                    <tr><td style="padding:10px 12px;background:#f8fafc;border:1px solid #e9eef3;font-size:13px;color:#475569;"><strong>Preferred Interview Time</strong></td>
+                        <td style="padding:10px 12px;background:#fff;border:1px solid #e9eef3;font-size:13px;color:#0f172a;">${meeting_time || "Not Scheduled"}</td></tr>
                   </table>
                   <div style="margin-top:18px;padding:14px;border:1px solid #e9eef3;background:#f8fafc;border-radius:10px;">
                     <div style="font-size:13px;color:#475569;font-weight:700;margin-bottom:6px;">Address</div>

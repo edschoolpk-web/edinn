@@ -453,7 +453,6 @@ export function TeacherForm({ teacher }: { teacher?: any }) {
           padding-top: 15px;
         }
         .react-datepicker__current-month, 
-        .react-datepicker__day-name, 
         .react-datepicker-time__header {
           color: white !important;
         }
