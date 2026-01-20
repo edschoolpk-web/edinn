@@ -524,13 +524,14 @@ export default function CareersPage() {
                 }
 
                 .modal-container {
-                    background: white;
+                    background: #fff;
+                    border-radius: 24px;
                     width: 100%;
                     max-width: 800px;
-                    border-radius: 24px;
                     overflow: hidden;
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-                    animation: modalIn 0.3s ease-out;
+                    box-shadow: 0 25px 50px #0003;
+                    max-height: 670px;
+                    overflow-y: scroll;
                 }
 
                 .modal-header {

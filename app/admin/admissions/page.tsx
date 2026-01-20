@@ -504,12 +504,14 @@ export default function AdmissionsPage() {
                     padding: 20px;
                 }
                 .modal-container {
-                    background: white;
+                    background: #fff;
+                    border-radius: 24px;
                     width: 100%;
                     max-width: 900px;
-                    border-radius: 24px;
                     overflow: hidden;
-                    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+                    box-shadow: 0 25px 50px #0003;
+                    max-height: 670px;
+                    overflow-y: scroll;
                 }
                 .modal-header {
                     padding: 24px 30px;
