@@ -269,7 +269,7 @@ export default function Admission() {
             >
               <div className="text-center mb-5">
                 <span className="badge p-2 px-3 mb-3" style={{ background: "rgba(0, 74, 173, 0.1)", color: "#004aad", borderRadius: "50px", fontWeight: 700 }}>
-                  SESSION {new Date().getFullYear() + 1}-{new Date().getFullYear() + 2}
+                  SESSION {new Date().getFullYear()}-{new Date().getFullYear() + 1}
                 </span>
                 <h2 style={{ fontSize: "2.5rem", fontWeight: 800, color: "#1a1a1a" }}>Admission Application</h2>
                 <p className="text-muted">Register your child for a bright and successful future at Edinn School.</p>
