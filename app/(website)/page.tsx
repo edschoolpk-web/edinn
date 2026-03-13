@@ -5,8 +5,7 @@ import HeroImageSlider from '@/components/HeroImageSlider';
 import { getHeroSlides } from '@/app/actions/hero';
 
 export default async function Home() {
-  const slidesResponse = await getHeroSlides();
-  const activeSlides = slidesResponse.success && slidesResponse.slides ? slidesResponse.slides : [];
+  const activeSlides = await getHeroSlides();
 
   return (
     <>
