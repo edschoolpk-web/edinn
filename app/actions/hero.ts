@@ -2,15 +2,27 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { put } from "@vercel/blob";
+import fs from 'fs/promises';
+import path from 'path';
 
 export async function uploadImage(file: File) {
   try {
-    const filename = `${Date.now()}-${file.name}`;
-    const blob = await put(`hero-slides/${filename}`, file, {
-      access: 'public',
-    });
-    return { success: true, url: blob.url };
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    
+    // Create safe filename
+    const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
+    // Ensure upload directory exists
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'hero');
+    await fs.mkdir(uploadDir, { recursive: true });
+    
+    // Save file
+    const filepath = path.join(uploadDir, filename);
+    await fs.writeFile(filepath, buffer);
+    
+    // Return the relative URL string for Next.js to serve from public
+    return { success: true, url: `/uploads/hero/${filename}` };
   } catch (error) {
     console.error("Upload error:", error);
     return { success: false, error: "Upload failed" };
