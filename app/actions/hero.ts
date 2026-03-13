@@ -2,27 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import fs from 'fs/promises';
-import path from 'path';
+import { storage } from "@/lib/storage";
 
 export async function uploadImage(file: File) {
   try {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    
-    // Create safe filename
-    const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    
-    // Ensure upload directory exists
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'hero');
-    await fs.mkdir(uploadDir, { recursive: true });
-    
-    // Save file
-    const filepath = path.join(uploadDir, filename);
-    await fs.writeFile(filepath, buffer);
-    
-    // Return the relative URL string for Next.js to serve from public
-    return { success: true, url: `/uploads/hero/${filename}` };
+    const url = await storage.upload(file, 'hero');
+    return { success: true, url };
   } catch (error) {
     console.error("Upload error:", error);
     return { success: false, error: "Upload failed" };
@@ -126,9 +111,19 @@ export async function toggleHeroSlideStatus(id: string, isActive: boolean) {
 
 export async function deleteHeroSlide(id: string) {
   try {
+    const slide = await prisma.heroSlide.findUnique({
+      where: { id },
+    });
+
+    if (slide) {
+      // Attempt to delete the file from storage
+      await storage.delete('hero', slide.imageUrl);
+    }
+
     await prisma.heroSlide.delete({
       where: { id },
     });
+    
     revalidatePath("/");
     revalidatePath("/admin/hero");
     return { success: true };
