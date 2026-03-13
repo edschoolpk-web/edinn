@@ -223,3 +223,17 @@ model AdmissionApplication {
   @@map("admission_application")
 }
 
+model HeroSlide {
+  id         String   @id @default(cuid())
+  imageUrl   String
+  title      String?
+  subtitle   String?  @db.Text
+  buttonText String?
+  buttonLink String?
+  order      Int      @default(0)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("hero_slide")
+}
