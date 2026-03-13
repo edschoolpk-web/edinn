@@ -23351,7 +23351,8 @@ footer .bottom-footer .social-links {
 
 @media only screen and (max-width: 768px) {
   .banner-img {
-    display: none;
+    /* display: none; */
+    margin-top: 15px;
   }
 
   .banner-text {
