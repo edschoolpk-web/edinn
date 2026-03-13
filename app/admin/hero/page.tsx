@@ -8,7 +8,6 @@ import {
   createHeroSlide,
   updateHeroSlide,
   deleteHeroSlide,
-  toggleHeroSlideStatus,
   uploadImage
 } from '@/app/actions/hero';
 
@@ -16,7 +15,6 @@ type HeroSlide = {
   id: string;
   imageUrl: string;
   order: number;
-  isActive: boolean;
 };
 
 export default function HeroAdminPage() {
@@ -127,18 +125,6 @@ export default function HeroAdminPage() {
     });
   };
 
-  const handleToggleStatus = async (id: string, currentStatus: boolean) => {
-    startTransition(async () => {
-      const result = await toggleHeroSlideStatus(id, !currentStatus);
-      if (result.success) {
-        toast.success('Status updated');
-        fetchSlides();
-      } else {
-        toast.error(result.error || 'Failed to update status');
-      }
-    });
-  };
-
   return (
     <div className="admin-page">
       <div className="page-header flex justify-between items-center mb-6">
@@ -167,24 +153,9 @@ export default function HeroAdminPage() {
             <div key={slide.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden flex flex-col relative group">
               <div className="relative h-48 w-full bg-gray-100">
                 <Image src={slide.imageUrl} alt="Slide Preview" fill className="object-contain" />
-                <div className="absolute top-2 right-2 flex gap-2">
-                  <span className={`px-2 py-1 text-xs rounded-full font-medium ${slide.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                    {slide.isActive ? 'Active' : 'Inactive'}
-                  </span>
-                </div>
               </div>
               <div className="p-4 flex-grow">
-                <div className="pt-2 flex justify-between items-center">
-                  <div className="flex items-center">
-                    <button 
-                      onClick={() => handleToggleStatus(slide.id, slide.isActive)}
-                      className={`text-sm flex items-center gap-1 ${slide.isActive ? 'text-red-500 hover:text-red-700' : 'text-green-500 hover:text-green-700'}`}
-                      disabled={isPending}
-                    >
-                      <i className={`fas ${slide.isActive ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-                      {slide.isActive ? 'Hide' : 'Show'}
-                    </button>
-                  </div>
+                <div className="pt-2 flex justify-end items-center">
                   <div className="flex gap-3">
                     <button 
                       onClick={() => handleOpenModal(slide)} 

@@ -27,26 +27,12 @@ export async function getHeroSlides() {
   }
 }
 
-export async function getActiveHeroSlides() {
-  try {
-    const slides = await prisma.heroSlide.findMany({
-      where: { isActive: true },
-      orderBy: { order: 'asc' },
-    });
-    return { success: true, slides };
-  } catch (error) {
-    console.error("Error fetching active hero slides:", error);
-    return { success: false, error: "Failed to fetch active hero slides" };
-  }
-}
-
 export async function createHeroSlide(data: {
   imageUrl: string;
   title?: string;
   subtitle?: string;
   buttonText?: string;
   buttonLink?: string;
-  isActive?: boolean;
 }) {
   try {
     // Get highest order to append to the end
@@ -77,7 +63,6 @@ export async function updateHeroSlide(id: string, data: {
   subtitle?: string;
   buttonText?: string;
   buttonLink?: string;
-  isActive?: boolean;
   order?: number;
 }) {
   try {
@@ -91,21 +76,6 @@ export async function updateHeroSlide(id: string, data: {
   } catch (error) {
     console.error("Error updating hero slide:", error);
     return { success: false, error: "Failed to update hero slide" };
-  }
-}
-
-export async function toggleHeroSlideStatus(id: string, isActive: boolean) {
-  try {
-    const slide = await prisma.heroSlide.update({
-      where: { id },
-      data: { isActive },
-    });
-    revalidatePath("/");
-    revalidatePath("/admin/hero");
-    return { success: true, slide };
-  } catch (error) {
-    console.error("Error toggling hero slide status:", error);
-    return { success: false, error: "Failed to toggle status" };
   }
 }
 

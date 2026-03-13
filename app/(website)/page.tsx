@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DynamicHomeGallery from '@/components/DynamicHomeGallery';
 import HeroImageSlider from '@/components/HeroImageSlider';
-import { getActiveHeroSlides } from '@/app/actions/hero';
+import { getHeroSlides } from '@/app/actions/hero';
 
 export default async function Home() {
-  const slidesResponse = await getActiveHeroSlides();
+  const slidesResponse = await getHeroSlides();
   const activeSlides = slidesResponse.success && slidesResponse.slides ? slidesResponse.slides : [];
 
   return (
