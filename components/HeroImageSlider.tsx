@@ -3,6 +3,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
+import { toAbsoluteUploadsUrl } from '@/lib/image-utils';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -46,7 +47,7 @@ export default function HeroImageSlider({ slides }: { slides: HeroSlide[] }) {
         {displaySlides.map((slide, index) => (
           <div key={slide.id} className="relative w-full focus:outline-none">
             <Image 
-              src={slide.imageUrl} 
+              src={toAbsoluteUploadsUrl(slide.imageUrl)} 
               alt="Hero image slide"
               width={0}
               height={0}
