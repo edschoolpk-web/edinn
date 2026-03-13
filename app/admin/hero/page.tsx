@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useTransition } from 'react';
 import Image from 'next/image';
+import { toAbsoluteUploadsUrl } from '@/lib/image-utils';
 import { Toaster, toast } from 'react-hot-toast';
 import {
   getHeroSlides,
@@ -152,7 +153,7 @@ export default function HeroAdminPage() {
           {slides.map((slide) => (
             <div key={slide.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden flex flex-col relative group">
               <div className="relative h-48 w-full bg-gray-100">
-                <Image src={slide.imageUrl} alt="Slide Preview" fill className="object-contain" />
+                <Image src={toAbsoluteUploadsUrl(slide.imageUrl)} alt="Slide Preview" fill className="object-contain" />
               </div>
               <div className="p-4 flex-grow">
                 <div className="pt-2 flex justify-end items-center">
@@ -196,7 +197,7 @@ export default function HeroAdminPage() {
                 <div className="flex flex-col gap-4">
                   {previewUrl && (
                     <div className="relative w-full h-48 border rounded overflow-hidden">
-                      <Image src={previewUrl} alt="Preview" fill className="object-contain" />
+                      <Image src={toAbsoluteUploadsUrl(previewUrl)} alt="Preview" fill className="object-contain" />
                     </div>
                   )}
                   <div className="flex-1">
