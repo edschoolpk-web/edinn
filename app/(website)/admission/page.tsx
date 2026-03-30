@@ -311,9 +311,13 @@ export default function Admission() {
                   <div className="col-md-6">
                     <div className="modern-input-group">
                       <label htmlFor="session">Admission Session <span className="text-danger">*</span></label>
-                      <select name="session" id="session" className="modern-select" required defaultValue="2025-26">
-                        <option>2025-26</option>
-                        <option>2026-27</option>
+                      <select name="session" id="session" className="modern-select" required defaultValue={`${new Date().getFullYear()}-${(new Date().getFullYear() + 1).toString().slice(-2)}`}>
+                        <option value={`${new Date().getFullYear()}-${(new Date().getFullYear() + 1).toString().slice(-2)}`}>
+                          {new Date().getFullYear()}-{ (new Date().getFullYear() + 1).toString().slice(-2)}
+                        </option>
+                        <option value={`${new Date().getFullYear() + 1}-${(new Date().getFullYear() + 2).toString().slice(-2)}`}>
+                          {new Date().getFullYear() + 1}-{ (new Date().getFullYear() + 2).toString().slice(-2)}
+                        </option>
                       </select>
                     </div>
                   </div>

@@ -46,7 +46,7 @@ export async function GET(request: Request) {
         const timeSettings = await prisma.timeSlotSettings.findFirst();
         const generalTimeRange = timeSettings
             ? { startTime: timeSettings.startTime, endTime: timeSettings.endTime }
-            : { startTime: "10:00", endTime: "14:00" }; // Default
+            : { startTime: "09:00", endTime: "14:00" }; // Default
 
         // If a specific date is provided, fetch available slots for that date
         let availableSlots: string[] = [];

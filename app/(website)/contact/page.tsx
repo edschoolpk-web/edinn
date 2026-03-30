@@ -200,7 +200,7 @@ export default function Contact() {
       const ampm = currentHour >= 12 ? "PM" : "AM";
       const hour12 = currentHour % 12 || 12;
       options.push(`${hour12}:${currentMin.toString().padStart(2, "0")} ${ampm}`);
-      currentMin += 30;
+      currentMin += 10;
       if (currentMin >= 60) {
         currentMin = 0;
         currentHour++;
