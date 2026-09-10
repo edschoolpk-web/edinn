@@ -114,8 +114,8 @@ export default function Footer() {
                   <div>
                     <p>Design & Developed by :</p>
                   </div>
-                  <a href="https://itnnovator.com/" target="_blank">
-                    <Image src="/webImages/footer-logo.png" alt="itnnovator" width={100} height={40} style={{ width: 'auto', height: 'auto' }} />
+                  <a href="https://www.sasvale.com/" target="_blank">
+                    <Image src="/webImages/footer-logo.png" alt="SASVALE — Strategy. Automation. Scale" width={100} height={40} style={{ width: 'auto', height: 'auto' }} />
                   </a>
                 </div>
               </div>
